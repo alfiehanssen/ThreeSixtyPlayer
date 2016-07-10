@@ -1,7 +1,7 @@
 # 360Player
 
 
-:construction::construction: A Work In Progress :construction::construction:
+:construction: This is very much a work in progress :construction:
 
 ###Overview
 This is a 360 video viewer for iOS, implemented using [SceneKit](https://developer.apple.com/library/ios/documentation/SceneKit/Reference/SceneKit_Framework/).
