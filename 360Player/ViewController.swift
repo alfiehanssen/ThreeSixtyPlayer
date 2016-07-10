@@ -144,7 +144,7 @@ class ViewController: UIViewController, SCNSceneRendererDelegate
         sceneView.delegate = self
         
         // Video resource
-        guard let path = NSBundle.mainBundle().pathForResource("balloons", ofType: "mp4")
+        guard let path = NSBundle.mainBundle().pathForResource("demo", ofType: "mp4")
             where NSFileManager.defaultManager().fileExistsAtPath(path) else
         {
             assertionFailure("Unable to construct path to video resource.")

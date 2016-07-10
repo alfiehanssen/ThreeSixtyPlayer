@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AF1512CD1D2F47B8007705D5 /* balloons.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = AF1512CC1D2F47B8007705D5 /* balloons.mp4 */; };
 		AF1512CF1D2FCC3A007705D5 /* Float+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF1512CE1D2FCC3A007705D5 /* Float+Extensions.swift */; };
 		AF1512D11D327718007705D5 /* CMDeviceMotion+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF1512D01D327718007705D5 /* CMDeviceMotion+Extensions.swift */; };
+		AF1512D71D3311A7007705D5 /* demo.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = AF1512D61D3311A7007705D5 /* demo.mp4 */; };
 		AF2DFB271D2C8FA700BE602A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2DFB261D2C8FA700BE602A /* AppDelegate.swift */; };
 		AF2DFB291D2C8FA700BE602A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2DFB281D2C8FA700BE602A /* ViewController.swift */; };
 		AF2DFB2C1D2C8FA700BE602A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF2DFB2A1D2C8FA700BE602A /* Main.storyboard */; };
@@ -38,9 +38,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		AF1512CC1D2F47B8007705D5 /* balloons.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = balloons.mp4; sourceTree = "<group>"; };
 		AF1512CE1D2FCC3A007705D5 /* Float+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Float+Extensions.swift"; sourceTree = "<group>"; };
 		AF1512D01D327718007705D5 /* CMDeviceMotion+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CMDeviceMotion+Extensions.swift"; sourceTree = "<group>"; };
+		AF1512D61D3311A7007705D5 /* demo.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = demo.mp4; sourceTree = "<group>"; };
 		AF2DFB231D2C8FA700BE602A /* 360Player.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 360Player.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF2DFB261D2C8FA700BE602A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AF2DFB281D2C8FA700BE602A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -140,7 +140,7 @@
 		AF2DFB931D2C9A1500BE602A /* Media */ = {
 			isa = PBXGroup;
 			children = (
-				AF1512CC1D2F47B8007705D5 /* balloons.mp4 */,
+				AF1512D61D3311A7007705D5 /* demo.mp4 */,
 			);
 			path = Media;
 			sourceTree = "<group>";
@@ -250,9 +250,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AF1512D71D3311A7007705D5 /* demo.mp4 in Resources */,
 				AF2DFB311D2C8FA700BE602A /* LaunchScreen.storyboard in Resources */,
 				AF2DFB2E1D2C8FA700BE602A /* Assets.xcassets in Resources */,
-				AF1512CD1D2F47B8007705D5 /* balloons.mp4 in Resources */,
 				AF2DFB2C1D2C8FA700BE602A /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
