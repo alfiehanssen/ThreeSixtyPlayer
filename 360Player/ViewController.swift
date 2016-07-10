@@ -144,6 +144,8 @@ class ViewController: UIViewController, SCNSceneRendererDelegate
         sceneView.delegate = self
         
         // Video resource
+        
+        // Note: The demo video is a modified version of a video found here: http://www.kolor.com/autopano-video/autopano-video-gallery/
         guard let path = NSBundle.mainBundle().pathForResource("demo", ofType: "mp4")
             where NSFileManager.defaultManager().fileExistsAtPath(path) else
         {
