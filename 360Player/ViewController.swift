@@ -32,6 +32,12 @@ import CoreMotion
 
 class ViewController: UIViewController, SCNSceneRendererDelegate
 {
+    enum NavigationMode
+    {
+        case PanGesture
+        case DeviceMotion
+    }
+    
     ///
     var currentOrientation: GLKQuaternion?
     
@@ -238,16 +244,21 @@ class ViewController: UIViewController, SCNSceneRendererDelegate
             
             if let currentOrientation = strongSelf.currentOrientation
             {
-                let scnQuaternion = motion.gaze(atOrientation: UIApplication.sharedApplication().statusBarOrientation)
-                let glkQuaternion = GLKQuaternionMake(scnQuaternion.x, scnQuaternion.y, scnQuaternion.z, scnQuaternion.w)
-                var glkResult = GLKQuaternionMultiply(currentOrientation, glkQuaternion)
+//                let scnQuaternion = motion.gaze(atOrientation: UIApplication.sharedApplication().statusBarOrientation)
+//                let glkQuaternion = GLKQuaternionMake(scnQuaternion.x, scnQuaternion.y, scnQuaternion.z, scnQuaternion.w)
+//                var glkResult = GLKQuaternionMultiply(currentOrientation, glkQuaternion)
                 
-                let scnOrientation = SCNQuaternion(x: glkResult.x, y: glkResult.y, z: glkResult.z, w: glkResult.w)
-                strongSelf.cameraNode.orientation = scnOrientation
+//                let scnOrientation = SCNQuaternion(x: glkResult.x, y: glkResult.y, z: glkResult.z, w: glkResult.w)
+//                strongSelf.cameraNode.orientation = scnOrientation
+
+//                let glkQuaternion = GLKQuaternionMake(scnQuaternion.x, scnQuaternion.y, scnQuaternion.z, scnQuaternion.w)
+//                var glkResult = GLKQuaternionMultiply(currentOrientation, cameraOrientation)
+//                let scnOrientation = SCNQuaternion(x: currentOrientation.x, y: currentOrientation.y, z: currentOrientation.z, w: currentOrientation.w)
+//                strongSelf.cameraNode.orientation = scnOrientation
+
             }
             else
             {
-                // TODO: Does this need to be wrapped in a transaction? [AH] 7/8/2016
                 strongSelf.cameraNode.orientation = motion.gaze(atOrientation: UIApplication.sharedApplication().statusBarOrientation)
             }
         }
