@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AF1512CD1D2F47B8007705D5 /* balloons.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = AF1512CC1D2F47B8007705D5 /* balloons.mp4 */; };
+		AF1512CF1D2FCC3A007705D5 /* Float+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF1512CE1D2FCC3A007705D5 /* Float+Extensions.swift */; };
+		AF1512D11D327718007705D5 /* CMDeviceMotion+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF1512D01D327718007705D5 /* CMDeviceMotion+Extensions.swift */; };
 		AF2DFB271D2C8FA700BE602A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2DFB261D2C8FA700BE602A /* AppDelegate.swift */; };
 		AF2DFB291D2C8FA700BE602A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2DFB281D2C8FA700BE602A /* ViewController.swift */; };
 		AF2DFB2C1D2C8FA700BE602A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF2DFB2A1D2C8FA700BE602A /* Main.storyboard */; };
@@ -14,6 +17,7 @@
 		AF2DFB311D2C8FA700BE602A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF2DFB2F1D2C8FA700BE602A /* LaunchScreen.storyboard */; };
 		AF2DFB3C1D2C8FA800BE602A /* _60PlayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2DFB3B1D2C8FA800BE602A /* _60PlayerTests.swift */; };
 		AF2DFB471D2C8FA800BE602A /* _60PlayerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2DFB461D2C8FA800BE602A /* _60PlayerUITests.swift */; };
+		AF2DFB971D2F2D3800BE602A /* AVURLAsset+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2DFB961D2F2D3800BE602A /* AVURLAsset+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +38,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AF1512CC1D2F47B8007705D5 /* balloons.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = balloons.mp4; sourceTree = "<group>"; };
+		AF1512CE1D2FCC3A007705D5 /* Float+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Float+Extensions.swift"; sourceTree = "<group>"; };
+		AF1512D01D327718007705D5 /* CMDeviceMotion+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CMDeviceMotion+Extensions.swift"; sourceTree = "<group>"; };
 		AF2DFB231D2C8FA700BE602A /* 360Player.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 360Player.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF2DFB261D2C8FA700BE602A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AF2DFB281D2C8FA700BE602A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -47,6 +54,7 @@
 		AF2DFB421D2C8FA800BE602A /* 360PlayerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = 360PlayerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF2DFB461D2C8FA800BE602A /* _60PlayerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _60PlayerUITests.swift; sourceTree = "<group>"; };
 		AF2DFB481D2C8FA800BE602A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AF2DFB961D2F2D3800BE602A /* AVURLAsset+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AVURLAsset+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,10 +107,14 @@
 			children = (
 				AF2DFB261D2C8FA700BE602A /* AppDelegate.swift */,
 				AF2DFB281D2C8FA700BE602A /* ViewController.swift */,
+				AF2DFB961D2F2D3800BE602A /* AVURLAsset+Extension.swift */,
+				AF1512CE1D2FCC3A007705D5 /* Float+Extensions.swift */,
+				AF1512D01D327718007705D5 /* CMDeviceMotion+Extensions.swift */,
 				AF2DFB2A1D2C8FA700BE602A /* Main.storyboard */,
 				AF2DFB2D1D2C8FA700BE602A /* Assets.xcassets */,
 				AF2DFB2F1D2C8FA700BE602A /* LaunchScreen.storyboard */,
 				AF2DFB321D2C8FA700BE602A /* Info.plist */,
+				AF2DFB931D2C9A1500BE602A /* Media */,
 			);
 			path = 360Player;
 			sourceTree = "<group>";
@@ -123,6 +135,14 @@
 				AF2DFB481D2C8FA800BE602A /* Info.plist */,
 			);
 			path = 360PlayerUITests;
+			sourceTree = "<group>";
+		};
+		AF2DFB931D2C9A1500BE602A /* Media */ = {
+			isa = PBXGroup;
+			children = (
+				AF1512CC1D2F47B8007705D5 /* balloons.mp4 */,
+			);
+			path = Media;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -193,6 +213,7 @@
 				TargetAttributes = {
 					AF2DFB221D2C8FA700BE602A = {
 						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = AT3549635A;
 					};
 					AF2DFB361D2C8FA800BE602A = {
 						CreatedOnToolsVersion = 7.3;
@@ -231,6 +252,7 @@
 			files = (
 				AF2DFB311D2C8FA700BE602A /* LaunchScreen.storyboard in Resources */,
 				AF2DFB2E1D2C8FA700BE602A /* Assets.xcassets in Resources */,
+				AF1512CD1D2F47B8007705D5 /* balloons.mp4 in Resources */,
 				AF2DFB2C1D2C8FA700BE602A /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -258,6 +280,9 @@
 			files = (
 				AF2DFB291D2C8FA700BE602A /* ViewController.swift in Sources */,
 				AF2DFB271D2C8FA700BE602A /* AppDelegate.swift in Sources */,
+				AF1512CF1D2FCC3A007705D5 /* Float+Extensions.swift in Sources */,
+				AF2DFB971D2F2D3800BE602A /* AVURLAsset+Extension.swift in Sources */,
+				AF1512D11D327718007705D5 /* CMDeviceMotion+Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -399,10 +424,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = 360Player/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.alfiehanssen.-60Player";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -410,10 +438,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = 360Player/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.alfiehanssen.-60Player";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
@@ -482,6 +513,7 @@
 				AF2DFB4D1D2C8FA800BE602A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		AF2DFB4E1D2C8FA800BE602A /* Build configuration list for PBXNativeTarget "360PlayerTests" */ = {
 			isa = XCConfigurationList;
@@ -490,6 +522,7 @@
 				AF2DFB501D2C8FA800BE602A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		AF2DFB511D2C8FA800BE602A /* Build configuration list for PBXNativeTarget "360PlayerUITests" */ = {
 			isa = XCConfigurationList;
@@ -498,6 +531,7 @@
 				AF2DFB531D2C8FA800BE602A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

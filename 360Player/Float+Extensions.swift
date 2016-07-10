@@ -1,8 +1,8 @@
 //
-//  AppDelegate.swift
+//  Float+Extensions.swift
 //  360Player
 //
-//  Created by Alfred Hanssen on 7/5/16.
+//  Created by Alfred Hanssen on 7/8/16.
 //  Copyright © 2016 Alfie Hanssen. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -24,16 +24,33 @@
 //  THE SOFTWARE.
 //
 
-import UIKit
+import Foundation
 
-@UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate
+typealias Degrees = Float
+typealias Radians = Float
+
+extension Degrees
 {
-    var window: UIWindow?
-
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool
+    /**
+     Converts degrees into radians.
+     
+     - returns: The degree value of the receiver expressed in radians.
+     */
+    func toRadians() -> Radians
     {
-        return true
+        return self * (Float(M_PI) / 180)
     }
 }
 
+extension Radians
+{
+    /**
+     Converts radians into degrees.
+     
+     - returns: The radian value of the receiver expressed in degrees.
+     */
+    func toDegrees() -> Degrees
+    {
+        return self * (180 / Float(M_PI))
+    }
+}

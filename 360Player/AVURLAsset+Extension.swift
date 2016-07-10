@@ -1,8 +1,8 @@
 //
-//  AppDelegate.swift
+//  AVURLAsset+Extension.swift
 //  360Player
 //
-//  Created by Alfred Hanssen on 7/5/16.
+//  Created by Alfred Hanssen on 7/7/16.
 //  Copyright © 2016 Alfie Hanssen. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -24,16 +24,30 @@
 //  THE SOFTWARE.
 //
 
-import UIKit
+import Foundation
+import AVFoundation
 
-@UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate
+extension AVURLAsset
 {
-    var window: UIWindow?
-
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool
+    /**
+     Returns the encoded resolution of the asset or nil if the asset does not contain a video track. The encoded resolution is the `preferredTransform` applied to the `naturalSize`.
+     
+     - returns: The encoded resolution or `nil`.
+     */
+    func encodedResolution() -> CGSize?
     {
-        return true
+        guard let track = self.tracksWithMediaType(AVMediaTypeVideo).first else
+        {
+            return nil
+        }
+        
+        let naturalSize = track.naturalSize
+        let preferredTransform = track.preferredTransform
+        let size = CGSizeApplyAffineTransform(naturalSize, preferredTransform)
+        
+        let width = fabs(size.width)
+        let height = fabs(size.height)
+        
+        return CGSize(width: width, height: height)
     }
 }
-
