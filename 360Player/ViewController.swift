@@ -32,20 +32,21 @@ import CoreMotion
 
 class ViewController: UIViewController, SCNSceneRendererDelegate
 {
+    /// An enum whose cases describe how a user can manipulate the camera to navigate around the video.
     enum NavigationMode
     {
+        /// Navigation occurs via UIPanGestureRecognizer.
         case PanGesture
+        
+        /// Navigation occurs via CMDeviceMotion.
         case DeviceMotion
     }
-    
-    ///
-    var currentOrientation: GLKQuaternion?
     
     /// The radius of the sphere on which we project the video texture.
     static let SphereRadius: CGFloat = 100 // TODO: How to choose the sphere radius? [AH] 7/7/2016
     
-    /// The amount of rotation in degrees that can be applied by a single pan gesture.
-    static let MaxPanGestureRotation: Degrees = 360
+    /// The amount of rotation in radians that can be applied by a single pan gesture.
+    static let MaxPanGestureRotation: Radians = 2 * Float(M_PI) // 360 degrees
 
     /// The interval at which device motion updates will be reported.
     static let DeviceMotionUpdateInterval: NSTimeInterval = 1 / 60
@@ -55,6 +56,38 @@ class ViewController: UIViewController, SCNSceneRendererDelegate
     
     /// The camera node located at the center of our sphere whose camera property is the user's view point.
     var cameraNode: SCNNode!
+
+    /// The mode by which the user navigates around the video sphere. Options are pan gesture and device motion.
+    var navigationMode: NavigationMode = .DeviceMotion
+    {
+        didSet
+        {
+            guard oldValue != self.navigationMode else // If the value has not changed, do nothing.
+            {
+                return
+            }
+            
+            switch self.navigationMode
+            {
+            case .PanGesture:
+                self.motionManager.stopDeviceMotionUpdates()
+                self.panGestureRecognizer.enabled = true
+                
+            case .DeviceMotion:
+                self.panGestureRecognizer.enabled = false
+                self.motionManager.startDeviceMotionUpdatesUsingReferenceFrame(CMAttitudeReferenceFrame.XArbitraryZVertical)
+            }
+        }
+    }
+    
+    /// The pan gesture used for navigation.
+    var panGestureRecognizer: UIPanGestureRecognizer!
+    
+    /// The camera node's euler angles when a pan gesture begins. These are reset to nil when a pan gesture ends.
+    var initialEulerAngles: SCNVector3?
+    
+    /// The camera node's euler angles as adjusted by a pan gesture. They will be applied at the next renderer:updateAtTime: call. These are reset to nil when a pan gesture ends.
+    var currentEulerAngles: SCNVector3?
 
     /// The motion manager used to adjust camera position based on device motion.
     let motionManager = CMMotionManager()
@@ -169,8 +202,8 @@ class ViewController: UIViewController, SCNSceneRendererDelegate
     
     private func setupPanGestureRecognizer()
     {
-        let recognizer = UIPanGestureRecognizer(target: self, action: #selector(ViewController.didPan(_:)))
-        self.view.addGestureRecognizer(recognizer)
+        self.panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(ViewController.didPan(_:)))
+        self.view.addGestureRecognizer(self.panGestureRecognizer)
     }
     
     private func setupDeviceMotionManager()
@@ -183,7 +216,11 @@ class ViewController: UIViewController, SCNSceneRendererDelegate
         }
         
         self.motionManager.deviceMotionUpdateInterval = self.dynamicType.DeviceMotionUpdateInterval
-        self.motionManager.startDeviceMotionUpdatesUsingReferenceFrame(CMAttitudeReferenceFrame.XArbitraryZVertical)
+        
+        if self.navigationMode == .DeviceMotion
+        {
+            self.motionManager.startDeviceMotionUpdatesUsingReferenceFrame(CMAttitudeReferenceFrame.XArbitraryZVertical)
+        }
     }
     
     // MARK: Gestures
@@ -192,25 +229,35 @@ class ViewController: UIViewController, SCNSceneRendererDelegate
     {
         switch recognizer.state
         {
-        case .Began, .Changed:
+        case .Began:
+            self.initialEulerAngles = self.cameraNode.eulerAngles
+            
+        case .Changed:
+            guard let initialEulerAngles = self.initialEulerAngles else
+            {
+                assertionFailure("Attempt to unwrap initialEulerAngles failed. These should not be nil.")
+
+                return
+            }
+
             let translation = recognizer.translationInView(recognizer.view)
 
-            // Use the pan translation along the x axis to adjust the camera's rotation about the y axis
+            // Use the pan translation along the x axis to adjust the camera's rotation about the y axis.
             let xScalar = Float(translation.x / self.view.bounds.size.width)
-            let yDegrees = xScalar * self.dynamicType.MaxPanGestureRotation
-            let yRadians = yDegrees.toRadians()
-            let yQuaternion = GLKQuaternionMakeWithAngleAndAxis(yRadians, 0, 1, 0)
+            let yRadians = xScalar * self.dynamicType.MaxPanGestureRotation
+            let yCurrent = (initialEulerAngles.y + yRadians) % Float(2 * M_PI) // Mod by 360 in order to maintain 0 <= y < 360.
             
             // Use the pan translation along the y axis to adjust the camera's rotation about the x axis
             let yScalar = Float(translation.y / self.view.bounds.size.height)
-            let xDegrees = yScalar * self.dynamicType.MaxPanGestureRotation
-            let xRadians = xDegrees.toRadians()
-            let xQuaternion = GLKQuaternionMakeWithAngleAndAxis(xRadians, 1, 0, 0)
-            
-            self.currentOrientation = GLKQuaternionMultiply(yQuaternion, xQuaternion)
+            let xRadians = yScalar * self.dynamicType.MaxPanGestureRotation
+            let xCurrent = (initialEulerAngles.x + xRadians) % Float(2 * M_PI) // Mod by 360 in order to maintain 0 <= x < 360.
+
+            // Store the new values so they can be applied in renderer:updateAtTime:.
+            self.currentEulerAngles = SCNVector3Make(xCurrent, yCurrent, initialEulerAngles.z)
             
         case .Ended, .Cancelled, .Failed:
-            break
+            self.initialEulerAngles = nil
+            self.currentEulerAngles = nil
             
         case .Possible:
             break
@@ -227,39 +274,29 @@ class ViewController: UIViewController, SCNSceneRendererDelegate
             {
                 return
             }
-            
+
             // TODO: Does this need to be wrapped in a transaction? [AH] 7/8/2016
-            
-            guard strongSelf.motionManager.deviceMotionAvailable == true else
-            {
-                assertionFailure("Device motion is unavailable.") // TODO: Replace this with something better. [AH] 7/7/2016
 
-                return
-            }
-            
-            guard let motion = strongSelf.motionManager.deviceMotion else // Device motion can be nil at times. This is ok. 
+            switch strongSelf.navigationMode
             {
-                return
-            }
-            
-            if let currentOrientation = strongSelf.currentOrientation
-            {
-//                let scnQuaternion = motion.gaze(atOrientation: UIApplication.sharedApplication().statusBarOrientation)
-//                let glkQuaternion = GLKQuaternionMake(scnQuaternion.x, scnQuaternion.y, scnQuaternion.z, scnQuaternion.w)
-//                var glkResult = GLKQuaternionMultiply(currentOrientation, glkQuaternion)
+            case .PanGesture:
+                if let currentEulerAngles = strongSelf.currentEulerAngles // This is nil when there is no active gesture.
+                {
+                    strongSelf.cameraNode.eulerAngles = currentEulerAngles
+                }
                 
-//                let scnOrientation = SCNQuaternion(x: glkResult.x, y: glkResult.y, z: glkResult.z, w: glkResult.w)
-//                strongSelf.cameraNode.orientation = scnOrientation
-
-//                let glkQuaternion = GLKQuaternionMake(scnQuaternion.x, scnQuaternion.y, scnQuaternion.z, scnQuaternion.w)
-//                var glkResult = GLKQuaternionMultiply(currentOrientation, cameraOrientation)
-//                let scnOrientation = SCNQuaternion(x: currentOrientation.x, y: currentOrientation.y, z: currentOrientation.z, w: currentOrientation.w)
-//                strongSelf.cameraNode.orientation = scnOrientation
-
-            }
-            else
-            {
-                strongSelf.cameraNode.orientation = motion.gaze(atOrientation: UIApplication.sharedApplication().statusBarOrientation)
+            case .DeviceMotion:
+                guard strongSelf.motionManager.deviceMotionAvailable == true else
+                {
+                    assertionFailure("Device motion is unavailable.") // TODO: Replace this with something better. [AH] 7/7/2016
+                    
+                    return
+                }
+                
+                if let motion = strongSelf.motionManager.deviceMotion // Device motion can be nil at times. This is ok.
+                {
+                    strongSelf.cameraNode.orientation = motion.gaze(atOrientation: UIApplication.sharedApplication().statusBarOrientation)
+                }
             }
         }
     }
