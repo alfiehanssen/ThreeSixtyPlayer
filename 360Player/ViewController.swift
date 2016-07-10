@@ -32,6 +32,9 @@ import CoreMotion
 
 class ViewController: UIViewController, SCNSceneRendererDelegate
 {
+    ///
+    var currentOrientation: GLKQuaternion?
+    
     /// The radius of the sphere on which we project the video texture.
     static let SphereRadius: CGFloat = 100 // TODO: How to choose the sphere radius? [AH] 7/7/2016
     
@@ -46,12 +49,6 @@ class ViewController: UIViewController, SCNSceneRendererDelegate
     
     /// The camera node located at the center of our sphere whose camera property is the user's view point.
     var cameraNode: SCNNode!
-    
-    /// The camera node's euler angles when a pan gesture begins. This is reset to zero when a pan gesture ends.
-    var initialEulerAngles = SCNVector3Zero
-
-    /// The camera node's euler angles as adjusted by a pan gesture. They will be applied at the next renderer:updateAtTime: call.
-    var currentEulerAngles = SCNVector3Zero
 
     /// The motion manager used to adjust camera position based on device motion.
     let motionManager = CMMotionManager()
@@ -189,31 +186,25 @@ class ViewController: UIViewController, SCNSceneRendererDelegate
     {
         switch recognizer.state
         {
-        case .Began:
-            self.initialEulerAngles = self.cameraNode.eulerAngles
-            
-        case .Changed:
+        case .Began, .Changed:
             let translation = recognizer.translationInView(recognizer.view)
 
-            // Use the pan translation along the x axis to adjust the camera's rotation along the y axis
+            // Use the pan translation along the x axis to adjust the camera's rotation about the y axis
             let xScalar = Float(translation.x / self.view.bounds.size.width)
-            let xDegrees = xScalar * self.dynamicType.MaxPanGestureRotation
-            let xRadians = xDegrees.toRadians()
-            
-            // Mod by 360 in order to maintain 0 <= y < 360. Not necessary but yields a prettier number.
-            self.currentEulerAngles.y = (self.initialEulerAngles.y + xRadians) % Float(360).toRadians()
-            
-            // Use the pan translation along the y axis to adjust the camera's rotation along the x axis
-            let yScalar = Float(translation.y / self.view.bounds.size.height)
-            let yDegrees = yScalar * self.dynamicType.MaxPanGestureRotation
+            let yDegrees = xScalar * self.dynamicType.MaxPanGestureRotation
             let yRadians = yDegrees.toRadians()
-
-            // Mod by 360 in order to maintain 0 <= x <== 360. Not necessary but yields a prettier number.
-            self.currentEulerAngles.x = (self.initialEulerAngles.x + yRadians) % Float(360).toRadians()
+            let yQuaternion = GLKQuaternionMakeWithAngleAndAxis(yRadians, 0, 1, 0)
+            
+            // Use the pan translation along the y axis to adjust the camera's rotation about the x axis
+            let yScalar = Float(translation.y / self.view.bounds.size.height)
+            let xDegrees = yScalar * self.dynamicType.MaxPanGestureRotation
+            let xRadians = xDegrees.toRadians()
+            let xQuaternion = GLKQuaternionMakeWithAngleAndAxis(xRadians, 1, 0, 0)
+            
+            self.currentOrientation = GLKQuaternionMultiply(yQuaternion, xQuaternion)
             
         case .Ended, .Cancelled, .Failed:
-            // We intentionallly do not set currentEulerAngles to zero to avoid a race condition with renderer:updateAtTime
-            self.initialEulerAngles = SCNVector3Zero
+            break
             
         case .Possible:
             break
@@ -232,8 +223,6 @@ class ViewController: UIViewController, SCNSceneRendererDelegate
             }
             
             // TODO: Does this need to be wrapped in a transaction? [AH] 7/8/2016
-//            strongSelf.cameraNode.eulerAngles.x = strongSelf.currentEulerAngles.x
-//            strongSelf.cameraNode.eulerAngles.y = strongSelf.currentEulerAngles.y
             
             guard strongSelf.motionManager.deviceMotionAvailable == true else
             {
@@ -247,8 +236,20 @@ class ViewController: UIViewController, SCNSceneRendererDelegate
                 return
             }
             
-            // TODO: Does this need to be wrapped in a transaction? [AH] 7/8/2016
-            strongSelf.cameraNode.orientation = motion.gaze(atOrientation: UIApplication.sharedApplication().statusBarOrientation)
+            if let currentOrientation = strongSelf.currentOrientation
+            {
+                let scnQuaternion = motion.gaze(atOrientation: UIApplication.sharedApplication().statusBarOrientation)
+                let glkQuaternion = GLKQuaternionMake(scnQuaternion.x, scnQuaternion.y, scnQuaternion.z, scnQuaternion.w)
+                var glkResult = GLKQuaternionMultiply(currentOrientation, glkQuaternion)
+                
+                let scnOrientation = SCNQuaternion(x: glkResult.x, y: glkResult.y, z: glkResult.z, w: glkResult.w)
+                strongSelf.cameraNode.orientation = scnOrientation
+            }
+            else
+            {
+                // TODO: Does this need to be wrapped in a transaction? [AH] 7/8/2016
+                strongSelf.cameraNode.orientation = motion.gaze(atOrientation: UIApplication.sharedApplication().statusBarOrientation)
+            }
         }
     }
 }
