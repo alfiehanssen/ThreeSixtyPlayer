@@ -257,11 +257,12 @@ class ViewController: UIViewController, SCNSceneRendererDelegate
             let x = GLKQuaternionMakeWithAngleAndAxis(xRadians, 1, 0, 0)
             let y = GLKQuaternionMakeWithAngleAndAxis(yRadians, 0, 1, 0)
             let z = GLKQuaternionMakeWithAngleAndAxis(0, 0, 0, 1)
+            let combination = GLKQuaternionMultiply(z, GLKQuaternionMultiply(y, x))
             
             // Multiply the quaternions to obtain an updated orientation
             let scnOrientation = self.cameraNode.orientation
             let glkOrientation = GLKQuaternionMake(scnOrientation.x, scnOrientation.y, scnOrientation.z, scnOrientation.w)
-            let q = GLKQuaternionMultiply(glkOrientation, GLKQuaternionMultiply(z, GLKQuaternionMultiply(y, x)))
+            let q = GLKQuaternionMultiply(combination, glkOrientation)
 
             // And finally set the current orientation to the updated orientation
             self.cameraNode.orientation = SCNQuaternion(x: q.x, y: q.y, z: q.z, w: q.w)
