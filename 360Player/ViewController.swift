@@ -233,14 +233,6 @@ class ViewController: UIViewController, SCNSceneRendererDelegate
         case .Began:
             self.previousPanTranslation = .zero
             
-            let glkOrientation = GLKQuaternionMake(self.cameraNode.orientation.x, self.cameraNode.orientation.y, self.cameraNode.orientation.z, self.cameraNode.orientation.w)
-            let orientation = NSStringFromGLKQuaternion(glkOrientation)
-            print("Begin orientation: \(orientation)")
-            
-            let glkAngles = GLKVector3Make(self.cameraNode.eulerAngles.x, self.cameraNode.eulerAngles.y, self.cameraNode.eulerAngles.z)
-            let angles = NSStringFromGLKVector3(glkAngles)
-            print("Begin angles: \(angles)")
-            
         case .Changed:
             guard let previous = self.previousPanTranslation else
             {
@@ -249,6 +241,7 @@ class ViewController: UIViewController, SCNSceneRendererDelegate
                 return
             }
 
+            // Calculate how much translation occurred between this step and the previous step
             let translation = recognizer.translationInView(recognizer.view)
             let translationDelta = CGPoint(x: translation.x - previous.x, y: translation.y - previous.y)
             
@@ -260,24 +253,23 @@ class ViewController: UIViewController, SCNSceneRendererDelegate
             let xScalar = Float(translationDelta.y / self.view.bounds.size.height)
             let xRadians = xScalar * self.dynamicType.MaxPanGestureRotation
             
+            // Use the radian values to construct quaternions
             let x = GLKQuaternionMakeWithAngleAndAxis(xRadians, 1, 0, 0)
             let y = GLKQuaternionMakeWithAngleAndAxis(yRadians, 0, 1, 0)
-            let z = GLKQuaternionMakeWithAngleAndAxis(0, 0, 0, 1) // TODO: ???
-            let q = GLKQuaternionMultiply(z, GLKQuaternionMultiply(y, x))
+            let z = GLKQuaternionMakeWithAngleAndAxis(0, 0, 0, 1)
+            
+            // Multiply the quaternions to obtain an updated orientation
+            let scnOrientation = self.cameraNode.orientation
+            let glkOrientation = GLKQuaternionMake(scnOrientation.x, scnOrientation.y, scnOrientation.z, scnOrientation.w)
+            let q = GLKQuaternionMultiply(glkOrientation, GLKQuaternionMultiply(z, GLKQuaternionMultiply(y, x)))
 
+            // And finally set the current orientation to the updated orientation
             self.cameraNode.orientation = SCNQuaternion(x: q.x, y: q.y, z: q.z, w: q.w)
+            self.previousPanTranslation = translation
             
         case .Ended, .Cancelled, .Failed:
             self.previousPanTranslation = nil
             
-            let glkOrientation = GLKQuaternionMake(self.cameraNode.orientation.x, self.cameraNode.orientation.y, self.cameraNode.orientation.z, self.cameraNode.orientation.w)
-            let orientation = NSStringFromGLKQuaternion(glkOrientation)
-            print("End orientation: \(orientation)")
-            
-            let glkAngles = GLKVector3Make(self.cameraNode.eulerAngles.x, self.cameraNode.eulerAngles.y, self.cameraNode.eulerAngles.z)
-            let angles = NSStringFromGLKVector3(glkAngles)
-            print("End angles: \(angles)")
-
         case .Possible:
             break
         }
