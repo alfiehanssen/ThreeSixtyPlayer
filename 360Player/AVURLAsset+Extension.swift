@@ -27,7 +27,7 @@
 import Foundation
 import AVFoundation
 
-extension AVURLAsset
+extension AVAsset
 {
     /**
      Returns the encoded resolution of the asset or nil if the asset does not contain a video track. The encoded resolution is the `preferredTransform` applied to the `naturalSize`.
@@ -36,14 +36,14 @@ extension AVURLAsset
      */
     func encodedResolution() -> CGSize?
     {
-        guard let track = self.tracksWithMediaType(AVMediaTypeVideo).first else
+        guard let track = self.tracks(withMediaType: AVMediaTypeVideo).first else
         {
             return nil
         }
         
         let naturalSize = track.naturalSize
         let preferredTransform = track.preferredTransform
-        let size = CGSizeApplyAffineTransform(naturalSize, preferredTransform)
+        let size = naturalSize.applying(preferredTransform)
         
         let width = fabs(size.width)
         let height = fabs(size.height)

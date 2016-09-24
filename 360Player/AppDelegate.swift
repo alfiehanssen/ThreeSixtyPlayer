@@ -25,15 +25,36 @@
 //
 
 import UIKit
+import AVFoundation
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate
 {
     var window: UIWindow?
 
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool
     {
+        AppDelegate.makeAudioSessionCategoryAmbient() // So I can listen to Spotify while building this player 😁
+        
+        let viewController = PlaylistViewController(nibName: "PlaylistViewController", bundle: Bundle.main)
+        viewController.title = NSLocalizedString("Playlist", comment: "The title of the playlist view controller.")
+        
+        let navigationController = UINavigationController(rootViewController: viewController)
+
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        self.window?.rootViewController = navigationController
+        self.window?.makeKeyAndVisible()
+        
         return true
+    }
+    
+    private static func makeAudioSessionCategoryAmbient()
+    {
+        do {
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryAmbient)
+        } catch let error as NSError {
+            print(error)
+        }
     }
 }
 

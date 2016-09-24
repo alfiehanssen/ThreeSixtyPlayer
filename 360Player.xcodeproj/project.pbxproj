@@ -7,17 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AF1512CF1D2FCC3A007705D5 /* Float+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF1512CE1D2FCC3A007705D5 /* Float+Extensions.swift */; };
 		AF1512D11D327718007705D5 /* CMDeviceMotion+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF1512D01D327718007705D5 /* CMDeviceMotion+Extensions.swift */; };
-		AF1512D71D3311A7007705D5 /* demo.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = AF1512D61D3311A7007705D5 /* demo.mp4 */; };
 		AF2DFB271D2C8FA700BE602A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2DFB261D2C8FA700BE602A /* AppDelegate.swift */; };
-		AF2DFB291D2C8FA700BE602A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2DFB281D2C8FA700BE602A /* ViewController.swift */; };
-		AF2DFB2C1D2C8FA700BE602A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF2DFB2A1D2C8FA700BE602A /* Main.storyboard */; };
+		AF2DFB291D2C8FA700BE602A /* ThreeSixtyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2DFB281D2C8FA700BE602A /* ThreeSixtyViewController.swift */; };
 		AF2DFB2E1D2C8FA700BE602A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF2DFB2D1D2C8FA700BE602A /* Assets.xcassets */; };
 		AF2DFB311D2C8FA700BE602A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF2DFB2F1D2C8FA700BE602A /* LaunchScreen.storyboard */; };
 		AF2DFB3C1D2C8FA800BE602A /* _60PlayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2DFB3B1D2C8FA800BE602A /* _60PlayerTests.swift */; };
 		AF2DFB471D2C8FA800BE602A /* _60PlayerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2DFB461D2C8FA800BE602A /* _60PlayerUITests.swift */; };
 		AF2DFB971D2F2D3800BE602A /* AVURLAsset+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2DFB961D2F2D3800BE602A /* AVURLAsset+Extension.swift */; };
+		AF4ED28C1D896DE500C2B3B5 /* ThreeSixtyScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4ED28B1D896DE500C2B3B5 /* ThreeSixtyScene.swift */; };
+		AFBCE50C1D89659A002190C0 /* PlaylistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBCE50B1D89659A002190C0 /* PlaylistViewController.swift */; };
+		AFBCE50E1D8965EF002190C0 /* PlaylistViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AFBCE50D1D8965EF002190C0 /* PlaylistViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,13 +38,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		AF1512CE1D2FCC3A007705D5 /* Float+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Float+Extensions.swift"; sourceTree = "<group>"; };
 		AF1512D01D327718007705D5 /* CMDeviceMotion+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CMDeviceMotion+Extensions.swift"; sourceTree = "<group>"; };
-		AF1512D61D3311A7007705D5 /* demo.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = demo.mp4; sourceTree = "<group>"; };
 		AF2DFB231D2C8FA700BE602A /* 360Player.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 360Player.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF2DFB261D2C8FA700BE602A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		AF2DFB281D2C8FA700BE602A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		AF2DFB2B1D2C8FA700BE602A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		AF2DFB281D2C8FA700BE602A /* ThreeSixtyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreeSixtyViewController.swift; sourceTree = "<group>"; };
 		AF2DFB2D1D2C8FA700BE602A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AF2DFB301D2C8FA700BE602A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AF2DFB321D2C8FA700BE602A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -55,6 +52,9 @@
 		AF2DFB461D2C8FA800BE602A /* _60PlayerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _60PlayerUITests.swift; sourceTree = "<group>"; };
 		AF2DFB481D2C8FA800BE602A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AF2DFB961D2F2D3800BE602A /* AVURLAsset+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AVURLAsset+Extension.swift"; sourceTree = "<group>"; };
+		AF4ED28B1D896DE500C2B3B5 /* ThreeSixtyScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThreeSixtyScene.swift; sourceTree = "<group>"; };
+		AFBCE50B1D89659A002190C0 /* PlaylistViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistViewController.swift; sourceTree = "<group>"; };
+		AFBCE50D1D8965EF002190C0 /* PlaylistViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlaylistViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,15 +106,15 @@
 			isa = PBXGroup;
 			children = (
 				AF2DFB261D2C8FA700BE602A /* AppDelegate.swift */,
-				AF2DFB281D2C8FA700BE602A /* ViewController.swift */,
+				AFBCE50B1D89659A002190C0 /* PlaylistViewController.swift */,
+				AFBCE50D1D8965EF002190C0 /* PlaylistViewController.xib */,
+				AF2DFB281D2C8FA700BE602A /* ThreeSixtyViewController.swift */,
+				AF4ED28B1D896DE500C2B3B5 /* ThreeSixtyScene.swift */,
 				AF2DFB961D2F2D3800BE602A /* AVURLAsset+Extension.swift */,
-				AF1512CE1D2FCC3A007705D5 /* Float+Extensions.swift */,
 				AF1512D01D327718007705D5 /* CMDeviceMotion+Extensions.swift */,
-				AF2DFB2A1D2C8FA700BE602A /* Main.storyboard */,
 				AF2DFB2D1D2C8FA700BE602A /* Assets.xcassets */,
 				AF2DFB2F1D2C8FA700BE602A /* LaunchScreen.storyboard */,
 				AF2DFB321D2C8FA700BE602A /* Info.plist */,
-				AF2DFB931D2C9A1500BE602A /* Media */,
 			);
 			path = 360Player;
 			sourceTree = "<group>";
@@ -135,14 +135,6 @@
 				AF2DFB481D2C8FA800BE602A /* Info.plist */,
 			);
 			path = 360PlayerUITests;
-			sourceTree = "<group>";
-		};
-		AF2DFB931D2C9A1500BE602A /* Media */ = {
-			isa = PBXGroup;
-			children = (
-				AF1512D61D3311A7007705D5 /* demo.mp4 */,
-			);
-			path = Media;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -208,19 +200,22 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Alfie Hanssen";
 				TargetAttributes = {
 					AF2DFB221D2C8FA700BE602A = {
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = AT3549635A;
+						LastSwiftMigration = 0800;
 					};
 					AF2DFB361D2C8FA800BE602A = {
 						CreatedOnToolsVersion = 7.3;
+						LastSwiftMigration = 0800;
 						TestTargetID = AF2DFB221D2C8FA700BE602A;
 					};
 					AF2DFB411D2C8FA800BE602A = {
 						CreatedOnToolsVersion = 7.3;
+						LastSwiftMigration = 0800;
 						TestTargetID = AF2DFB221D2C8FA700BE602A;
 					};
 				};
@@ -250,10 +245,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AF1512D71D3311A7007705D5 /* demo.mp4 in Resources */,
+				AFBCE50E1D8965EF002190C0 /* PlaylistViewController.xib in Resources */,
 				AF2DFB311D2C8FA700BE602A /* LaunchScreen.storyboard in Resources */,
 				AF2DFB2E1D2C8FA700BE602A /* Assets.xcassets in Resources */,
-				AF2DFB2C1D2C8FA700BE602A /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -278,9 +272,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AF2DFB291D2C8FA700BE602A /* ViewController.swift in Sources */,
+				AF2DFB291D2C8FA700BE602A /* ThreeSixtyViewController.swift in Sources */,
+				AF4ED28C1D896DE500C2B3B5 /* ThreeSixtyScene.swift in Sources */,
+				AFBCE50C1D89659A002190C0 /* PlaylistViewController.swift in Sources */,
 				AF2DFB271D2C8FA700BE602A /* AppDelegate.swift in Sources */,
-				AF1512CF1D2FCC3A007705D5 /* Float+Extensions.swift in Sources */,
 				AF2DFB971D2F2D3800BE602A /* AVURLAsset+Extension.swift in Sources */,
 				AF1512D11D327718007705D5 /* CMDeviceMotion+Extensions.swift in Sources */,
 			);
@@ -318,14 +313,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		AF2DFB2A1D2C8FA700BE602A /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				AF2DFB2B1D2C8FA700BE602A /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		AF2DFB2F1D2C8FA700BE602A /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -351,8 +338,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -396,8 +385,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -416,6 +407,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -427,10 +419,12 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = 360Player/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.alfiehanssen.-60Player";
+				PRODUCT_BUNDLE_IDENTIFIER = com.alfiehanssen.ThreeSixtyPlayer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -441,10 +435,12 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = 360Player/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.alfiehanssen.-60Player";
+				PRODUCT_BUNDLE_IDENTIFIER = com.alfiehanssen.ThreeSixtyPlayer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -456,6 +452,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.alfiehanssen.-60PlayerTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/360Player.app/360Player";
 			};
 			name = Debug;
@@ -468,6 +465,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.alfiehanssen.-60PlayerTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/360Player.app/360Player";
 			};
 			name = Release;
@@ -479,6 +477,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.alfiehanssen.-60PlayerUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = 360Player;
 			};
 			name = Debug;
@@ -490,6 +489,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.alfiehanssen.-60PlayerUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = 360Player;
 			};
 			name = Release;
