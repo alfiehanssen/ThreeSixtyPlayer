@@ -87,3 +87,4 @@ extension CMDeviceMotion
         return scnQuaternion
     }
 }
+

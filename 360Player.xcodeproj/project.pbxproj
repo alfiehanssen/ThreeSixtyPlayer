@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AF1512D11D327718007705D5 /* CMDeviceMotion+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF1512D01D327718007705D5 /* CMDeviceMotion+Extensions.swift */; };
+		AF1512D11D327718007705D5 /* CMDeviceMotion+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF1512D01D327718007705D5 /* CMDeviceMotion+Extension.swift */; };
 		AF2DFB271D2C8FA700BE602A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2DFB261D2C8FA700BE602A /* AppDelegate.swift */; };
 		AF2DFB291D2C8FA700BE602A /* ThreeSixtyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2DFB281D2C8FA700BE602A /* ThreeSixtyViewController.swift */; };
 		AF2DFB2E1D2C8FA700BE602A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF2DFB2D1D2C8FA700BE602A /* Assets.xcassets */; };
@@ -18,6 +18,9 @@
 		AF4ED28C1D896DE500C2B3B5 /* ThreeSixtyScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4ED28B1D896DE500C2B3B5 /* ThreeSixtyScene.swift */; };
 		AFBCE50C1D89659A002190C0 /* PlaylistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBCE50B1D89659A002190C0 /* PlaylistViewController.swift */; };
 		AFBCE50E1D8965EF002190C0 /* PlaylistViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AFBCE50D1D8965EF002190C0 /* PlaylistViewController.xib */; };
+		AFC81BD81D9729A00027267F /* ThreeSixtyNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC81BD71D9729A00027267F /* ThreeSixtyNavigator.swift */; };
+		AFC81BDA1D9812C20027267F /* DeviceMotionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC81BD91D9812C20027267F /* DeviceMotionController.swift */; };
+		AFC81BDC1D9813030027267F /* PanGestureController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC81BDB1D9813030027267F /* PanGestureController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,7 +41,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		AF1512D01D327718007705D5 /* CMDeviceMotion+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CMDeviceMotion+Extensions.swift"; sourceTree = "<group>"; };
+		AF1512D01D327718007705D5 /* CMDeviceMotion+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CMDeviceMotion+Extension.swift"; sourceTree = "<group>"; };
 		AF2DFB231D2C8FA700BE602A /* 360Player.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 360Player.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF2DFB261D2C8FA700BE602A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AF2DFB281D2C8FA700BE602A /* ThreeSixtyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreeSixtyViewController.swift; sourceTree = "<group>"; };
@@ -55,6 +58,9 @@
 		AF4ED28B1D896DE500C2B3B5 /* ThreeSixtyScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThreeSixtyScene.swift; sourceTree = "<group>"; };
 		AFBCE50B1D89659A002190C0 /* PlaylistViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistViewController.swift; sourceTree = "<group>"; };
 		AFBCE50D1D8965EF002190C0 /* PlaylistViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlaylistViewController.xib; sourceTree = "<group>"; };
+		AFC81BD71D9729A00027267F /* ThreeSixtyNavigator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThreeSixtyNavigator.swift; sourceTree = "<group>"; };
+		AFC81BD91D9812C20027267F /* DeviceMotionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceMotionController.swift; sourceTree = "<group>"; };
+		AFC81BDB1D9813030027267F /* PanGestureController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PanGestureController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,8 +116,11 @@
 				AFBCE50D1D8965EF002190C0 /* PlaylistViewController.xib */,
 				AF2DFB281D2C8FA700BE602A /* ThreeSixtyViewController.swift */,
 				AF4ED28B1D896DE500C2B3B5 /* ThreeSixtyScene.swift */,
+				AFC81BD71D9729A00027267F /* ThreeSixtyNavigator.swift */,
+				AFC81BD91D9812C20027267F /* DeviceMotionController.swift */,
+				AFC81BDB1D9813030027267F /* PanGestureController.swift */,
 				AF2DFB961D2F2D3800BE602A /* AVURLAsset+Extension.swift */,
-				AF1512D01D327718007705D5 /* CMDeviceMotion+Extensions.swift */,
+				AF1512D01D327718007705D5 /* CMDeviceMotion+Extension.swift */,
 				AF2DFB2D1D2C8FA700BE602A /* Assets.xcassets */,
 				AF2DFB2F1D2C8FA700BE602A /* LaunchScreen.storyboard */,
 				AF2DFB321D2C8FA700BE602A /* Info.plist */,
@@ -273,11 +282,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				AF2DFB291D2C8FA700BE602A /* ThreeSixtyViewController.swift in Sources */,
+				AFC81BDA1D9812C20027267F /* DeviceMotionController.swift in Sources */,
 				AF4ED28C1D896DE500C2B3B5 /* ThreeSixtyScene.swift in Sources */,
 				AFBCE50C1D89659A002190C0 /* PlaylistViewController.swift in Sources */,
 				AF2DFB271D2C8FA700BE602A /* AppDelegate.swift in Sources */,
 				AF2DFB971D2F2D3800BE602A /* AVURLAsset+Extension.swift in Sources */,
-				AF1512D11D327718007705D5 /* CMDeviceMotion+Extensions.swift in Sources */,
+				AFC81BDC1D9813030027267F /* PanGestureController.swift in Sources */,
+				AFC81BD81D9729A00027267F /* ThreeSixtyNavigator.swift in Sources */,
+				AF1512D11D327718007705D5 /* CMDeviceMotion+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

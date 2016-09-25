@@ -51,3 +51,4 @@ extension AVAsset
         return CGSize(width: width, height: height)
     }
 }
+
