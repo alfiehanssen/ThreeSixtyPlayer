@@ -65,6 +65,8 @@ class ThreeSixtyScene: SCNScene
         self.spriteKitScene.addChild(self.videoNode)
 
         self.cameraNode = SCNNode()
+        self.cameraNode.position = SCNVector3Zero
+        self.cameraNode.pivot = SCNMatrix4Identity
         self.cameraNode.camera = SCNCamera()
         self.cameraNode.camera?.automaticallyAdjustsZRange = true
 

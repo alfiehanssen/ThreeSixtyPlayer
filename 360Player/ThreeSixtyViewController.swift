@@ -64,6 +64,7 @@ class ThreeSixtyViewController: UIViewController, SCNSceneRendererDelegate
         
         self.view.addGestureRecognizer(self.navigator.panGestureController.panGestureRecognizer)
         
+        // Navigation mode is initially .None.
         self.navigator.navigationMode = .PanGesture
     }
     
@@ -93,13 +94,12 @@ class ThreeSixtyViewController: UIViewController, SCNSceneRendererDelegate
     
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval)
     {
+        // TODO: need to dispatch to main?
         DispatchQueue.main.async { [weak self] () -> Void in
             guard let strongSelf = self else
             {
                 return
             }
-
-            // TODO: Does this need to be wrapped in a transaction? [AH] 7/8/2016
 
             guard let orientation = strongSelf.navigator.currentOrientation(node: strongSelf.scene.cameraNode) else
             {
