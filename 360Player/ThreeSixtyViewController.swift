@@ -61,7 +61,8 @@ class ThreeSixtyViewController: UIViewController, SCNSceneRendererDelegate
     override func viewDidLoad()
     {
         super.viewDidLoad()
-                
+        
+        // TODO: Find a better way to add the recognizer to the view that allows panGestureController & panGestureRecognizer to be private.
         self.view.addGestureRecognizer(self.navigator.panGestureController.panGestureRecognizer)
         
         // Navigation mode is initially .None.
@@ -120,7 +121,7 @@ class ThreeSixtyViewController: UIViewController, SCNSceneRendererDelegate
                 return
             }
 
-            guard let orientation = strongSelf.navigator.currentOrientation(node: strongSelf.scene.cameraNode) else
+            guard let orientation = strongSelf.navigator.currentOrientation(orientation: strongSelf.scene.cameraNode.orientation) else
             {
                 return
             }

@@ -52,6 +52,7 @@ class DeviceMotionController
                 return
             }
             
+            // Start and stop device motion reporting as appropriate. 
             if self.enabled
             {
                 guard !self.motionManager.isDeviceMotionActive else
