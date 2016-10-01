@@ -61,11 +61,12 @@ class ThreeSixtyViewController: UIViewController, SCNSceneRendererDelegate
     override func viewDidLoad()
     {
         super.viewDidLoad()
-                
+        
+        // TODO: Find a better way to add the recognizer to the view that allows panGestureController & panGestureRecognizer to be private.
         self.view.addGestureRecognizer(self.navigator.panGestureController.panGestureRecognizer)
         
         // Navigation mode is initially .None.
-        self.navigator.navigationMode = .PanGesture
+        self.navigator.navigationMode = .PanGestureAndDeviceMotion
     }
     
     override func viewWillAppear(_ animated: Bool)
