@@ -98,18 +98,27 @@ class ThreeSixtyNavigator
                 return nil
             }
             
-            // Use the pan translation along the x axis to adjust the camera's rotation about the y axis.
+            // Use the pan translation along the x axis to adjust the camera's rotation about the y axis (side to side navigation).
             let yScalar = Float(translationDelta.x / view.bounds.size.width)
             let yRadians = yScalar * type(of: self).MaxPanGestureRotation
             
-            // Use the pan translation along the y axis to adjust the camera's rotation about the x axis.
+            // Use the pan translation along the y axis to adjust the camera's rotation about the x axis (up and down navigation).
             let xScalar = Float(translationDelta.y / view.bounds.size.height)
             let xRadians = xScalar * type(of: self).MaxPanGestureRotation
             
-            node.eulerAngles.x += xRadians
-            node.eulerAngles.y += yRadians
+            // Represent the node's orientation as a GLKQuaternion
+            let scnQuaternion: SCNQuaternion = node.orientation
+            var glQuaternion = GLKQuaternionMake(scnQuaternion.x, scnQuaternion.y, scnQuaternion.z, scnQuaternion.w)
             
-            return nil//node.orientation // TODO: fix this, should return an orientation instead of updating the node directly.
+            // Perform up and down rotations around *CAMERA* X axis (note the order of multiplication)
+            let xMultiplier = GLKQuaternionMakeWithAngleAndAxis(xRadians, 1, 0, 0)
+            glQuaternion = GLKQuaternionMultiply(glQuaternion, xMultiplier)
+            
+            // Perform side to side rotations around *WORLD* Y axis (note the order of multiplication, different from above)
+            let yMultiplier = GLKQuaternionMakeWithAngleAndAxis(yRadians, 0, 1, 0)
+            glQuaternion = GLKQuaternionMultiply(yMultiplier, glQuaternion)
+            
+            return SCNQuaternion(x: glQuaternion.x, y: glQuaternion.y, z: glQuaternion.z, w: glQuaternion.w)
             
         case .DeviceMotion:
             guard let deviceMotion = self.deviceMotionController.currentDeviceMotion else

@@ -40,7 +40,9 @@ class PlaylistViewController: UIViewController
         let viewController = ThreeSixtyViewController()
         viewController.player.replaceCurrentItem(with: playerItem)
         
-        self.navigationController?.pushViewController(viewController, animated: true)        
+        self.navigationController?.isNavigationBarHidden = true
+
+        self.navigationController?.pushViewController(viewController, animated: true)
     }
 }
 

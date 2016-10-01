@@ -61,9 +61,10 @@ class ThreeSixtyViewController: UIViewController, SCNSceneRendererDelegate
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        
+                
         self.view.addGestureRecognizer(self.navigator.panGestureController.panGestureRecognizer)
         
+        // Navigation mode is initially .None.
         self.navigator.navigationMode = .PanGesture
     }
     
@@ -72,6 +73,13 @@ class ThreeSixtyViewController: UIViewController, SCNSceneRendererDelegate
         super.viewWillAppear(animated)
 
         self.startPlayback()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool)
+    {
+        super.viewWillDisappear(animated)
+        
+        self.stopPlayback()
     }
     
     // MARK: Setup
@@ -88,7 +96,20 @@ class ThreeSixtyViewController: UIViewController, SCNSceneRendererDelegate
         sceneView.play(nil)
         self.scene.player.play()
     }
+
+    private func stopPlayback()
+    {
+        guard let sceneView = self.view as? SCNView else
+        {
+            assertionFailure("Attempt to cast self.view as SCNView failed.")
+            
+            return
+        }
         
+        sceneView.stop(nil)
+        self.scene.player.pause()
+    }
+
     // MARK: SCNSceneRendererDelegate
     
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval)
@@ -98,8 +119,6 @@ class ThreeSixtyViewController: UIViewController, SCNSceneRendererDelegate
             {
                 return
             }
-
-            // TODO: Does this need to be wrapped in a transaction? [AH] 7/8/2016
 
             guard let orientation = strongSelf.navigator.currentOrientation(node: strongSelf.scene.cameraNode) else
             {
