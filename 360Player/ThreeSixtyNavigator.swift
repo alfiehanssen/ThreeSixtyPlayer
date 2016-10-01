@@ -29,34 +29,41 @@ import UIKit
 import CoreMotion
 import SceneKit
 
+/// A controller that manages the 360 player's navigation mode and by extension a pan gesture controller and a device motion controller.
 class ThreeSixtyNavigator
 {
+    /// A tuple `typealias` used to hold a pair of rotation offsets about the X and Y axes.  
     private typealias RotationOffset = (x: Float, y: Float)
 
     /// The amount of rotation in radians that can be applied by a single pan gesture.
     private static let MaxPanGestureRotation: Float = GLKMathDegreesToRadians(360)
 
-    /// An enum whose cases describe how a user can manipulate the camera to navigate around the video.
+    /**
+        An enum whose cases describe how a user can manipulate the camera to navigate around the video.
+     
+        - `None`: The user cannot navigate around the sphere. This is the default value.
+        - `PanGesture`: The user can navigate using a pan gesture.
+        - `DeviceMotion`: The user can navigate using the device "motion" aka orientation.
+        - `PanGestureAndDeviceMotion`: The user can navigate using pan gesture and device motion simultaneously.
+     */
     enum NavigationMode
     {
-        /// No navigation
         case None
-        
-        /// Navigation via UIPanGestureRecognizer.
         case PanGesture
-        
-        /// Navigation via CMDeviceMotion.
         case DeviceMotion
-        
-        /// Navigation via UIPanGestureRecognizer and CMDeviceMotion.
-        case PanGestureAndDeviceMotion 
+        case PanGestureAndDeviceMotion
     }
     
+    /// The controller used to track the pan gesture's translation delta.
     let panGestureController = PanGestureController() // TODO: Can we make this private?
     
+    /// The controller used to track the device motion (orientation).
     private let deviceMotionController = DeviceMotionController()
 
+    /// The cumulative amount of pan gesture translation in the X direction.
     private var cumulativePanOffsetX: Float = 0
+
+    /// The cumulative amount of pan gesture translation in the Y direction.
     private var cumulativePanOffsetY: Float = 0
     
     /// The mode by which the user navigates around the video sphere.
@@ -85,8 +92,15 @@ class ThreeSixtyNavigator
         }
     }
     
-    func currentOrientation(node: SCNNode) -> SCNQuaternion?
-    {        
+    /**
+        A function that uses the current navigation mode to update the camera's orientation.
+     
+     - parameter orientation: The orientation that pan gesture and/or device motion modifications should be applied to.
+     
+     - returns: The modified `orientation` after having applied the appropriate pan gesture and/or device motion rotations.
+     */
+    func currentOrientation(orientation: SCNQuaternion) -> SCNQuaternion?
+    {
         switch self.navigationMode
         {
         case .None:
@@ -108,7 +122,6 @@ class ThreeSixtyNavigator
             
             let maxRotation = type(of: self).MaxPanGestureRotation
             let rotationOffset = type(of: self).rotationOffset(translationDelta: translationDelta, translationBounds: view.bounds, maxRotation: maxRotation)
-            let orientation = node.orientation
             
             return type(of: self).rotateOrientation(orientation: orientation, xRadians: rotationOffset.x, yRadians: rotationOffset.y)
             
@@ -143,6 +156,7 @@ class ThreeSixtyNavigator
             let rotationOffset = type(of: self).rotationOffset(translationDelta: translationDelta, translationBounds: view.bounds, maxRotation: maxRotation)
             let orientation = deviceMotion.gaze(atOrientation: UIApplication.shared.statusBarOrientation)
             
+            // Modify the persisted cumulative offsets accordingly.
             self.cumulativePanOffsetX += rotationOffset.x
             self.cumulativePanOffsetY += rotationOffset.y
 

@@ -53,7 +53,7 @@ class PanGestureController
         self.panGestureRecognizer.addTarget(self, action: #selector(self.didPan))
     }
     
-    @objc func didPan(_ recognizer: UIPanGestureRecognizer)
+    @objc private func didPan(_ recognizer: UIPanGestureRecognizer)
     {
         switch recognizer.state
         {

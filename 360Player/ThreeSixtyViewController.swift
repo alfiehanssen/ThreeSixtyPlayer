@@ -66,7 +66,7 @@ class ThreeSixtyViewController: UIViewController, SCNSceneRendererDelegate
         self.view.addGestureRecognizer(self.navigator.panGestureController.panGestureRecognizer)
         
         // Navigation mode is initially .None.
-        self.navigator.navigationMode = .PanGestureAndDeviceMotion
+        self.navigator.navigationMode = .PanGesture
     }
     
     override func viewWillAppear(_ animated: Bool)
@@ -121,7 +121,7 @@ class ThreeSixtyViewController: UIViewController, SCNSceneRendererDelegate
                 return
             }
 
-            guard let orientation = strongSelf.navigator.currentOrientation(node: strongSelf.scene.cameraNode) else
+            guard let orientation = strongSelf.navigator.currentOrientation(orientation: strongSelf.scene.cameraNode.orientation) else
             {
                 return
             }
