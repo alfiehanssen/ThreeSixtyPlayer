@@ -61,7 +61,7 @@ class ThreeSixtyViewController: UIViewController, SCNSceneRendererDelegate
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        
+                
         self.view.addGestureRecognizer(self.navigator.panGestureController.panGestureRecognizer)
         
         // Navigation mode is initially .None.
@@ -73,6 +73,13 @@ class ThreeSixtyViewController: UIViewController, SCNSceneRendererDelegate
         super.viewWillAppear(animated)
 
         self.startPlayback()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool)
+    {
+        super.viewWillDisappear(animated)
+        
+        self.stopPlayback()
     }
     
     // MARK: Setup
@@ -89,12 +96,24 @@ class ThreeSixtyViewController: UIViewController, SCNSceneRendererDelegate
         sceneView.play(nil)
         self.scene.player.play()
     }
+
+    private func stopPlayback()
+    {
+        guard let sceneView = self.view as? SCNView else
+        {
+            assertionFailure("Attempt to cast self.view as SCNView failed.")
+            
+            return
+        }
         
+        sceneView.stop(nil)
+        self.scene.player.pause()
+    }
+
     // MARK: SCNSceneRendererDelegate
     
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval)
     {
-        // TODO: need to dispatch to main?
         DispatchQueue.main.async { [weak self] () -> Void in
             guard let strongSelf = self else
             {
