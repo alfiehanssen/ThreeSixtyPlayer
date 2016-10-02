@@ -1,4 +1,4 @@
-# 360Player
+# ThreeSixtyPlayer
 
 
 :construction: This is very much a work in progress :construction:
