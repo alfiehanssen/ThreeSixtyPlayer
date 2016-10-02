@@ -31,6 +31,13 @@ class PlaylistViewController: UIViewController
 {
     private static let UrlString = "https://vimeo-prod-archive-std-us.storage.googleapis.com/videos/580317808?GoogleAccessId=GOOGHOVZWCHVINHSLPGA&Expires=1564090179&Signature=8ea%2Fk6n8I7%2FPr5yAoIbkoqINbyM%3D"
     
+    override func viewDidLoad()
+    {
+        super.viewDidLoad()
+    
+        self.title = NSLocalizedString("Media List", comment: "The title of the Media List view controller.")
+    }
+    
     @IBAction func didTapButton(_ sender: UIButton)
     {
         let string = type(of: self).UrlString

@@ -115,6 +115,8 @@ class ThreeSixtyViewController: UIViewController, SCNSceneRendererDelegate
     
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval)
     {
+        // TODO: Necessary to dispatch to main? Implications of doing so? Thread safty of navigator class / pan recognizer is one issue.
+        
         DispatchQueue.main.async { [weak self] () -> Void in
             guard let strongSelf = self else
             {

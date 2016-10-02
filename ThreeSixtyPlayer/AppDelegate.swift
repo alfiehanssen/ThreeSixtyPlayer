@@ -36,9 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate
     {
         AppDelegate.makeAudioSessionCategoryAmbient() // So I can listen to Spotify while building this player 😁
         
-        let viewController = PlaylistViewController(nibName: "PlaylistViewController", bundle: Bundle.main)
-        viewController.title = NSLocalizedString("Playlist", comment: "The title of the playlist view controller.")
-        
+        let viewController = PlaylistViewController()        
         let navigationController = UINavigationController(rootViewController: viewController)
 
         self.window = UIWindow(frame: UIScreen.main.bounds)
