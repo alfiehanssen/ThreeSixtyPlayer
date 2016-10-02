@@ -36,12 +36,16 @@ class ThreeSixtyScene: SCNScene
     /// The default size of the SKVideoNode and SKScene, updated when the player's item updates.
     private static let DefaultVideoResolution = CGSize(width: 1920, height: 1080)
 
+    /// The KVO key path used to observe changes to the player's currentItem.
     private static let PlayerCurrentItemKeyPath = "currentItem"
 
+    /// The KVO context used to observe changes to the player's currentItem.
     private var playerCurrentItemKVOContext = 0
 
+    /// The SpriteKit node that displays the video.
     private let videoNode: SKVideoNode
     
+    /// The SpriteKit scene that contains the videoNode.
     private let spriteKitScene: SKScene
     
     /// The camera node used to view the inside of the sphere (video).
@@ -141,6 +145,7 @@ class ThreeSixtyScene: SCNScene
         self.updateGeometryForVideoResolution(resolution: resolution)
     }
 
+    /// Changes the SpriteKit scene and video node size and position to match the specified resolution.
     private func updateGeometryForVideoResolution(resolution: CGSize)
     {
         // TODO: Does this account for screen scale? [AH] 7/7/2016
