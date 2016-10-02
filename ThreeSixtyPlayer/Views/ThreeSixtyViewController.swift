@@ -66,7 +66,7 @@ class ThreeSixtyViewController: UIViewController, SCNSceneRendererDelegate
         self.view.addGestureRecognizer(self.navigator.panGestureController.panGestureRecognizer)
         
         // Navigation mode is initially .None.
-        self.navigator.navigationMode = .PanGesture
+        self.navigator.navigationMode = .PanGestureAndDeviceMotion
     }
     
     override func viewWillAppear(_ animated: Bool)
