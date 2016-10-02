@@ -105,89 +105,80 @@ class ThreeSixtyNavigator
         {
         case .None:
             return nil
-            
-        case .PanGesture:
-            guard let view = self.panGestureController.panGestureRecognizer.view else
-            {
-                assertionFailure("Attempt to navigate with a pan gesture that's not yet added to a view.")
-                
-                return nil
-            }
 
-            // If there's no active pan gesture at the moment, do nothing.
-            guard let translationDelta = self.panGestureController.currentPanTranslationDelta else
-            {
-                return nil
-            }
-            
-            let maxRotation = type(of: self).MaxPanGestureRotation
-            let rotationOffset = type(of: self).rotationOffset(translationDelta: translationDelta, translationBounds: view.bounds, maxRotation: maxRotation)
-            
-            return type(of: self).rotateOrientation(orientation: orientation, xRadians: rotationOffset.x, yRadians: rotationOffset.y)
-            
         case .DeviceMotion:
             // Device motion can be nil at times, this is ok.
             guard let deviceMotion = self.deviceMotionController.currentDeviceMotion else
             {
                 return nil
             }
-
+            
             return deviceMotion.gaze(atOrientation: UIApplication.shared.statusBarOrientation)
-        
+            
+        case .PanGesture:
+            
+            let rotationOffset = self.panGestureRotationOffset()
+            let currentOrientation = type(of: self).rotateOrientation(orientation: orientation, byRotationOffset: rotationOffset)
+            
+            return currentOrientation
+            
         case .PanGestureAndDeviceMotion:
-            guard let view = self.panGestureController.panGestureRecognizer.view else
-            {
-                assertionFailure("Attempt to navigate with a pan gesture that's not yet added to a view.")
-                
-                return nil
-            }
-
             // Device motion can be nil at times, this is ok.
             guard let deviceMotion = self.deviceMotionController.currentDeviceMotion else
             {
-                // TODO: Should we fall back on pan gesture here?
+                // TODO: Should we fall back on pan gesture here? [AH] 10/1/2016
                 
                 return nil
             }
             
-            let translationDelta = self.panGestureController.currentPanTranslationDelta ?? .zero
-            
-            let maxRotation = type(of: self).MaxPanGestureRotation
-            let rotationOffset = type(of: self).rotationOffset(translationDelta: translationDelta, translationBounds: view.bounds, maxRotation: maxRotation)
-            let orientation = deviceMotion.gaze(atOrientation: UIApplication.shared.statusBarOrientation)
-            
+            let rotationOffset = self.panGestureRotationOffset()
+
             // Modify the persisted cumulative offsets accordingly.
             self.cumulativePanOffsetX += rotationOffset.x
             self.cumulativePanOffsetY += rotationOffset.y
 
-            return type(of: self).rotateOrientation(orientation: orientation, xRadians: self.cumulativePanOffsetX, yRadians: self.cumulativePanOffsetY)
+            let orientation = deviceMotion.gaze(atOrientation: UIApplication.shared.statusBarOrientation)
+            let cumulativeOffset = RotationOffset(x: self.cumulativePanOffsetX, y: self.cumulativePanOffsetY)
+            let currentOrientation = type(of: self).rotateOrientation(orientation: orientation, byRotationOffset: cumulativeOffset)
+            
+            return currentOrientation
         }
     }
     
-    private static func rotationOffset(translationDelta: CGPoint, translationBounds: CGRect, maxRotation: Float) -> RotationOffset
+    private func panGestureRotationOffset() -> RotationOffset
     {
+        let maxRotation = type(of: self).MaxPanGestureRotation
+        let viewBounds = self.panGestureController.viewBounds
+        let translationDelta = self.panGestureController.currentPanTranslationDelta
+
+        // TODO: Can we avoid doing this? [AH] 10/1/2016
+        // Once we read the delta, set it to nil.
+        // If we don't do this, when the user leaves their finger stationary on the screen the most recent delta will be applied every frame.
+        // This means the camera will continue to rotate despite the user's finger being stationary.
+        self.panGestureController.currentPanTranslationDelta = .zero
+
         // Use the pan translation along the x axis to adjust the camera's rotation about the y axis (side to side navigation).
-        let yScalar = Float(translationDelta.x / translationBounds.size.width)
+        let yScalar = Float(translationDelta.x / viewBounds.size.width)
         let yRadians = yScalar * maxRotation
         
         // Use the pan translation along the y axis to adjust the camera's rotation about the x axis (up and down navigation).
-        let xScalar = Float(translationDelta.y / translationBounds.size.height)
+        let xScalar = Float(translationDelta.y / viewBounds.size.height)
         let xRadians = xScalar * maxRotation
-        
+
         return RotationOffset(x: xRadians, y: yRadians)
     }
     
-    private static func rotateOrientation(orientation: SCNQuaternion, xRadians: Float, yRadians: Float) -> SCNQuaternion
+    private static func rotateOrientation(orientation: SCNQuaternion, byRotationOffset rotationOffset: RotationOffset) -> SCNQuaternion
     {
         // Represent the orientation as a GLKQuaternion
         var glQuaternion = GLKQuaternionMake(orientation.x, orientation.y, orientation.z, orientation.w)
         
         // Perform up and down rotations around *CAMERA* X axis (note the order of multiplication)
-        let xMultiplier = GLKQuaternionMakeWithAngleAndAxis(xRadians, 1, 0, 0)
+        let xMultiplier = GLKQuaternionMakeWithAngleAndAxis(rotationOffset.x, 1, 0, 0)
         glQuaternion = GLKQuaternionMultiply(glQuaternion, xMultiplier)
         
         // Perform side to side rotations around *WORLD* Y axis (note the order of multiplication, different from above)
-        let yMultiplier = GLKQuaternionMakeWithAngleAndAxis(yRadians, 0, 1, 0)
+        let yMultiplier = GLKQuaternionMakeWithAngleAndAxis(rotationOffset.y, 0, 1, 0)
         glQuaternion = GLKQuaternionMultiply(yMultiplier, glQuaternion)
         
         return SCNQuaternion(x: glQuaternion.x, y: glQuaternion.y, z: glQuaternion.z, w: glQuaternion.w)

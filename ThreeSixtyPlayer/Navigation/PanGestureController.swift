@@ -31,20 +31,30 @@ import UIKit
 class PanGestureController
 {    
     /// The translation value previously reported via the UIPanGestureRecognizerDelegate.
-    private var previousPanTranslation: CGPoint?
+    private var previousPanTranslation = CGPoint.zero
     
     /// The translation delta between the previously and currently reported translations.
-    private(set) var currentPanTranslationDelta: CGPoint?
+    var currentPanTranslationDelta = CGPoint.zero
     
     /// The pan gesture recognizer used for navigation.
     let panGestureRecognizer = UIPanGestureRecognizer()
+    
+    var viewBounds: CGRect
+    {
+        guard let view = self.panGestureRecognizer.view else
+        {
+            fatalError("Attempt to navigate with a pan gesture that's not yet added to a view.")
+        }
+
+        return view.bounds
+    }
     
     /// A boolean that enables and disabled the pan gesture recognizer.
     var enabled = false
     {
         didSet
         {
-            self.panGestureRecognizer.isEnabled = enabled
+            self.panGestureRecognizer.isEnabled = self.enabled
         }
     }
     
@@ -61,25 +71,19 @@ class PanGestureController
             self.previousPanTranslation = .zero
             
         case .changed:
-            guard let previous = self.previousPanTranslation else
-            {
-                assertionFailure("Attempt to unwrap previous pan translation failed.")
-                
-                return
-            }
-            
             // Calculate how much translation occurred between this step and the previous step.
-            let translation = recognizer.translation(in: recognizer.view)
-            let delta = CGPoint(x: translation.x - previous.x, y: translation.y - previous.y)
+            let previous = self.previousPanTranslation
+            let current = recognizer.translation(in: recognizer.view)
+            let delta = CGPoint(x: current.x - previous.x, y: current.y - previous.y)
             
             // Save the translation and delta for later use.
-            self.previousPanTranslation = translation
+            self.previousPanTranslation = current
             self.currentPanTranslationDelta = delta
             
         case .ended, .cancelled, .failed:
             // Reset saved values for use in future pan gestures.
-            self.previousPanTranslation = nil
-            self.currentPanTranslationDelta = nil
+            self.previousPanTranslation = .zero
+            self.currentPanTranslationDelta = .zero
             
         case .possible:
             break

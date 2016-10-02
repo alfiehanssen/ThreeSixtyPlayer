@@ -154,9 +154,9 @@
 		AF1707FC1DA0966200D58F76 /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
+				AF1707FF1DA0966200D58F76 /* ThreeSixtyNavigator.swift */,
 				AF1707FD1DA0966200D58F76 /* DeviceMotionController.swift */,
 				AF1707FE1DA0966200D58F76 /* PanGestureController.swift */,
-				AF1707FF1DA0966200D58F76 /* ThreeSixtyNavigator.swift */,
 			);
 			path = Navigation;
 			sourceTree = "<group>";
@@ -550,6 +550,7 @@
 				AF1707E01DA0956B00D58F76 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		AF1707E11DA0956B00D58F76 /* Build configuration list for PBXNativeTarget "ThreeSixtyPlayerTests" */ = {
 			isa = XCConfigurationList;
@@ -558,6 +559,7 @@
 				AF1707E31DA0956B00D58F76 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		AF1707E41DA0956B00D58F76 /* Build configuration list for PBXNativeTarget "ThreeSixtyPlayerUITests" */ = {
 			isa = XCConfigurationList;
@@ -566,6 +568,7 @@
 				AF1707E61DA0956B00D58F76 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
