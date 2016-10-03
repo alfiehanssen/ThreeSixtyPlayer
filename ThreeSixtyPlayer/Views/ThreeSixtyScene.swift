@@ -77,7 +77,7 @@ class ThreeSixtyScene: SCNScene
         super.init()
         
         let material = SCNMaterial()
-        material.diffuse.contents = spriteKitScene
+        material.diffuse.contents = self.spriteKitScene
         material.cullMode = .front // Ensure that the material renders on the inside of our sphere
         
         let sphere = SCNSphere()

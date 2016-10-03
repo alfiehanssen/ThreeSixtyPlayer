@@ -27,6 +27,12 @@
 import UIKit
 import AVFoundation
 
+// "https://s3.amazonaws.com/ray.wenderlich/elephant_safari.mp4"
+// From: https://www.raywenderlich.com/136692/introduction-google-cardboard-ios
+
+// "http://www.kolor.com/360-videos-files/noa-neal-graffiti-360-music-video-full-hd.mp4"
+// From : http://www.kolor.com
+
 class PlaylistViewController: UIViewController
 {
     private static let UrlString = "https://vimeo-prod-archive-std-us.storage.googleapis.com/videos/580317808?GoogleAccessId=GOOGHOVZWCHVINHSLPGA&Expires=1564090179&Signature=8ea%2Fk6n8I7%2FPr5yAoIbkoqINbyM%3D"
