@@ -62,8 +62,8 @@ class ThreeSixtyViewController: UIViewController, SCNSceneRendererDelegate
     {
         super.viewDidLoad()
         
-        // TODO: Find a better way to add the recognizer to the view that allows panGestureController & panGestureRecognizer to be private.
-        self.view.addGestureRecognizer(self.navigator.panGestureController.panGestureRecognizer)
+        // Ensure that navigator's pan gesture is added to our view.
+        self.navigator.setupPanGestureRecognizer(withView: self.view)
         
         // Navigation mode is initially .None.
         self.navigator.navigationMode = .PanGestureAndDeviceMotion

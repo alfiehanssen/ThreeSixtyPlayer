@@ -55,7 +55,7 @@ class ThreeSixtyNavigator
     }
     
     /// The controller used to track the pan gesture's translation delta.
-    let panGestureController = PanGestureController() // TODO: Can we make this private?
+    private let panGestureController = PanGestureController()
     
     /// The controller used to track the device motion (orientation).
     private let deviceMotionController = DeviceMotionController()
@@ -71,6 +71,16 @@ class ThreeSixtyNavigator
     {
         didSet
         {
+            // Confirm that if we're attempting to use a gesture that the gesture recognizer is associated with a view.
+            if (self.navigationMode == .PanGesture
+                || self.navigationMode == .PanGestureAndDeviceMotion)
+                && self.panGestureController.panGestureRecognizer.view == nil
+            {
+                assertionFailure("Attempt to navigate with a pan gesture that's not yet added to a view. Call setupPanGestureRecognizer first.")
+            
+                return
+            }
+
             switch self.navigationMode
             {
             case .None:
@@ -90,6 +100,16 @@ class ThreeSixtyNavigator
                 self.deviceMotionController.enabled = true
             }
         }
+    }
+    
+    /**
+     A method that adds the pan gesture recognizer to the specified view. 
+     
+     - parameter view: An optional UIView argument. This is the view that the pan gesture recognizer will be added to. If you intend to leverage pan as navigation you must specify this view upfront.
+     */
+    func setupPanGestureRecognizer(withView view: UIView)
+    {
+        view.addGestureRecognizer(self.panGestureController.panGestureRecognizer)
     }
     
     /**

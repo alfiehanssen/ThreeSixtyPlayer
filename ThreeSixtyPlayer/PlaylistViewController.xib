@@ -24,16 +24,57 @@
                     <state key="normal" title="Monoscopic Equirectangular">
                         <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <state key="disabled">
+                        <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
                     <connections>
-                        <action selector="didTapButton:" destination="-1" eventType="touchUpInside" id="ToE-O9-gaY"/>
+                        <action selector="didTapMonoscopicButton:" destination="-1" eventType="touchUpInside" id="JgA-n1-De6"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0j6-u6-rw0">
+                    <color key="backgroundColor" red="0.86030657249999998" green="0.53485926269999995" blue="1" alpha="0.40000000000000002" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="45" id="gnT-Lz-pdJ"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <state key="normal" title="Stereoscopic Equirectangular Top/Bottom">
+                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <state key="disabled">
+                        <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="didTapStereoscopicTopBottomButton:" destination="-1" eventType="touchUpInside" id="Htm-d0-GnO"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bFt-kI-5Jz">
+                    <color key="backgroundColor" red="0.86030657249999998" green="0.53485926269999995" blue="1" alpha="0.40000000000000002" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="45" id="nPW-ZY-rPg"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <state key="normal" title="Stereoscopic Equirectangular Left/Right">
+                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <state key="disabled">
+                        <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="didTapStereoscopicLeftRightButton:" destination="-1" eventType="touchUpInside" id="WlV-Qy-otv"/>
                     </connections>
                 </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstAttribute="trailing" secondItem="0j6-u6-rw0" secondAttribute="trailing" id="3SY-fC-t1D"/>
                 <constraint firstItem="w1p-In-ZEW" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="6f1-Bh-QIM"/>
+                <constraint firstItem="bFt-kI-5Jz" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="7mx-Bh-rxB"/>
+                <constraint firstAttribute="trailing" secondItem="bFt-kI-5Jz" secondAttribute="trailing" id="GIZ-sf-I9V"/>
+                <constraint firstItem="w1p-In-ZEW" firstAttribute="top" secondItem="0j6-u6-rw0" secondAttribute="bottom" constant="15" id="Onl-GI-J7s"/>
                 <constraint firstAttribute="trailing" secondItem="w1p-In-ZEW" secondAttribute="trailing" id="asu-IL-y2d"/>
                 <constraint firstAttribute="bottom" secondItem="w1p-In-ZEW" secondAttribute="bottom" id="oNt-Yd-Y31"/>
+                <constraint firstItem="0j6-u6-rw0" firstAttribute="top" secondItem="bFt-kI-5Jz" secondAttribute="bottom" constant="15" id="qeX-xd-pH2"/>
+                <constraint firstItem="0j6-u6-rw0" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="wx3-PL-1Kc"/>
             </constraints>
         </view>
     </objects>

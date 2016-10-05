@@ -33,10 +33,17 @@ import AVFoundation
 // "http://www.kolor.com/360-videos-files/noa-neal-graffiti-360-music-video-full-hd.mp4"
 // From : http://www.kolor.com
 
-class PlaylistViewController: UIViewController
+struct DemoMedia
 {
-    private static let UrlString = "https://vimeo-prod-archive-std-us.storage.googleapis.com/videos/580317808?GoogleAccessId=GOOGHOVZWCHVINHSLPGA&Expires=1564090179&Signature=8ea%2Fk6n8I7%2FPr5yAoIbkoqINbyM%3D"
+    static let Monoscopic = "https://vimeo-prod-archive-std-us.storage.googleapis.com/videos/580317808?GoogleAccessId=GOOGHOVZWCHVINHSLPGA&Expires=1564090179&Signature=8ea%2Fk6n8I7%2FPr5yAoIbkoqINbyM%3D"
     
+    static let StereoscopicTopBottom = ""
+    
+    static let StereoscopicLeftRight = ""
+}
+
+class PlaylistViewController: UIViewController
+{    
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -44,9 +51,9 @@ class PlaylistViewController: UIViewController
         self.title = NSLocalizedString("Media List", comment: "The title of the Media List view controller.")
     }
     
-    @IBAction func didTapButton(_ sender: UIButton)
+    @IBAction func didTapMonoscopicButton(_ sender: UIButton)
     {
-        let string = type(of: self).UrlString
+        let string = DemoMedia.Monoscopic
         let url = URL(string: string)!
         let playerItem = AVPlayerItem(url: url)
         
@@ -56,6 +63,29 @@ class PlaylistViewController: UIViewController
         self.navigationController?.isNavigationBarHidden = true
 
         self.navigationController?.pushViewController(viewController, animated: true)
+    }
+
+    @IBAction func didTapStereoscopicTopBottomButton(_ sender: UIButton)
+    {
+        let string = DemoMedia.StereoscopicTopBottom
+        let url = URL(string: string)!
+        let playerItem = AVPlayerItem(url: url)
+        
+        let viewController = ThreeSixtyViewController()
+        viewController.player.replaceCurrentItem(with: playerItem)
+        
+        self.navigationController?.isNavigationBarHidden = true
+        
+        self.navigationController?.pushViewController(viewController, animated: true)
+    }
+
+    @IBAction func didTapStereoscopicLeftRightButton(_ sender: UIButton)
+    {
+        let string = DemoMedia.StereoscopicLeftRight
+        let url = URL(string: string)!
+        let playerItem = AVPlayerItem(url: url)
+        
+        // TODO: implement this.
     }
 }
 
