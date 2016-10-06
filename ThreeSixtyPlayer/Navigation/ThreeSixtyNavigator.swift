@@ -29,6 +29,8 @@ import UIKit
 import CoreMotion
 import SceneKit
 
+let SCNQuaternionIdentity = SCNQuaternion(x: GLKQuaternionIdentity.x, y: GLKQuaternionIdentity.y, z: GLKQuaternionIdentity.z, w: GLKQuaternionIdentity.w)
+
 /// A controller that manages the 360 player's navigation mode and by extension a pan gesture controller and a device motion controller.
 class ThreeSixtyNavigator
 {
@@ -48,10 +50,10 @@ class ThreeSixtyNavigator
      */
     enum NavigationMode
     {
-        case None
-        case PanGesture
-        case DeviceMotion
-        case PanGestureAndDeviceMotion
+        case none
+        case panGesture
+        case deviceMotion
+        case panGestureAndDeviceMotion
     }
     
     /// The controller used to track the pan gesture's translation delta.
@@ -66,14 +68,22 @@ class ThreeSixtyNavigator
     /// The cumulative amount of pan gesture translation in the Y direction.
     private var cumulativePanOffsetY: Float = 0
     
+    /// The single source of truth for camera orientation. The default value is SCNQuaternionIdentity.
+    private var orientation: SCNQuaternion
+    
+    init(initialOrientation: SCNQuaternion = SCNQuaternionIdentity)
+    {
+        self.orientation = initialOrientation
+    }
+    
     /// The mode by which the user navigates around the video sphere.
-    var navigationMode: NavigationMode = .None
+    var navigationMode: NavigationMode = .none
     {
         didSet
         {
             // Confirm that if we're attempting to use a gesture that the gesture recognizer is associated with a view.
-            if (self.navigationMode == .PanGesture
-                || self.navigationMode == .PanGestureAndDeviceMotion)
+            if (self.navigationMode == .panGesture
+                || self.navigationMode == .panGestureAndDeviceMotion)
                 && self.panGestureController.panGestureRecognizer.view == nil
             {
                 assertionFailure("Attempt to navigate with a pan gesture that's not yet added to a view. Call setupPanGestureRecognizer first.")
@@ -83,19 +93,19 @@ class ThreeSixtyNavigator
 
             switch self.navigationMode
             {
-            case .None:
+            case .none:
                 self.panGestureController.enabled = false
                 self.deviceMotionController.enabled = false
                 
-            case .PanGesture:
+            case .panGesture:
                 self.deviceMotionController.enabled = false
                 self.panGestureController.enabled = true
                 
-            case .DeviceMotion:
+            case .deviceMotion:
                 self.panGestureController.enabled = false
                 self.deviceMotionController.enabled = true
                 
-            case .PanGestureAndDeviceMotion:
+            case .panGestureAndDeviceMotion:
                 self.panGestureController.enabled = true
                 self.deviceMotionController.enabled = true
             }
@@ -119,36 +129,38 @@ class ThreeSixtyNavigator
      
      - returns: The modified `orientation` after having applied the appropriate pan gesture and/or device motion rotations.
      */
-    func currentOrientation(orientation: SCNQuaternion) -> SCNQuaternion?
+    func currentOrientation() -> SCNQuaternion
     {
         switch self.navigationMode
         {
-        case .None:
-            return nil
+        case .none:
+            break
 
-        case .DeviceMotion:
+        case .deviceMotion:
             // Device motion can be nil at times, this is ok.
             guard let deviceMotion = self.deviceMotionController.currentDeviceMotion else
             {
-                return nil
+                break
             }
             
-            return deviceMotion.gaze(atOrientation: UIApplication.shared.statusBarOrientation)
+            self.orientation = deviceMotion.gaze(atOrientation: UIApplication.shared.statusBarOrientation)
             
-        case .PanGesture:
+            break
+            
+        case .panGesture:
             
             let rotationOffset = self.panGestureRotationOffset()
-            let currentOrientation = type(of: self).rotateOrientation(orientation: orientation, byRotationOffset: rotationOffset)
+            self.orientation = type(of: self).rotateOrientation(orientation: self.orientation, byRotationOffset: rotationOffset)
             
-            return currentOrientation
+            break
             
-        case .PanGestureAndDeviceMotion:
+        case .panGestureAndDeviceMotion:
             // Device motion can be nil at times, this is ok.
             guard let deviceMotion = self.deviceMotionController.currentDeviceMotion else
             {
                 // TODO: Should we fall back on pan gesture here? [AH] 10/1/2016
                 
-                return nil
+                break
             }
             
             let rotationOffset = self.panGestureRotationOffset()
@@ -159,10 +171,12 @@ class ThreeSixtyNavigator
 
             let orientation = deviceMotion.gaze(atOrientation: UIApplication.shared.statusBarOrientation)
             let cumulativeOffset = RotationOffset(x: self.cumulativePanOffsetX, y: self.cumulativePanOffsetY)
-            let currentOrientation = type(of: self).rotateOrientation(orientation: orientation, byRotationOffset: cumulativeOffset)
+            self.orientation = type(of: self).rotateOrientation(orientation: orientation, byRotationOffset: cumulativeOffset)
             
-            return currentOrientation
+            break
         }
+        
+        return self.orientation
     }
     
     private func panGestureRotationOffset() -> RotationOffset

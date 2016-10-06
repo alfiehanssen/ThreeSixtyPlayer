@@ -1,8 +1,8 @@
 //
-//  ThreeSixtyScene.swift
-//  360Player
+//  VideoScene.swift
+//  ThreeSixtyPlayer
 //
-//  Created by Alfred Hanssen on 9/14/16.
+//  Created by Alfred Hanssen on 10/5/16.
 //  Copyright © 2016 Alfie Hanssen. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -24,76 +24,87 @@
 //  THE SOFTWARE.
 //
 
-import SceneKit
 import SpriteKit
 import AVFoundation
 
-class ThreeSixtyScene: SCNScene
+enum VideoViewPort
 {
-    /// The radius of the sphere on which we project the video texture.
-    private static let SphereRadius: CGFloat = 100 // TODO: How to choose the sphere radius? [AH] 7/7/2016
+    case monoscopic
+    case stereoscopic(quadrant)
     
+    enum quadrant
+    {
+        case top
+        case bottom
+        case left
+        case right
+    }
+    
+    var anchorPoint: CGPoint
+    {
+        switch self
+        {
+        case .monoscopic:
+            return CGPoint(x: 0.5, y: 0.5)
+            
+        case .stereoscopic(let quadrant):
+            switch quadrant
+            {
+            case .top:
+                return CGPoint(x: 0.5, y: 0.5)
+
+            case .bottom:
+                return CGPoint(x: 0.5, y: 0.5)
+                
+            case .left:
+                return CGPoint(x: 0.5, y: 0.5)
+                
+            case .right:
+                return CGPoint(x: 0.5, y: 0.5)
+            }
+        }
+    }
+}
+
+class VideoScene: SKScene
+{
     /// The default size of the SKVideoNode and SKScene, updated when the player's item updates.
     private static let DefaultVideoResolution = CGSize(width: 1920, height: 1080)
-
+    
     /// The KVO key path used to observe changes to the player's currentItem.
     private static let PlayerCurrentItemKeyPath = "currentItem"
-
+    
     /// The KVO context used to observe changes to the player's currentItem.
     private var playerCurrentItemKVOContext = 0
-
+    
     /// The SpriteKit node that displays the video.
     private let videoNode: SKVideoNode
     
-    /// The SpriteKit scene that contains the videoNode.
-    private let spriteKitScene: SKScene
-    
-    /// The camera node used to view the inside of the sphere (video).
-    let cameraNode: SCNNode
-    
     /// The video player that is projected onto the spehere.
-    var player = AVPlayer()
+    private let player: AVPlayer
+    
+    private let videoViewPort: VideoViewPort
     
     deinit
     {
         self.removePlayerItemObserver()
     }
     
-    override init()
+    init(player: AVPlayer, videoViewPort: VideoViewPort)
     {
-        self.videoNode = SKVideoNode(avPlayer: self.player)
+        self.player = player
+        
+        self.videoNode = SKVideoNode(avPlayer: player)
         self.videoNode.yScale = -1 // Flip the video so it appears right side up
         
-        self.spriteKitScene = SKScene()
-        self.spriteKitScene.scaleMode = .aspectFit
-        self.spriteKitScene.addChild(self.videoNode)
-
-        self.cameraNode = SCNNode()
-        self.cameraNode.position = SCNVector3Zero
-        self.cameraNode.pivot = SCNMatrix4Identity
-        self.cameraNode.camera = SCNCamera()
-        self.cameraNode.camera?.automaticallyAdjustsZRange = true
-
-        super.init()
+        super.init(size: .zero)
         
-        let material = SCNMaterial()
-        material.diffuse.contents = self.spriteKitScene
-        material.cullMode = .front // Ensure that the material renders on the inside of our sphere
-        
-        let sphere = SCNSphere()
-        sphere.radius = type(of: self).SphereRadius
-        sphere.firstMaterial = material
-        
-        let geometryNode = SCNNode()
-        geometryNode.geometry = sphere
-        geometryNode.position = SCNVector3Zero
-        
-        self.rootNode.addChildNode(geometryNode)
-        self.rootNode.addChildNode(self.cameraNode)
+        self.scaleMode = .aspectFit
+        self.addChild(self.videoNode)
         
         let defaultResolution = type(of: self).DefaultVideoResolution
         self.updateGeometryForVideoResolution(resolution: defaultResolution)
-
+        
         self.addPlayerItemObserver()
     }
     
@@ -123,7 +134,7 @@ class ThreeSixtyScene: SCNScene
             {
                 return
             }
-
+            
             self.updateGeometryForPlayerItem(playerItem: playerItem)
         }
         else
@@ -131,6 +142,8 @@ class ThreeSixtyScene: SCNScene
             super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
         }
     }
+    
+    // MARK: - Observer Utilities
     
     private func updateGeometryForPlayerItem(playerItem: AVPlayerItem)
     {
@@ -144,8 +157,8 @@ class ThreeSixtyScene: SCNScene
         
         self.updateGeometryForVideoResolution(resolution: resolution)
     }
-
-    /// Changes the SpriteKit scene and video node size and position to match the specified resolution.
+    
+    /// Changes the scene and video node size and position to match the specified resolution.
     private func updateGeometryForVideoResolution(resolution: CGSize)
     {
         // TODO: Does this account for screen scale? [AH] 7/7/2016
@@ -155,8 +168,8 @@ class ThreeSixtyScene: SCNScene
         
         self.videoNode.position = position
         self.videoNode.size = resolution
-        
-        self.spriteKitScene.size = resolution
+
+        self.size = resolution
     }
 }
 
