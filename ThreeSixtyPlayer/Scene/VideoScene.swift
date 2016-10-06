@@ -27,12 +27,12 @@
 import SpriteKit
 import AVFoundation
 
-enum VideoViewPort
+enum VideoMapping
 {
-    case monoscopic
-    case stereoscopic(quadrant)
+    case monoscopic(resolution: CGSize)
+    case stereoscopic(resolution: CGSize, quadrant: Quadrant)
     
-    enum quadrant
+    enum Quadrant
     {
         case top
         case bottom
@@ -47,7 +47,7 @@ enum VideoViewPort
         case .monoscopic:
             return CGPoint(x: 0.5, y: 0.5)
             
-        case .stereoscopic(let quadrant):
+        case .stereoscopic(_, let quadrant):
             switch quadrant
             {
             case .top:
@@ -64,18 +64,37 @@ enum VideoViewPort
             }
         }
     }
+    
+    var resolution: CGSize
+    {
+        switch self
+        {
+        case .monoscopic(resolution: let resolution):
+            return resolution
+            
+        case .stereoscopic(resolution: let resolution, quadrant: let quadrant):
+            switch quadrant
+            {
+            case .top, .bottom:
+                return CGSize(width: resolution.width, height: resolution.height / 2)
+                
+            case .left, .right:
+                return CGSize(width: resolution.width / 2, height: resolution.height)
+            }
+        }
+    }
 }
 
 class VideoScene: SKScene
 {
     /// The default size of the SKVideoNode and SKScene, updated when the player's item updates.
-    private static let DefaultVideoResolution = CGSize(width: 1920, height: 1080)
+//    private static let DefaultVideoResolution = CGSize(width: 1920, height: 1080)
     
     /// The KVO key path used to observe changes to the player's currentItem.
-    private static let PlayerCurrentItemKeyPath = "currentItem"
+//    private static let PlayerCurrentItemKeyPath = "currentItem"
     
     /// The KVO context used to observe changes to the player's currentItem.
-    private var playerCurrentItemKVOContext = 0
+//    private var playerCurrentItemKVOContext = 0
     
     /// The SpriteKit node that displays the video.
     private let videoNode: SKVideoNode
@@ -83,21 +102,22 @@ class VideoScene: SKScene
     /// The video player that is projected onto the spehere.
     private let player: AVPlayer
     
-    private let videoViewPort: VideoViewPort
+    private let videoMapping: VideoMapping
     
-    deinit
-    {
-        self.removePlayerItemObserver()
-    }
+//    deinit
+//    {
+//        self.removePlayerItemObserver()
+//    }
     
-    init(player: AVPlayer, videoViewPort: VideoViewPort)
+    init(player: AVPlayer, videoMapping: VideoMapping)
     {
         self.player = player
+        self.videoMapping = videoMapping
         
         self.videoNode = SKVideoNode(avPlayer: player)
         self.videoNode.yScale = -1 // Flip the video so it appears right side up
         
-        super.init(size: .zero)
+        super.init(size: videoMapping.resolution)
         
         self.scaleMode = .aspectFit
         self.addChild(self.videoNode)

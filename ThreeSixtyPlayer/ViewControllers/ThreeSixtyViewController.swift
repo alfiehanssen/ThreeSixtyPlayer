@@ -212,7 +212,7 @@ class ThreeSixtyViewController: UIViewController, SCNSceneRendererDelegate
                 return
             }
 
-            let orientation = strongSelf.navigator.currentOrientation()
+            let orientation = strongSelf.navigator.updateCurrentOrientation()
             
             strongSelf.leftScene.cameraNode.orientation = orientation
             strongSelf.rightScene.cameraNode.orientation = orientation

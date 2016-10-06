@@ -68,12 +68,12 @@ class ThreeSixtyNavigator
     /// The cumulative amount of pan gesture translation in the Y direction.
     private var cumulativePanOffsetY: Float = 0
     
-    /// The single source of truth for camera orientation. The default value is SCNQuaternionIdentity.
-    private var orientation: SCNQuaternion
+    /// The single source of truth for camera orientation. The default initial value is SCNQuaternionIdentity.
+    private var currentOrientation: SCNQuaternion
     
     init(initialOrientation: SCNQuaternion = SCNQuaternionIdentity)
     {
-        self.orientation = initialOrientation
+        self.currentOrientation = initialOrientation
     }
     
     /// The mode by which the user navigates around the video sphere.
@@ -129,7 +129,7 @@ class ThreeSixtyNavigator
      
      - returns: The modified `orientation` after having applied the appropriate pan gesture and/or device motion rotations.
      */
-    func currentOrientation() -> SCNQuaternion
+    func updateCurrentOrientation() -> SCNQuaternion
     {
         switch self.navigationMode
         {
@@ -143,14 +143,14 @@ class ThreeSixtyNavigator
                 break
             }
             
-            self.orientation = deviceMotion.gaze(atOrientation: UIApplication.shared.statusBarOrientation)
+            self.currentOrientation = deviceMotion.gaze(atOrientation: UIApplication.shared.statusBarOrientation)
             
             break
             
         case .panGesture:
             
             let rotationOffset = self.panGestureRotationOffset()
-            self.orientation = type(of: self).rotateOrientation(orientation: self.orientation, byRotationOffset: rotationOffset)
+            self.currentOrientation = type(of: self).rotateOrientation(orientation: self.currentOrientation, byRotationOffset: rotationOffset)
             
             break
             
@@ -171,12 +171,12 @@ class ThreeSixtyNavigator
 
             let orientation = deviceMotion.gaze(atOrientation: UIApplication.shared.statusBarOrientation)
             let cumulativeOffset = RotationOffset(x: self.cumulativePanOffsetX, y: self.cumulativePanOffsetY)
-            self.orientation = type(of: self).rotateOrientation(orientation: orientation, byRotationOffset: cumulativeOffset)
+            self.currentOrientation = type(of: self).rotateOrientation(orientation: orientation, byRotationOffset: cumulativeOffset)
             
             break
         }
         
-        return self.orientation
+        return self.currentOrientation
     }
     
     private func panGestureRotationOffset() -> RotationOffset
