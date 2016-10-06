@@ -49,6 +49,11 @@ class MonoscopicViewController: UIViewController, SCNSceneRendererDelegate
     {
         super.viewDidLoad()
 
+        guard case VideoType.monoscopic = self.video.type else
+        {
+            fatalError("Attempt to load non-mono video in mono view controller.")
+        }
+        
         self.view.backgroundColor = UIColor.black
         
         self.scene = MonoscopicScene(player: self.player, initialVideoResolution: self.video.resolution)
