@@ -79,9 +79,24 @@ class ThreeSixtyViewController: UIViewController, SCNSceneRendererDelegate
     
     private func setupScenes()
     {
-        // TODO: dont hard code left / right
-        self.leftScene = ThreeSixtyScene(player: self.player, initialVideoMapping: .left(resolution: self.videoInfo.resolution))
-        self.rightScene = ThreeSixtyScene(player: self.player, initialVideoMapping: .right(resolution: self.videoInfo.resolution))
+        switch self.videoInfo
+        {
+        case .none, .monoscopic:
+            self.leftScene = ThreeSixtyScene(player: self.player, initialVideoMapping: .none(resolution: self.videoInfo.resolution))
+            self.rightScene = ThreeSixtyScene(player: self.player, initialVideoMapping: .none(resolution: self.videoInfo.resolution))
+            
+        case .stereoscopic(resolution: let resolution, layout: let layout):
+            switch layout
+            {
+            case .topBottom:
+                self.leftScene = ThreeSixtyScene(player: self.player, initialVideoMapping: .top(resolution: resolution))
+                self.rightScene = ThreeSixtyScene(player: self.player, initialVideoMapping: .bottom(resolution: resolution))
+                
+            case .leftRight:
+                self.leftScene = ThreeSixtyScene(player: self.player, initialVideoMapping: .left(resolution: resolution))
+                self.rightScene = ThreeSixtyScene(player: self.player, initialVideoMapping: .right(resolution: resolution))
+            }
+        }
     }
     
     private func setupSceneViews()
@@ -146,21 +161,29 @@ class ThreeSixtyViewController: UIViewController, SCNSceneRendererDelegate
     
     private func setupMonoscopicConstraints()
     {
+        let leftTopConstraint = NSLayoutConstraint(item: self.view, attribute: .top, relatedBy: .equal, toItem: self.leftSceneView, attribute: .top, multiplier: 1, constant: 0)
+        let leftLeadingConstraint = NSLayoutConstraint(item: self.view, attribute: .leading, relatedBy: .equal, toItem: self.leftSceneView, attribute: .leading, multiplier: 1, constant: 0)
+        let leftBottomConstraint = NSLayoutConstraint(item: self.view, attribute: .bottom, relatedBy: .equal, toItem: self.leftSceneView, attribute: .bottom, multiplier: 1, constant: 0)
+        let leftTrailingConstraint = NSLayoutConstraint(item: self.view, attribute: .trailing, relatedBy: .equal, toItem: self.leftSceneView, attribute: .trailing, multiplier: 1, constant: 0)
         
+        self.view.addConstraint(leftTopConstraint)
+        self.view.addConstraint(leftLeadingConstraint)
+        self.view.addConstraint(leftBottomConstraint)
+        self.view.addConstraint(leftTrailingConstraint)
     }
     
     private func setupStereoscopicConstraints()
     {
-        let leftTopConstraint = NSLayoutConstraint(item: self.view, attribute: .top, relatedBy: .equal, toItem: leftSceneView, attribute: .top, multiplier: 1, constant: 0)
-        let leftLeadingConstraint = NSLayoutConstraint(item: self.view, attribute: .leading, relatedBy: .equal, toItem: leftSceneView, attribute: .leading, multiplier: 1, constant: 0)
-        let leftBottomConstraint = NSLayoutConstraint(item: self.view, attribute: .bottom, relatedBy: .equal, toItem: leftSceneView, attribute: .bottom, multiplier: 1, constant: 0)
+        let leftTopConstraint = NSLayoutConstraint(item: self.view, attribute: .top, relatedBy: .equal, toItem: self.leftSceneView, attribute: .top, multiplier: 1, constant: 0)
+        let leftLeadingConstraint = NSLayoutConstraint(item: self.view, attribute: .leading, relatedBy: .equal, toItem: self.leftSceneView, attribute: .leading, multiplier: 1, constant: 0)
+        let leftBottomConstraint = NSLayoutConstraint(item: self.view, attribute: .bottom, relatedBy: .equal, toItem: self.leftSceneView, attribute: .bottom, multiplier: 1, constant: 0)
         
-        let middleConstraint = NSLayoutConstraint(item: leftSceneView, attribute: .trailing, relatedBy: .equal, toItem: rightSceneView, attribute: .leading, multiplier: 1, constant: 0)
-        let widthConstraint = NSLayoutConstraint(item: leftSceneView, attribute: .width, relatedBy: .equal, toItem: rightSceneView, attribute: .width, multiplier: 1, constant: 0)
+        let middleConstraint = NSLayoutConstraint(item: leftSceneView, attribute: .trailing, relatedBy: .equal, toItem: self.rightSceneView, attribute: .leading, multiplier: 1, constant: 0)
+        let widthConstraint = NSLayoutConstraint(item: leftSceneView, attribute: .width, relatedBy: .equal, toItem: self.rightSceneView, attribute: .width, multiplier: 1, constant: 0)
         
-        let rightTopConstraint = NSLayoutConstraint(item: self.view, attribute: .top, relatedBy: .equal, toItem: rightSceneView, attribute: .top, multiplier: 1, constant: 0)
-        let rightTrailingConstraint = NSLayoutConstraint(item: self.view, attribute: .trailing, relatedBy: .equal, toItem: rightSceneView, attribute: .trailing, multiplier: 1, constant: 0)
-        let rightBottomConstraint = NSLayoutConstraint(item: self.view, attribute: .bottom, relatedBy: .equal, toItem: rightSceneView, attribute: .bottom, multiplier: 1, constant: 0)
+        let rightTopConstraint = NSLayoutConstraint(item: self.view, attribute: .top, relatedBy: .equal, toItem: self.rightSceneView, attribute: .top, multiplier: 1, constant: 0)
+        let rightTrailingConstraint = NSLayoutConstraint(item: self.view, attribute: .trailing, relatedBy: .equal, toItem: self.rightSceneView, attribute: .trailing, multiplier: 1, constant: 0)
+        let rightBottomConstraint = NSLayoutConstraint(item: self.view, attribute: .bottom, relatedBy: .equal, toItem: self.rightSceneView, attribute: .bottom, multiplier: 1, constant: 0)
         
         self.view.addConstraint(leftTopConstraint)
         self.view.addConstraint(leftLeadingConstraint)
