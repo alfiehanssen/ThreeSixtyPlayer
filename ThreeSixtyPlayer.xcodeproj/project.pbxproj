@@ -21,8 +21,8 @@
 		AF1708111DA5487200D58F76 /* PlaylistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF17080D1DA5487200D58F76 /* PlaylistViewController.swift */; };
 		AF1708121DA5487200D58F76 /* PlaylistViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AF17080E1DA5487200D58F76 /* PlaylistViewController.xib */; };
 		AF1708131DA5487200D58F76 /* ThreeSixtyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF17080F1DA5487200D58F76 /* ThreeSixtyViewController.swift */; };
-		AF1708151DA55C9B00D58F76 /* VideoScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF1708141DA55C9B00D58F76 /* VideoScene.swift */; };
 		AF4B52221DA6C30C006FA4E0 /* VideoMapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4B52211DA6C30C006FA4E0 /* VideoMapping.swift */; };
+		AF4B52241DA6DFEA006FA4E0 /* VideoInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4B52231DA6DFEA006FA4E0 /* VideoInfo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,8 +63,8 @@
 		AF17080D1DA5487200D58F76 /* PlaylistViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistViewController.swift; sourceTree = "<group>"; };
 		AF17080E1DA5487200D58F76 /* PlaylistViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlaylistViewController.xib; sourceTree = "<group>"; };
 		AF17080F1DA5487200D58F76 /* ThreeSixtyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThreeSixtyViewController.swift; sourceTree = "<group>"; };
-		AF1708141DA55C9B00D58F76 /* VideoScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoScene.swift; sourceTree = "<group>"; };
 		AF4B52211DA6C30C006FA4E0 /* VideoMapping.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoMapping.swift; sourceTree = "<group>"; };
+		AF4B52231DA6DFEA006FA4E0 /* VideoInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoInfo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -168,8 +168,8 @@
 			isa = PBXGroup;
 			children = (
 				AF17080B1DA5487200D58F76 /* ThreeSixtyScene.swift */,
-				AF1708141DA55C9B00D58F76 /* VideoScene.swift */,
 				AF4B52211DA6C30C006FA4E0 /* VideoMapping.swift */,
+				AF4B52231DA6DFEA006FA4E0 /* VideoInfo.swift */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
@@ -319,10 +319,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AF4B52241DA6DFEA006FA4E0 /* VideoInfo.swift in Sources */,
 				AF4B52221DA6C30C006FA4E0 /* VideoMapping.swift in Sources */,
 				AF1708111DA5487200D58F76 /* PlaylistViewController.swift in Sources */,
 				AF1707BA1DA0956B00D58F76 /* AppDelegate.swift in Sources */,
-				AF1708151DA55C9B00D58F76 /* VideoScene.swift in Sources */,
 				AF1708051DA0966200D58F76 /* DeviceMotionController.swift in Sources */,
 				AF1708061DA0966200D58F76 /* PanGestureController.swift in Sources */,
 				AF1708031DA0966200D58F76 /* AVURLAsset+Extension.swift in Sources */,

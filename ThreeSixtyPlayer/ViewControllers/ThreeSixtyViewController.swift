@@ -30,19 +30,6 @@ import SpriteKit
 import AVFoundation
 import CoreMotion
 
-enum VideoInfo
-{
-    case none
-    case monoscopic(resolution: CGSize)
-    case stereoscopic(resolution: CGSize, layout: StereoscopicLayout)
-    
-    enum StereoscopicLayout
-    {
-        case topBottom
-        case leftRight
-    }
-}
-
 class ThreeSixtyViewController: UIViewController, SCNSceneRendererDelegate
 {
     /// The navigator that manages a pan gesture and device motion.
@@ -92,8 +79,9 @@ class ThreeSixtyViewController: UIViewController, SCNSceneRendererDelegate
     
     private func setupScenes()
     {
-        self.leftScene = ThreeSixtyScene(player: self.player, initialVideoMapping: .monoscopic(resolution: .zero))
-        self.rightScene = ThreeSixtyScene(player: self.player, initialVideoMapping: .monoscopic(resolution: .zero))
+        // TODO: dont hard code left / right
+        self.leftScene = ThreeSixtyScene(player: self.player, initialVideoMapping: .left(resolution: self.videoInfo.resolution))
+        self.rightScene = ThreeSixtyScene(player: self.player, initialVideoMapping: .right(resolution: self.videoInfo.resolution))
     }
     
     private func setupSceneViews()
@@ -141,7 +129,6 @@ class ThreeSixtyViewController: UIViewController, SCNSceneRendererDelegate
             self.rightSceneView.isHidden = true
             self.stopPlayback()
             self.setupMonoscopicConstraints()
-            break
             
         case .monoscopic:
             self.setupMonoscopicConstraints()

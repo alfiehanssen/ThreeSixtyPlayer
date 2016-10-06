@@ -1,5 +1,5 @@
 //
-//  VideoMapping.swift
+//  VideoInfo.swift
 //  ThreeSixtyPlayer
 //
 //  Created by Alfred Hanssen on 10/6/16.
@@ -27,48 +27,30 @@
 import Foundation
 import CoreGraphics
 
-enum VideoMapping
+enum VideoInfo
 {
-    case none(resolution: CGSize)
-    case top(resolution: CGSize)
-    case bottom(resolution: CGSize)
-    case left(resolution: CGSize)
-    case right(resolution: CGSize)
+    case none
+    case monoscopic(resolution: CGSize)
+    case stereoscopic(resolution: CGSize, layout: StereoscopicLayout)
     
-    var anchorPoint: CGPoint
+    enum StereoscopicLayout
     {
-        switch self
-        {
-        case .none:
-            return CGPoint(x: 0.5, y: 0.5)
-            
-        case .top:
-            return CGPoint(x: 0.5, y: 0.5)
-            
-        case .bottom:
-            return CGPoint(x: 0.5, y: 0.5)
-            
-        case .left:
-            return CGPoint(x: 0.5, y: 0.5)
-            
-        case .right:
-            return CGPoint(x: 0.5, y: 0.5)
-        }
+        case topBottom
+        case leftRight
     }
     
     var resolution: CGSize
     {
         switch self
         {
-        case .none(resolution: let resolution):
+        case .none:
+            return .zero
+            
+        case .monoscopic(resolution: let resolution):
             return resolution
             
-        case .top(resolution: let resolution), .bottom(resolution: let resolution):
-            return CGSize(width: resolution.width, height: resolution.height / 2)
-            
-        case .left(resolution: let resolution), .right(resolution: let resolution):
-            return CGSize(width: resolution.width / 2, height: resolution.height)
+        case .stereoscopic(resolution: let resolution, layout: _):
+            return resolution
         }
     }
 }
-

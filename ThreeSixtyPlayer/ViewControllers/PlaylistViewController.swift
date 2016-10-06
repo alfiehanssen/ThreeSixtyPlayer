@@ -39,9 +39,9 @@ struct DemoMedia
 {
     static let Monoscopic = "https://fpdl.vimeocdn.com/vimeo-prod-skyfire-std-us/01/649/7/178248880/580318297.mp4?token=938d3a52_0xfb2509dff5d09d6849327592792df58673fcca43"
     
-    static let StereoscopicTopBottom = ""
+    static let StereoscopicTopBottom = Monoscopic
     
-    static let StereoscopicLeftRight = ""
+    static let StereoscopicLeftRight = Monoscopic
     
     static let DefaultResolution = CGSize(width: 1920, height: 1080)
 }
@@ -57,43 +57,36 @@ class PlaylistViewController: UIViewController
     
     @IBAction func didTapMonoscopicButton(_ sender: UIButton)
     {
-        let string = DemoMedia.Monoscopic
-        let url = URL(string: string)!
-        let playerItem = AVPlayerItem(url: url)
+        let urlString = DemoMedia.Monoscopic
+        let videoInfo = VideoInfo.monoscopic(resolution: DemoMedia.DefaultResolution)
         
-        let viewController = ThreeSixtyViewController()
-        viewController.videoInfo = .monoscopic(resolution: DemoMedia.DefaultResolution)
-        viewController.player = AVPlayer()
-        viewController.player.replaceCurrentItem(with: playerItem)
-        
-        self.navigationController?.isNavigationBarHidden = true
-
-        self.navigationController?.pushViewController(viewController, animated: true)
+        self.presentPlayerViewController(urlString: urlString, videoInfo: videoInfo)
     }
 
     @IBAction func didTapStereoscopicTopBottomButton(_ sender: UIButton)
     {
-        let string = DemoMedia.StereoscopicTopBottom
-        let url = URL(string: string)!
-        let playerItem = AVPlayerItem(url: url)
-        
-        let viewController = ThreeSixtyViewController()
-        viewController.videoInfo = .stereoscopic(resolution: DemoMedia.DefaultResolution, layout: .topBottom)
-        viewController.player.replaceCurrentItem(with: playerItem)
-        
-        self.navigationController?.isNavigationBarHidden = true
-        
-        self.navigationController?.pushViewController(viewController, animated: true)
+        let urlString = DemoMedia.StereoscopicTopBottom
+        let videoInfo = VideoInfo.stereoscopic(resolution: DemoMedia.DefaultResolution, layout: .topBottom)
+
+        self.presentPlayerViewController(urlString: urlString, videoInfo: videoInfo)
     }
 
     @IBAction func didTapStereoscopicLeftRightButton(_ sender: UIButton)
     {
-        let string = DemoMedia.StereoscopicLeftRight
-        let url = URL(string: string)!
+        let urlString = DemoMedia.StereoscopicLeftRight
+        let videoInfo = VideoInfo.stereoscopic(resolution: DemoMedia.DefaultResolution, layout: .leftRight)
+
+        self.presentPlayerViewController(urlString: urlString, videoInfo: videoInfo)
+    }
+    
+    private func presentPlayerViewController(urlString: String, videoInfo: VideoInfo)
+    {
+        let url = URL(string: urlString)!
         let playerItem = AVPlayerItem(url: url)
         
         let viewController = ThreeSixtyViewController()
-        viewController.videoInfo = .stereoscopic(resolution: DemoMedia.DefaultResolution, layout: .leftRight)
+        viewController.videoInfo = videoInfo
+        viewController.player = AVPlayer()
         viewController.player.replaceCurrentItem(with: playerItem)
         
         self.navigationController?.isNavigationBarHidden = true
