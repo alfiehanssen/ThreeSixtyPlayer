@@ -26,9 +26,7 @@
 
 import UIKit
 import SceneKit
-import SpriteKit
 import AVFoundation
-import CoreMotion
 
 class ThreeSixtyViewController: UIViewController, SCNSceneRendererDelegate
 {
@@ -45,7 +43,7 @@ class ThreeSixtyViewController: UIViewController, SCNSceneRendererDelegate
     var player: AVPlayer!
     
     /// An enum case that describes the video type, resolution, and layout (in the case of stereoscopic).
-    var videoInfo: VideoInfo = .none
+    var video: SphericalVideo! 
     
     // MARK: Lifecycle
     
@@ -79,22 +77,22 @@ class ThreeSixtyViewController: UIViewController, SCNSceneRendererDelegate
     
     private func setupScenes()
     {
-        switch self.videoInfo
+        switch self.video.type
         {
-        case .none, .monoscopic:
-            self.leftScene = ThreeSixtyScene(player: self.player, initialVideoMapping: .none(resolution: self.videoInfo.resolution))
-            self.rightScene = ThreeSixtyScene(player: self.player, initialVideoMapping: .none(resolution: self.videoInfo.resolution))
+        case .monoscopic:
+            self.leftScene = ThreeSixtyScene(player: self.player, initialVideoMapping: .none(resolution: self.video.resolution))
+            self.rightScene = ThreeSixtyScene(player: self.player, initialVideoMapping: .none(resolution: self.video.resolution))
             
-        case .stereoscopic(resolution: let resolution, layout: let layout):
+        case .stereoscopic(layout: let layout):
             switch layout
             {
             case .topBottom:
-                self.leftScene = ThreeSixtyScene(player: self.player, initialVideoMapping: .top(resolution: resolution))
-                self.rightScene = ThreeSixtyScene(player: self.player, initialVideoMapping: .bottom(resolution: resolution))
+                self.leftScene = ThreeSixtyScene(player: self.player, initialVideoMapping: .top(resolution: self.video.resolution))
+                self.rightScene = ThreeSixtyScene(player: self.player, initialVideoMapping: .bottom(resolution: self.video.resolution))
                 
             case .leftRight:
-                self.leftScene = ThreeSixtyScene(player: self.player, initialVideoMapping: .left(resolution: resolution))
-                self.rightScene = ThreeSixtyScene(player: self.player, initialVideoMapping: .right(resolution: resolution))
+                self.leftScene = ThreeSixtyScene(player: self.player, initialVideoMapping: .left(resolution: self.video.resolution))
+                self.rightScene = ThreeSixtyScene(player: self.player, initialVideoMapping: .right(resolution: self.video.resolution))
             }
         }
     }
@@ -137,25 +135,15 @@ class ThreeSixtyViewController: UIViewController, SCNSceneRendererDelegate
     
     private func setupViewConstraints()
     {
-        switch self.videoInfo
+        switch self.video.type
         {
-        case .none:
-            self.leftSceneView.isHidden = true
-            self.rightSceneView.isHidden = true
-            self.stopPlayback()
-            self.setupMonoscopicConstraints()
-            
         case .monoscopic:
             self.setupMonoscopicConstraints()
             self.startPlayback()
-            self.leftSceneView.isHidden = false
-            self.rightSceneView.isHidden = false
             
         case .stereoscopic:
             self.setupStereoscopicConstraints()
             self.startPlayback()
-            self.leftSceneView.isHidden = false
-            self.rightSceneView.isHidden = false
         }
     }
     

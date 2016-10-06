@@ -27,25 +27,6 @@
 import UIKit
 import AVFoundation
 
-// "https://s3.amazonaws.com/ray.wenderlich/elephant_safari.mp4"
-// From: https://www.raywenderlich.com/136692/introduction-google-cardboard-ios
-
-// "http://www.kolor.com/360-videos-files/noa-neal-graffiti-360-music-video-full-hd.mp4"
-// From : http://www.kolor.com
-
-//"https://vimeo-prod-archive-std-us.storage.googleapis.com/videos/580317808?GoogleAccessId=GOOGHOVZWCHVINHSLPGA&Expires=1564090179&Signature=8ea%2Fk6n8I7%2FPr5yAoIbkoqINbyM%3D"
-
-struct DemoMedia
-{
-    static let Monoscopic = "https://fpdl.vimeocdn.com/vimeo-prod-skyfire-std-us/01/649/7/178248880/580318297.mp4?token=938d3a52_0xfb2509dff5d09d6849327592792df58673fcca43"
-    
-    static let StereoscopicTopBottom = Monoscopic
-    
-    static let StereoscopicLeftRight = Monoscopic
-    
-    static let DefaultResolution = CGSize(width: 1920, height: 1080)
-}
-
 class PlaylistViewController: UIViewController
 {    
     override func viewDidLoad()
@@ -57,93 +38,34 @@ class PlaylistViewController: UIViewController
     
     @IBAction func didTapMonoscopicButton(_ sender: UIButton)
     {
-        let urlString = DemoMedia.Monoscopic
-        let videoInfo = VideoInfo.monoscopic(resolution: DemoMedia.DefaultResolution)
-        
-        self.presentPlayerViewController(urlString: urlString, videoInfo: videoInfo)
+        let video = SphericalVideo.demoVideo(ofType: .monoscopic)
+        self.presentPlayerViewController(withVideo: video)
     }
 
     @IBAction func didTapStereoscopicTopBottomButton(_ sender: UIButton)
     {
-        let urlString = DemoMedia.StereoscopicTopBottom
-        let videoInfo = VideoInfo.stereoscopic(resolution: DemoMedia.DefaultResolution, layout: .topBottom)
-
-        self.presentPlayerViewController(urlString: urlString, videoInfo: videoInfo)
+        let video = SphericalVideo.demoVideo(ofType: .stereoscopic(layout: .topBottom))
+        self.presentPlayerViewController(withVideo: video)
     }
 
     @IBAction func didTapStereoscopicLeftRightButton(_ sender: UIButton)
     {
-        let urlString = DemoMedia.StereoscopicLeftRight
-        let videoInfo = VideoInfo.stereoscopic(resolution: DemoMedia.DefaultResolution, layout: .leftRight)
-
-        self.presentPlayerViewController(urlString: urlString, videoInfo: videoInfo)
+        let video = SphericalVideo.demoVideo(ofType: .stereoscopic(layout: .leftRight))
+        self.presentPlayerViewController(withVideo: video)
     }
     
-    private func presentPlayerViewController(urlString: String, videoInfo: VideoInfo)
+    private func presentPlayerViewController(withVideo video: SphericalVideo)
     {
-        let url = URL(string: urlString)!
+        let url = URL(string: video.urlString)!
         let playerItem = AVPlayerItem(url: url)
+        let player = AVPlayer(playerItem: playerItem)
         
         let viewController = ThreeSixtyViewController()
-        viewController.videoInfo = videoInfo
-        viewController.player = AVPlayer()
-        viewController.player.replaceCurrentItem(with: playerItem)
+        viewController.video = video
+        viewController.player = player
         
         self.navigationController?.isNavigationBarHidden = true
-        
         self.navigationController?.pushViewController(viewController, animated: true)
     }
 }
 
-/*
-progressive: [
-{
-profile: 174,
-width: 1366,
-mime: "video/mp4",
-fps: 24,
-url: "https://fpdl.vimeocdn.com/vimeo-prod-skyfire-std-us/01/649/7/178248880/580318301.mp4?token=938d3a52_0x622cea9ad8cd5453dad0126d10246cef114c6395",
-cdn: "fastly",
-quality: "720p",
-id: 580318301,
-origin: "gcs",
-height: 682
-},
-{
-profile: 164,
-width: 640,
-mime: "video/mp4",
-fps: 24,
-url: "https://fpdl.vimeocdn.com/vimeo-prod-skyfire-std-us/01/649/7/178248880/580318298.mp4?token=938d3a52_0x02570a54a7eec023850ccc969b359e2a4d844176",
-cdn: "fastly",
-quality: "360p",
-id: 580318298,
-origin: "gcs",
-height: 320
-},
-{
-profile: 119,
-width: 1920,
-mime: "video/mp4",
-fps: 24,
-url: "https://fpdl.vimeocdn.com/vimeo-prod-skyfire-std-us/01/649/7/178248880/580318297.mp4?token=938d3a52_0xfb2509dff5d09d6849327592792df58673fcca43",
-cdn: "fastly",
-quality: "1080p",
-id: 580318297,
-origin: "gcs",
-height: 960
-},
-{
-profile: 165,
-width: 960,
-mime: "video/mp4",
-fps: 24,
-url: "https://fpdl.vimeocdn.com/vimeo-prod-skyfire-std-us/01/649/7/178248880/580318294.mp4?token=938d3a52_0xd94601765e12b284ed8f2e9d77ba9a5b6965d1ee",
-cdn: "fastly",
-quality: "540p",
-id: 580318294,
-origin: "gcs",
-height: 480
-}
-]
-*/
