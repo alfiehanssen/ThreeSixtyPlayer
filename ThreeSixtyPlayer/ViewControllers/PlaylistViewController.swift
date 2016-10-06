@@ -1,6 +1,6 @@
 //
 //  PlaylistViewController.swift
-//  360Player
+//  ThreeSixtyPlayer
 //
 //  Created by Alfred Hanssen on 9/14/16.
 //  Copyright © 2016 Alfie Hanssen. All rights reserved.
@@ -39,28 +39,42 @@ class PlaylistViewController: UIViewController
     @IBAction func didTapMonoscopicButton(_ sender: UIButton)
     {
         let video = SphericalVideo.demoVideo(ofType: .monoscopic)
-        self.presentPlayerViewController(withVideo: video)
+        self.presentMonoscopicPlayerViewController(withVideo: video)
     }
 
     @IBAction func didTapStereoscopicTopBottomButton(_ sender: UIButton)
     {
         let video = SphericalVideo.demoVideo(ofType: .stereoscopic(layout: .topBottom))
-        self.presentPlayerViewController(withVideo: video)
+        self.presentStereoscopicPlayerViewController(withVideo: video)
     }
 
     @IBAction func didTapStereoscopicLeftRightButton(_ sender: UIButton)
     {
         let video = SphericalVideo.demoVideo(ofType: .stereoscopic(layout: .leftRight))
-        self.presentPlayerViewController(withVideo: video)
+        self.presentStereoscopicPlayerViewController(withVideo: video)
     }
-    
-    private func presentPlayerViewController(withVideo video: SphericalVideo)
+
+    private func presentMonoscopicPlayerViewController(withVideo video: SphericalVideo)
     {
         let url = URL(string: video.urlString)!
         let playerItem = AVPlayerItem(url: url)
         let player = AVPlayer(playerItem: playerItem)
         
-        let viewController = ThreeSixtyViewController()
+        let viewController = MonoscopicViewController()
+        viewController.video = video
+        viewController.player = player
+        
+        self.navigationController?.isNavigationBarHidden = true
+        self.navigationController?.pushViewController(viewController, animated: true)
+    }
+
+    private func presentStereoscopicPlayerViewController(withVideo video: SphericalVideo)
+    {
+        let url = URL(string: video.urlString)!
+        let playerItem = AVPlayerItem(url: url)
+        let player = AVPlayer(playerItem: playerItem)
+        
+        let viewController = StereoscopicViewController()
         viewController.video = video
         viewController.player = player
         

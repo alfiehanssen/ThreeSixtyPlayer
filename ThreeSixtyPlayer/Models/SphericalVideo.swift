@@ -1,5 +1,5 @@
 //
-//  VideoInfo.swift
+//  SphericalVideo.swift
 //  ThreeSixtyPlayer
 //
 //  Created by Alfred Hanssen on 10/6/16.
@@ -32,18 +32,6 @@ struct SphericalVideo
     let urlString: String
     let resolution: CGSize
     let type: VideoType
-    
-    enum VideoType
-    {
-        case monoscopic
-        case stereoscopic(layout: StereoscopicLayout)
-        
-        enum StereoscopicLayout
-        {
-            case topBottom
-            case leftRight
-        }
-    }
 }
 
 extension SphericalVideo

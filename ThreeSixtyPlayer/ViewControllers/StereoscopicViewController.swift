@@ -1,6 +1,6 @@
 //
-//  ViewController.swift
-//  360Player
+//  StereoscopicViewController.swift
+//  ThreeSixtyPlayer
 //
 //  Created by Alfred Hanssen on 7/5/16.
 //  Copyright © 2016 Alfie Hanssen. All rights reserved.
@@ -28,13 +28,12 @@ import UIKit
 import SceneKit
 import AVFoundation
 
-class ThreeSixtyViewController: UIViewController, SCNSceneRendererDelegate
+class StereoscopicViewController: UIViewController, SCNSceneRendererDelegate
 {
     /// The navigator that manages a pan gesture and device motion.
     private let navigator = ThreeSixtyNavigator()
 
-    private var leftScene: ThreeSixtyScene!
-    private var rightScene: ThreeSixtyScene!
+    private var scene: StereoscopicScene!
     
     private var leftSceneView: SCNView!
     private var rightSceneView: SCNView!
@@ -44,19 +43,18 @@ class ThreeSixtyViewController: UIViewController, SCNSceneRendererDelegate
     
     /// An enum case that describes the video type, resolution, and layout (in the case of stereoscopic).
     var video: SphericalVideo! 
-    
-    // MARK: Lifecycle
-    
+        
     override func viewDidLoad()
     {
         super.viewDidLoad()
 
         self.view.backgroundColor = UIColor.black
 
-        self.setupScenes()
+        self.scene = StereoscopicScene(player: self.player, initialVideoResolution: self.video.resolution, initialVideoType: self.video.type)
+
         self.setupSceneViews()
         self.setupNavigator()
-        self.setupViewConstraints()
+        self.setupConstraints()
     }
     
     override func viewWillAppear(_ animated: Bool)
@@ -75,41 +73,16 @@ class ThreeSixtyViewController: UIViewController, SCNSceneRendererDelegate
     
     // MARK: Setup
     
-    private func setupScenes()
-    {
-        switch self.video.type
-        {
-        case .monoscopic:
-            self.leftScene = ThreeSixtyScene(player: self.player, initialVideoMapping: .none(resolution: self.video.resolution))
-            self.rightScene = ThreeSixtyScene(player: self.player, initialVideoMapping: .none(resolution: self.video.resolution))
-            
-        case .stereoscopic(layout: let layout):
-            switch layout
-            {
-            case .topBottom:
-                self.leftScene = ThreeSixtyScene(player: self.player, initialVideoMapping: .top(resolution: self.video.resolution))
-                self.rightScene = ThreeSixtyScene(player: self.player, initialVideoMapping: .bottom(resolution: self.video.resolution))
-                
-            case .leftRight:
-                self.leftScene = ThreeSixtyScene(player: self.player, initialVideoMapping: .left(resolution: self.video.resolution))
-                self.rightScene = ThreeSixtyScene(player: self.player, initialVideoMapping: .right(resolution: self.video.resolution))
-            }
-        }
-    }
-    
     private func setupSceneViews()
     {
-        let leftSceneView = self.makeSceneView(withScene: self.leftScene)
-        let rightSceneView = self.makeSceneView(withScene: self.rightScene)
+        self.leftSceneView = self.makeSceneView(withScene: self.scene, cameraNode: self.scene.leftCameraNode)
+        self.rightSceneView = self.makeSceneView(withScene: self.scene, cameraNode: self.scene.rightCameraNode)
     
-        self.view.addSubview(leftSceneView)
-        self.view.addSubview(rightSceneView)
-    
-        self.leftSceneView = leftSceneView
-        self.rightSceneView = rightSceneView
+        self.view.addSubview(self.leftSceneView)
+        self.view.addSubview(self.rightSceneView)
     }
     
-    private func makeSceneView(withScene scene: ThreeSixtyScene) -> SCNView
+    private func makeSceneView(withScene scene: StereoscopicScene, cameraNode: SCNNode) -> SCNView
     {
         let sceneView = SCNView()
         sceneView.showsStatistics = true
@@ -117,7 +90,7 @@ class ThreeSixtyViewController: UIViewController, SCNSceneRendererDelegate
         sceneView.translatesAutoresizingMaskIntoConstraints = false
         sceneView.delegate = self
         sceneView.scene = scene
-        sceneView.pointOfView = scene.cameraNode
+        sceneView.pointOfView = cameraNode
         
         return sceneView
     }
@@ -133,41 +106,14 @@ class ThreeSixtyViewController: UIViewController, SCNSceneRendererDelegate
     
     // MARK: Constraints 
     
-    private func setupViewConstraints()
-    {
-        switch self.video.type
-        {
-        case .monoscopic:
-            self.setupMonoscopicConstraints()
-            self.startPlayback()
-            
-        case .stereoscopic:
-            self.setupStereoscopicConstraints()
-            self.startPlayback()
-        }
-    }
-    
-    private func setupMonoscopicConstraints()
-    {
-        let leftTopConstraint = NSLayoutConstraint(item: self.view, attribute: .top, relatedBy: .equal, toItem: self.leftSceneView, attribute: .top, multiplier: 1, constant: 0)
-        let leftLeadingConstraint = NSLayoutConstraint(item: self.view, attribute: .leading, relatedBy: .equal, toItem: self.leftSceneView, attribute: .leading, multiplier: 1, constant: 0)
-        let leftBottomConstraint = NSLayoutConstraint(item: self.view, attribute: .bottom, relatedBy: .equal, toItem: self.leftSceneView, attribute: .bottom, multiplier: 1, constant: 0)
-        let leftTrailingConstraint = NSLayoutConstraint(item: self.view, attribute: .trailing, relatedBy: .equal, toItem: self.leftSceneView, attribute: .trailing, multiplier: 1, constant: 0)
-        
-        self.view.addConstraint(leftTopConstraint)
-        self.view.addConstraint(leftLeadingConstraint)
-        self.view.addConstraint(leftBottomConstraint)
-        self.view.addConstraint(leftTrailingConstraint)
-    }
-    
-    private func setupStereoscopicConstraints()
+    private func setupConstraints()
     {
         let leftTopConstraint = NSLayoutConstraint(item: self.view, attribute: .top, relatedBy: .equal, toItem: self.leftSceneView, attribute: .top, multiplier: 1, constant: 0)
         let leftLeadingConstraint = NSLayoutConstraint(item: self.view, attribute: .leading, relatedBy: .equal, toItem: self.leftSceneView, attribute: .leading, multiplier: 1, constant: 0)
         let leftBottomConstraint = NSLayoutConstraint(item: self.view, attribute: .bottom, relatedBy: .equal, toItem: self.leftSceneView, attribute: .bottom, multiplier: 1, constant: 0)
         
-        let middleConstraint = NSLayoutConstraint(item: leftSceneView, attribute: .trailing, relatedBy: .equal, toItem: self.rightSceneView, attribute: .leading, multiplier: 1, constant: 0)
-        let widthConstraint = NSLayoutConstraint(item: leftSceneView, attribute: .width, relatedBy: .equal, toItem: self.rightSceneView, attribute: .width, multiplier: 1, constant: 0)
+        let middleConstraint = NSLayoutConstraint(item: self.leftSceneView, attribute: .trailing, relatedBy: .equal, toItem: self.rightSceneView, attribute: .leading, multiplier: 1, constant: 0)
+        let widthConstraint = NSLayoutConstraint(item: self.leftSceneView, attribute: .width, relatedBy: .equal, toItem: self.rightSceneView, attribute: .width, multiplier: 1, constant: 0)
         
         let rightTopConstraint = NSLayoutConstraint(item: self.view, attribute: .top, relatedBy: .equal, toItem: self.rightSceneView, attribute: .top, multiplier: 1, constant: 0)
         let rightTrailingConstraint = NSLayoutConstraint(item: self.view, attribute: .trailing, relatedBy: .equal, toItem: self.rightSceneView, attribute: .trailing, multiplier: 1, constant: 0)
@@ -185,12 +131,10 @@ class ThreeSixtyViewController: UIViewController, SCNSceneRendererDelegate
     
     // MARK: Playback
     
-    // TODO: Be able to start and stop individual scene views. 
     private func startPlayback()
     {
         self.leftSceneView.play(nil)
         self.rightSceneView.play(nil)
-        
         self.player.play()
     }
 
@@ -198,7 +142,6 @@ class ThreeSixtyViewController: UIViewController, SCNSceneRendererDelegate
     {
         self.leftSceneView.stop(nil)
         self.rightSceneView.stop(nil)
-        
         self.player.pause()
     }
 
@@ -216,8 +159,8 @@ class ThreeSixtyViewController: UIViewController, SCNSceneRendererDelegate
 
             let orientation = strongSelf.navigator.updateCurrentOrientation()
             
-            strongSelf.leftScene.cameraNode.orientation = orientation
-            strongSelf.rightScene.cameraNode.orientation = orientation
+            strongSelf.scene.leftCameraNode.orientation = orientation
+            strongSelf.scene.rightCameraNode.orientation = orientation
         }
     }
 }

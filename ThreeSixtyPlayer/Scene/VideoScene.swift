@@ -1,8 +1,8 @@
 //
-//  AppDelegate.swift
+//  VideoScene.swift
 //  ThreeSixtyPlayer
 //
-//  Created by Alfred Hanssen on 7/5/16.
+//  Created by Alfred Hanssen on 10/6/16.
 //  Copyright © 2016 Alfie Hanssen. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -24,35 +24,43 @@
 //  THE SOFTWARE.
 //
 
-import UIKit
+import SpriteKit
 import AVFoundation
 
-@UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate
+class VideoScene: SKScene
 {
-    var window: UIWindow?
-
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool
+    /// The SpriteKit node that displays the video.
+    private let skVideoNode: SKVideoNode
+    
+    init(player: AVPlayer, initialVideoResolution: CGSize = .zero)
     {
-        AppDelegate.makeAudioSessionCategoryAmbient() // So I can listen to Spotify while building this player 😁
+        self.skVideoNode = SKVideoNode(avPlayer: player)
+        self.skVideoNode.yScale = -1 // Flip the video so it appears right side up
         
-        let viewController = PlaylistViewController()        
-        let navigationController = UINavigationController(rootViewController: viewController)
-
-        self.window = UIWindow(frame: UIScreen.main.bounds)
-        self.window?.rootViewController = navigationController
-        self.window?.makeKeyAndVisible()
+        super.init(size: initialVideoResolution)
         
-        return true
+        self.scaleMode = .aspectFit
+        self.addChild(self.skVideoNode)
+        
+        self.updateVideoResolution(resolution: initialVideoResolution)
     }
     
-    private static func makeAudioSessionCategoryAmbient()
+    required init?(coder aDecoder: NSCoder)
     {
-        do {
-            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryAmbient)
-        } catch let error as NSError {
-            print(error)
-        }
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func updateVideoResolution(resolution: CGSize)
+    {
+        // TODO: Does this method account for screen scale? [AH] 7/7/2016
+        
+        let rect = CGRect(origin: .zero, size: resolution)
+        let position = CGPoint(x: rect.midX, y: rect.midY)
+        
+        self.skVideoNode.position = position
+        self.skVideoNode.size = resolution
+        
+        self.size = resolution
     }
 }
 

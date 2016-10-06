@@ -1,6 +1,6 @@
 //
 //  ThreeSixtyNavigator.swift
-//  360Player
+//  ThreeSixtyPlayer
 //
 //  Created by Alfred Hanssen on 9/24/16.
 //  Copyright © 2016 Alfie Hanssen. All rights reserved.

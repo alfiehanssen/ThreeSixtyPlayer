@@ -1,5 +1,5 @@
 //
-//  VideoMapping.swift
+//  SCNNode+Extensions.swift
 //  ThreeSixtyPlayer
 //
 //  Created by Alfred Hanssen on 10/6/16.
@@ -24,51 +24,53 @@
 //  THE SOFTWARE.
 //
 
-import Foundation
-import CoreGraphics
+import SceneKit
+import SpriteKit
 
-enum VideoMapping
+extension SCNNode
 {
-    case none(resolution: CGSize)
-    case top(resolution: CGSize)
-    case bottom(resolution: CGSize)
-    case left(resolution: CGSize)
-    case right(resolution: CGSize)
-    
-    var anchorPoint: CGPoint
+    static func cameraNode(withCategoryMask mask: Int? = nil) -> SCNNode
     {
-        switch self
+        let camera = SCNCamera()
+        camera.automaticallyAdjustsZRange = true
+        
+        let cameraNode = SCNNode()
+        cameraNode.camera = camera
+        
+        if let mask = mask
         {
-        case .none:
-            return CGPoint(x: 0.5, y: 0.5)
-            
-        case .top:
-            return CGPoint(x: 0.5, y: 0.5)
-            
-        case .bottom:
-            return CGPoint(x: 0.5, y: 0.5)
-            
-        case .left:
-            return CGPoint(x: 0.5, y: 0.5)
-            
-        case .right:
-            return CGPoint(x: 0.5, y: 0.5)
+            camera.categoryBitMask = mask
+            cameraNode.categoryBitMask = mask
         }
+        
+        return cameraNode
     }
+}
+
+extension SCNNode
+{
+    /// The default radius of the sphere on which we project the video texture.
+    private static let DefaultSphereRadius: CGFloat = 100 // TODO: How to choose the sphere radius? [AH] 7/7/2016
     
-    var resolution: CGSize
+    static func sphereNode(skScene: SKScene, categoryMask: Int? = nil) -> SCNNode
     {
-        switch self
+        let material = SCNMaterial()
+        material.diffuse.contents = skScene
+        material.cullMode = .front // Ensure that the material renders on the inside of our sphere
+        
+        let sphere = SCNSphere()
+        sphere.radius = SCNNode.DefaultSphereRadius
+        sphere.firstMaterial = material
+        
+        let sphereNode = SCNNode()
+        sphereNode.geometry = sphere
+        
+        if let mask = categoryMask
         {
-        case .none(resolution: let resolution):
-            return resolution
-            
-        case .top(resolution: let resolution), .bottom(resolution: let resolution):
-            return CGSize(width: resolution.width, height: resolution.height / 2)
-            
-        case .left(resolution: let resolution), .right(resolution: let resolution):
-            return CGSize(width: resolution.width / 2, height: resolution.height)
+            sphereNode.categoryBitMask = mask
         }
+        
+        return sphereNode
     }
 }
 

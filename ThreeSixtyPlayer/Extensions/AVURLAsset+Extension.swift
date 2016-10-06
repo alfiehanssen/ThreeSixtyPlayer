@@ -1,6 +1,6 @@
 //
 //  AVURLAsset+Extension.swift
-//  360Player
+//  ThreeSixtyPlayer
 //
 //  Created by Alfred Hanssen on 7/7/16.
 //  Copyright © 2016 Alfie Hanssen. All rights reserved.
