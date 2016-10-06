@@ -22,6 +22,7 @@
 		AF1708121DA5487200D58F76 /* PlaylistViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AF17080E1DA5487200D58F76 /* PlaylistViewController.xib */; };
 		AF1708131DA5487200D58F76 /* ThreeSixtyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF17080F1DA5487200D58F76 /* ThreeSixtyViewController.swift */; };
 		AF1708151DA55C9B00D58F76 /* VideoScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF1708141DA55C9B00D58F76 /* VideoScene.swift */; };
+		AF4B52221DA6C30C006FA4E0 /* VideoMapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4B52211DA6C30C006FA4E0 /* VideoMapping.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,7 @@
 		AF17080E1DA5487200D58F76 /* PlaylistViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlaylistViewController.xib; sourceTree = "<group>"; };
 		AF17080F1DA5487200D58F76 /* ThreeSixtyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThreeSixtyViewController.swift; sourceTree = "<group>"; };
 		AF1708141DA55C9B00D58F76 /* VideoScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoScene.swift; sourceTree = "<group>"; };
+		AF4B52211DA6C30C006FA4E0 /* VideoMapping.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoMapping.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,6 +169,7 @@
 			children = (
 				AF17080B1DA5487200D58F76 /* ThreeSixtyScene.swift */,
 				AF1708141DA55C9B00D58F76 /* VideoScene.swift */,
+				AF4B52211DA6C30C006FA4E0 /* VideoMapping.swift */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
@@ -316,6 +319,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AF4B52221DA6C30C006FA4E0 /* VideoMapping.swift in Sources */,
 				AF1708111DA5487200D58F76 /* PlaylistViewController.swift in Sources */,
 				AF1707BA1DA0956B00D58F76 /* AppDelegate.swift in Sources */,
 				AF1708151DA55C9B00D58F76 /* VideoScene.swift in Sources */,

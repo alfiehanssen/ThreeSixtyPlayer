@@ -30,11 +30,17 @@ import SpriteKit
 import AVFoundation
 import CoreMotion
 
-enum ViewMode
+enum VideoInfo
 {
     case none
-    case monoscopic(VideoType)
-    case stereoscopic(VideoType)
+    case monoscopic(resolution: CGSize)
+    case stereoscopic(resolution: CGSize, layout: StereoscopicLayout)
+    
+    enum StereoscopicLayout
+    {
+        case topBottom
+        case leftRight
+    }
 }
 
 class ThreeSixtyViewController: UIViewController, SCNSceneRendererDelegate
@@ -51,18 +57,8 @@ class ThreeSixtyViewController: UIViewController, SCNSceneRendererDelegate
     /// The video player.
     var player: AVPlayer!
     
-    var viewMode: ViewMode = .none
-    {
-        didSet
-        {
-            guard self.isViewLoaded else
-            {
-                return
-            }
-            
-            self.configureView(forViewMode: self.viewMode)
-        }
-    }
+    /// An enum case that describes the video type, resolution, and layout (in the case of stereoscopic).
+    var videoInfo: VideoInfo = .none
     
     // MARK: Lifecycle
     
@@ -75,8 +71,7 @@ class ThreeSixtyViewController: UIViewController, SCNSceneRendererDelegate
         self.setupScenes()
         self.setupSceneViews()
         self.setupNavigator()
-        
-        self.configureView(forViewMode: self.viewMode)
+        self.setupViewConstraints()
     }
     
     override func viewWillAppear(_ animated: Bool)
@@ -97,8 +92,8 @@ class ThreeSixtyViewController: UIViewController, SCNSceneRendererDelegate
     
     private func setupScenes()
     {
-        self.leftScene = ThreeSixtyScene(player: self.player)
-        self.rightScene = ThreeSixtyScene(player: self.player)
+        self.leftScene = ThreeSixtyScene(player: self.player, initialVideoMapping: .monoscopic(resolution: .zero))
+        self.rightScene = ThreeSixtyScene(player: self.player, initialVideoMapping: .monoscopic(resolution: .zero))
     }
     
     private func setupSceneViews()
@@ -137,26 +132,34 @@ class ThreeSixtyViewController: UIViewController, SCNSceneRendererDelegate
     
     // MARK: Constraints 
     
-    private func configureView(forViewMode viewMode: ViewMode)
+    private func setupViewConstraints()
     {
-        switch self.viewMode
+        switch self.videoInfo
         {
         case .none:
-            self.stopPlayback()
             self.leftSceneView.isHidden = true
             self.rightSceneView.isHidden = true
+            self.stopPlayback()
+            self.setupMonoscopicConstraints()
             break
             
-        case .monoscopic(let videoType):
-            self.setupStereoscopicConstraints()
-            self.startPlayback()            
-            break
+        case .monoscopic:
+            self.setupMonoscopicConstraints()
+            self.startPlayback()
+            self.leftSceneView.isHidden = false
+            self.rightSceneView.isHidden = false
             
-        case .stereoscopic(let videoType):
+        case .stereoscopic:
             self.setupStereoscopicConstraints()
             self.startPlayback()
-            break
+            self.leftSceneView.isHidden = false
+            self.rightSceneView.isHidden = false
         }
+    }
+    
+    private func setupMonoscopicConstraints()
+    {
+        
     }
     
     private func setupStereoscopicConstraints()
@@ -183,7 +186,8 @@ class ThreeSixtyViewController: UIViewController, SCNSceneRendererDelegate
     }
     
     // MARK: Playback
-        
+    
+    // TODO: Be able to start and stop individual scene views. 
     private func startPlayback()
     {
         self.leftSceneView.play(nil)

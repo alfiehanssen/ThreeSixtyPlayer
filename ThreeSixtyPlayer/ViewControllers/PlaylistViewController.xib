@@ -47,7 +47,7 @@
                         <action selector="didTapStereoscopicTopBottomButton:" destination="-1" eventType="touchUpInside" id="Htm-d0-GnO"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bFt-kI-5Jz">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bFt-kI-5Jz">
                     <color key="backgroundColor" red="0.86030657249999998" green="0.53485926269999995" blue="1" alpha="0.40000000000000002" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="45" id="nPW-ZY-rPg"/>

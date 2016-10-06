@@ -33,14 +33,17 @@ import AVFoundation
 // "http://www.kolor.com/360-videos-files/noa-neal-graffiti-360-music-video-full-hd.mp4"
 // From : http://www.kolor.com
 
+//"https://vimeo-prod-archive-std-us.storage.googleapis.com/videos/580317808?GoogleAccessId=GOOGHOVZWCHVINHSLPGA&Expires=1564090179&Signature=8ea%2Fk6n8I7%2FPr5yAoIbkoqINbyM%3D"
+
 struct DemoMedia
 {
     static let Monoscopic = "https://fpdl.vimeocdn.com/vimeo-prod-skyfire-std-us/01/649/7/178248880/580318297.mp4?token=938d3a52_0xfb2509dff5d09d6849327592792df58673fcca43"
-    //"https://vimeo-prod-archive-std-us.storage.googleapis.com/videos/580317808?GoogleAccessId=GOOGHOVZWCHVINHSLPGA&Expires=1564090179&Signature=8ea%2Fk6n8I7%2FPr5yAoIbkoqINbyM%3D"
     
     static let StereoscopicTopBottom = ""
     
     static let StereoscopicLeftRight = ""
+    
+    static let DefaultResolution = CGSize(width: 1920, height: 1080)
 }
 
 class PlaylistViewController: UIViewController
@@ -59,7 +62,7 @@ class PlaylistViewController: UIViewController
         let playerItem = AVPlayerItem(url: url)
         
         let viewController = ThreeSixtyViewController()
-        viewController.viewMode = .monoscopic(VideoType.monoscopic)
+        viewController.videoInfo = .monoscopic(resolution: DemoMedia.DefaultResolution)
         viewController.player = AVPlayer()
         viewController.player.replaceCurrentItem(with: playerItem)
         
@@ -75,6 +78,7 @@ class PlaylistViewController: UIViewController
         let playerItem = AVPlayerItem(url: url)
         
         let viewController = ThreeSixtyViewController()
+        viewController.videoInfo = .stereoscopic(resolution: DemoMedia.DefaultResolution, layout: .topBottom)
         viewController.player.replaceCurrentItem(with: playerItem)
         
         self.navigationController?.isNavigationBarHidden = true
@@ -88,7 +92,13 @@ class PlaylistViewController: UIViewController
         let url = URL(string: string)!
         let playerItem = AVPlayerItem(url: url)
         
-        // TODO: implement this.
+        let viewController = ThreeSixtyViewController()
+        viewController.videoInfo = .stereoscopic(resolution: DemoMedia.DefaultResolution, layout: .leftRight)
+        viewController.player.replaceCurrentItem(with: playerItem)
+        
+        self.navigationController?.isNavigationBarHidden = true
+        
+        self.navigationController?.pushViewController(viewController, animated: true)
     }
 }
 

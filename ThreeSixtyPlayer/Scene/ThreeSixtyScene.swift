@@ -39,45 +39,38 @@ class ThreeSixtyScene: SCNScene
 //        case right = 0b10
 //    }
 
+    /// The SpriteKit node that displays the video.
+    private let skVideoNode: SKVideoNode
+    
+    /// The SpriteKit scene that contains the video node.
+    private let skScene: SKScene
+
     /// The camera node used to view the inside of the sphere (video).
     let cameraNode: SCNNode
 
-    init(player: AVPlayer)
+    init(player: AVPlayer, initialVideoMapping: VideoMapping)
     {
-        self.cameraNode = type(of: self).makeCameraNode()
-        
-        super.init()
+        self.skVideoNode = SKVideoNode(avPlayer: player)
+        self.skVideoNode.yScale = -1 // Flip the video so it appears right side up
 
-        let geometryNode = type(of: self).makeGeometryNode(withPlayer: player)
-        self.rootNode.addChildNode(geometryNode)
-    
-        self.rootNode.addChildNode(self.cameraNode)
-    }
-    
-    required init?(coder aDecoder: NSCoder)
-    {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    private static func makeCameraNode() -> SCNNode
-    {
+        self.skScene = SKScene(size: .zero) // Initialize to .zero, we update size immediately.
+        self.skScene.scaleMode = .aspectFit
+        self.skScene.addChild(self.skVideoNode)
+
         let camera = SCNCamera()
         camera.automaticallyAdjustsZRange = true
         //camera.categoryBitMask = categoryMask.rawValue
         
-        let cameraNode = SCNNode()
-        cameraNode.camera = camera
+        self.cameraNode = SCNNode()
+        self.cameraNode.camera = camera
         //cameraNode.categoryBitMask = categoryMask.rawValue
         
-        return cameraNode
-    }
-    
-    private static func makeGeometryNode(withPlayer player: AVPlayer) -> SCNNode
-    {
-        let videoScene = VideoScene(player: player)
-        
+        super.init()
+
+        self.updateVideoMapping(videoMapping: initialVideoMapping)
+
         let material = SCNMaterial()
-        material.diffuse.contents = videoScene
+        material.diffuse.contents = self.skScene
         material.cullMode = .front // Ensure that the material renders on the inside of our sphere
         
         let sphere = SCNSphere()
@@ -89,7 +82,28 @@ class ThreeSixtyScene: SCNScene
         geometryNode.position = SCNVector3Zero
         //geometryNode.categoryBitMask = categoryMask.rawValue
 
-        return geometryNode
+        self.rootNode.addChildNode(geometryNode)
+        self.rootNode.addChildNode(self.cameraNode)
+    }
+    
+    required init?(coder aDecoder: NSCoder)
+    {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    func updateVideoMapping(videoMapping: VideoMapping)
+    {
+        // TODO: Does this method account for screen scale? [AH] 7/7/2016
+        
+        let resolution = videoMapping.resolution
+        
+        let rect = CGRect(origin: .zero, size: resolution)
+        let position = CGPoint(x: rect.midX, y: rect.midY)
+        
+        self.skVideoNode.position = position
+        self.skVideoNode.size = resolution
+        
+        self.skScene.size = resolution
     }
 }
 
