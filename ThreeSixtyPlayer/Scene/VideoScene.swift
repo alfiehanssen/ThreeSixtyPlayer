@@ -27,22 +27,29 @@
 import SpriteKit
 import AVFoundation
 
+typealias VideoSceneConfiguration = (resolution: CGSize, mapping: StereoscopicMapping?)
+
 class VideoScene: SKScene
 {
     /// The SpriteKit node that displays the video.
     private let skVideoNode: SKVideoNode
-    
-    init(player: AVPlayer, initialVideoResolution: CGSize = .zero)
+
+    // TODO: is initial value of .zero ok?
+    init(player: AVPlayer, initialConfiguration: VideoSceneConfiguration? = nil)
     {
         self.skVideoNode = SKVideoNode(avPlayer: player)
-        self.skVideoNode.yScale = -1 // Flip the video so it appears right side up
+        self.skVideoNode.xScale = -1 // Flip the video so it's oriented properly when facing inward
+        self.skVideoNode.yScale = -1
         
-        super.init(size: initialVideoResolution)
+        super.init(size: .zero)
         
         self.scaleMode = .aspectFit
         self.addChild(self.skVideoNode)
         
-        self.updateVideoResolution(resolution: initialVideoResolution)
+        if let configuration = initialConfiguration
+        {
+            self.updateConfiguration(configuration)
+        }
     }
     
     required init?(coder aDecoder: NSCoder)
@@ -50,17 +57,21 @@ class VideoScene: SKScene
         fatalError("init(coder:) has not been implemented")
     }
     
-    func updateVideoResolution(resolution: CGSize)
+    func updateConfiguration(_ configuration: VideoSceneConfiguration)
     {
-        // TODO: Does this method account for screen scale? [AH] 7/7/2016
+        let resolution = configuration.resolution
+        let mapping = configuration.mapping
+
+        let sceneSize = mapping?.sceneSize(videoResolution: resolution) ?? resolution
         
-        let rect = CGRect(origin: .zero, size: resolution)
-        let position = CGPoint(x: rect.midX, y: rect.midY)
-        
-        self.skVideoNode.position = position
+        self.skVideoNode.position = sceneSize.midPoint
+
+        let anchorPoint = mapping?.videoNodeAnchorPoint ?? CGPoint.DefaultAnchorPoint
+        self.skVideoNode.anchorPoint = anchorPoint
+
         self.skVideoNode.size = resolution
-        
-        self.size = resolution
+
+        self.size = sceneSize
     }
 }
 

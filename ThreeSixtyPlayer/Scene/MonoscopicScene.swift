@@ -35,9 +35,13 @@ class MonoscopicScene: SCNScene
     /// The camera node used to view the inside of the sphere (video).
     let cameraNode: SCNNode
     
+    // TODO: is initial value of .zero ok?
     init(player: AVPlayer, initialVideoResolution: CGSize = .zero)
     {
-        self.videoScene = VideoScene(player: player, initialVideoResolution: initialVideoResolution)
+        let configuration = VideoSceneConfiguration(resolution: initialVideoResolution, mapping: nil)
+        
+        self.videoScene = VideoScene(player: player, initialConfiguration: configuration)
+        
         self.cameraNode = SCNNode.cameraNode()
         
         super.init()
@@ -53,9 +57,12 @@ class MonoscopicScene: SCNScene
         fatalError("init(coder:) has not been implemented")
     }
     
+    // TODO: Document when/why this method would be called.
     func updateVideoResolution(resolution: CGSize)
     {
-        self.videoScene.updateVideoResolution(resolution: resolution)
+        let configuration = VideoSceneConfiguration(resolution: resolution, mapping: nil)
+
+        self.videoScene.updateConfiguration(configuration)
     }
 }
 

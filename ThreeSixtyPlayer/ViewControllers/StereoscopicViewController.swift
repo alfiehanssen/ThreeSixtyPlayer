@@ -48,14 +48,15 @@ class StereoscopicViewController: UIViewController, SCNSceneRendererDelegate
     {
         super.viewDidLoad()
 
-        guard case VideoType.stereoscopic(layout: _) = self.video.type else
+        guard case VideoType.stereoscopic(layout: let layout) = self.video.type else
         {
             fatalError("Attempt to load non-stereo video in stereo view controller.")
         }
-
+        
         self.view.backgroundColor = UIColor.black
 
-        self.scene = StereoscopicScene(player: self.player, initialVideoResolution: self.video.resolution, initialVideoType: self.video.type)
+        let configuration = StereoscopicSceneConfiguration(resolution: self.video.resolution, layout: layout)
+        self.scene = StereoscopicScene(player: self.player, initialConfiguration: configuration)
 
         self.setupSceneViews()
         self.setupNavigator()

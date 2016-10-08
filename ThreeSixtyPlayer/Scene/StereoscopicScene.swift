@@ -27,6 +27,8 @@
 import SceneKit
 import AVFoundation
 
+typealias StereoscopicSceneConfiguration = (resolution: CGSize, layout: StereoscopicLayout)
+
 class StereoscopicScene: SCNScene
 {
     enum CategoryMask: Int
@@ -35,26 +37,45 @@ class StereoscopicScene: SCNScene
         case right = 0b10
     }
     
-    /// The SpriteKit scene that contains the video node.
-    private let videoScene: VideoScene
-    
+    /// The SpriteKit scene that contains the left video node.
+    private let leftVideoScene: VideoScene
+
+    /// The SpriteKit scene that contains the right video node.
+    private let rightVideoScene: VideoScene
+
     /// The camera node used to view the inside of the left sphere.
     let leftCameraNode: SCNNode
     
     /// The camera node used to view the inside of the right sphere.
     let rightCameraNode: SCNNode
     
-    init(player: AVPlayer, initialVideoResolution: CGSize = .zero, initialVideoType: VideoType) // TODO: default value for type?
+    // TODO: is initial value of .zero and nil ok? Need a better way to capture the idea of initializing a player without a video.
+    init(player: AVPlayer, initialConfiguration: StereoscopicSceneConfiguration? = nil)
     {
-        self.videoScene = VideoScene(player: player, initialVideoResolution: initialVideoResolution)
+        if let configuration = initialConfiguration
+        {
+            let resolution = configuration.resolution
+            let layout = configuration.layout
+            
+            let leftConfiguration = VideoSceneConfiguration(resolution: resolution, mapping: layout.leftEyeMapping)
+            let rightConfiguration = VideoSceneConfiguration(resolution: resolution, mapping: layout.rightEyeMapping)
+            
+            self.leftVideoScene = VideoScene(player: player, initialConfiguration: leftConfiguration)
+            self.rightVideoScene = VideoScene(player: player, initialConfiguration: rightConfiguration)
+        }
+        else
+        {
+            self.leftVideoScene = VideoScene(player: player)
+            self.rightVideoScene = VideoScene(player: player)
+        }
         
         self.leftCameraNode = SCNNode.cameraNode(withCategoryMask: CategoryMask.left.rawValue)
         self.rightCameraNode = SCNNode.cameraNode(withCategoryMask: CategoryMask.right.rawValue)
         
         super.init()
         
-        let leftSphereNode = SCNNode.sphereNode(skScene: self.videoScene, categoryMask: CategoryMask.left.rawValue)
-        let rightSphereNode = SCNNode.sphereNode(skScene: self.videoScene, categoryMask: CategoryMask.right.rawValue)
+        let leftSphereNode = SCNNode.sphereNode(skScene: self.leftVideoScene, categoryMask: CategoryMask.left.rawValue)
+        let rightSphereNode = SCNNode.sphereNode(skScene: self.rightVideoScene, categoryMask: CategoryMask.right.rawValue)
         
         self.rootNode.addChildNode(leftSphereNode)
         self.rootNode.addChildNode(rightSphereNode)
@@ -68,10 +89,17 @@ class StereoscopicScene: SCNScene
         fatalError("init(coder:) has not been implemented")
     }
     
-    // TODO: How to update video type (top/bottom, left/right)?
-    func updateVideoResolution(resolution: CGSize)
+    // TODO: Document when/why this method would be called.
+    func updateConfiguration(_ configuration: StereoscopicSceneConfiguration)
     {
-        self.videoScene.updateVideoResolution(resolution: resolution)
+        let resolution = configuration.resolution
+        let layout = configuration.layout
+
+        let leftConfiguration = VideoSceneConfiguration(resolution: resolution, mapping: layout.leftEyeMapping)
+        let rightConfiguration = VideoSceneConfiguration(resolution: resolution, mapping: layout.rightEyeMapping)
+
+        self.leftVideoScene.updateConfiguration(leftConfiguration)
+        self.rightVideoScene.updateConfiguration(rightConfiguration)
     }
 }
 

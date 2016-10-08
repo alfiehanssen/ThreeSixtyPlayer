@@ -27,6 +27,7 @@
 		AF4B52311DA70D4D006FA4E0 /* VideoScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4B52301DA70D4D006FA4E0 /* VideoScene.swift */; };
 		AF4B52331DA70DE8006FA4E0 /* MonoscopicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4B52321DA70DE8006FA4E0 /* MonoscopicViewController.swift */; };
 		AF4B52351DA713AE006FA4E0 /* VideoType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4B52341DA713AE006FA4E0 /* VideoType.swift */; };
+		AF4B52371DA9B0A7006FA4E0 /* CoreGraphics+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4B52361DA9B0A7006FA4E0 /* CoreGraphics+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +74,7 @@
 		AF4B52301DA70D4D006FA4E0 /* VideoScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoScene.swift; sourceTree = "<group>"; };
 		AF4B52321DA70DE8006FA4E0 /* MonoscopicViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonoscopicViewController.swift; sourceTree = "<group>"; };
 		AF4B52341DA713AE006FA4E0 /* VideoType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoType.swift; sourceTree = "<group>"; };
+		AF4B52361DA9B0A7006FA4E0 /* CoreGraphics+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CoreGraphics+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,6 +162,7 @@
 				AF1707FA1DA0966200D58F76 /* AVURLAsset+Extension.swift */,
 				AF1707FB1DA0966200D58F76 /* CMDeviceMotion+Extension.swift */,
 				AF4B522C1DA70CCE006FA4E0 /* SCNNode+Extensions.swift */,
+				AF4B52361DA9B0A7006FA4E0 /* CoreGraphics+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -352,6 +355,7 @@
 				AF1708131DA5487200D58F76 /* StereoscopicViewController.swift in Sources */,
 				AF1708071DA0966200D58F76 /* ThreeSixtyNavigator.swift in Sources */,
 				AF4B52281DA7018D006FA4E0 /* SphericalVideo.swift in Sources */,
+				AF4B52371DA9B0A7006FA4E0 /* CoreGraphics+Extensions.swift in Sources */,
 				AF1708041DA0966200D58F76 /* CMDeviceMotion+Extension.swift in Sources */,
 				AF1708101DA5487200D58F76 /* MonoscopicScene.swift in Sources */,
 			);
