@@ -41,7 +41,7 @@ class MonoscopicViewController: UIViewController, SCNSceneRendererDelegate
     var player: AVPlayer! // TODO: Move this into init?
     
     /// An enum case that describes the video type, resolution, and layout (in the case of stereoscopic).
-    var video: SphericalVideo! // TODO: Make this optional or move into init
+    var video: Video! // TODO: Make this optional or move into init
 
     // MARK: - View Lifecycle 
     
@@ -56,7 +56,7 @@ class MonoscopicViewController: UIViewController, SCNSceneRendererDelegate
         
         self.view.backgroundColor = UIColor.black
         
-        self.scene = MonoscopicScene(player: self.player, initialVideoResolution: self.video.resolution)
+        self.scene = MonoscopicScene(player: self.player, resolution: self.video.resolution)
         
         self.setupSceneView()        
         self.setupNavigator()
@@ -87,7 +87,7 @@ class MonoscopicViewController: UIViewController, SCNSceneRendererDelegate
         self.sceneView.translatesAutoresizingMaskIntoConstraints = false
         self.sceneView.delegate = self
         self.sceneView.scene = self.scene
-        self.sceneView.pointOfView = self.scene.cameraNode
+        self.sceneView.pointOfView = self.scene.eye.cameraNode
         
         self.view.addSubview(self.sceneView)
     }
@@ -142,7 +142,7 @@ class MonoscopicViewController: UIViewController, SCNSceneRendererDelegate
             
             let orientation = strongSelf.navigator.updateCurrentOrientation()
             
-            strongSelf.scene.cameraNode.orientation = orientation
+            strongSelf.scene.eye.cameraNode.orientation = orientation
         }
     }
 

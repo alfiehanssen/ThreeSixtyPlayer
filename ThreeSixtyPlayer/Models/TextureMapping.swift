@@ -1,5 +1,5 @@
 //
-//  VideoSceneConfiguration.swift
+//  StereoscopicMapping.swift
 //  ThreeSixtyPlayer
 //
 //  Created by Alfred Hanssen on 10/8/16.
@@ -27,9 +27,51 @@
 import Foundation
 import CoreGraphics
 
-struct VideoSceneConfiguration
+enum TextureMapping
 {
-    let resolution: CGSize
-    let sphericalMapping: SphericalMapping
+    case none
+    case top
+    case bottom
+    case left
+    case right
+}
+
+extension TextureMapping
+{
+    var videoNodeAnchorPoint: CGPoint
+    {
+        switch self
+        {
+        case .none:
+            return CGPoint(x: 0.5, y: 0.5)
+
+        case .top:
+            return CGPoint(x: 0.5, y: 0.75)
+            
+        case .bottom:
+            return CGPoint(x: 0.5, y: 0.25)
+            
+        case .left:
+            return CGPoint(x: 0.25, y: 0.5)
+            
+        case .right:
+            return CGPoint(x: 0.75, y: 0.5)
+        }
+    }
+    
+    func sceneSize(videoResolution: CGSize) -> CGSize
+    {
+        switch self
+        {
+        case .none:
+            return videoResolution
+            
+        case .top, .bottom:
+            return CGSize(width: videoResolution.width, height: videoResolution.height / 2)
+            
+        case .left, .right:
+            return CGSize(width: videoResolution.width / 2, height: videoResolution.height)
+        }
+    }
 }
 

@@ -21,17 +21,17 @@
 		AF1708111DA5487200D58F76 /* PlaylistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF17080D1DA5487200D58F76 /* PlaylistViewController.swift */; };
 		AF1708121DA5487200D58F76 /* PlaylistViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AF17080E1DA5487200D58F76 /* PlaylistViewController.xib */; };
 		AF1708131DA5487200D58F76 /* StereoscopicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF17080F1DA5487200D58F76 /* StereoscopicViewController.swift */; };
-		AF4B52281DA7018D006FA4E0 /* SphericalVideo.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4B52261DA7018D006FA4E0 /* SphericalVideo.swift */; };
+		AF4B52281DA7018D006FA4E0 /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4B52261DA7018D006FA4E0 /* Video.swift */; };
 		AF4B522D1DA70CCE006FA4E0 /* SCNNode+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4B522C1DA70CCE006FA4E0 /* SCNNode+Extensions.swift */; };
 		AF4B522F1DA70D1A006FA4E0 /* StereoscopicScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4B522E1DA70D1A006FA4E0 /* StereoscopicScene.swift */; };
-		AF4B52311DA70D4D006FA4E0 /* VideoScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4B52301DA70D4D006FA4E0 /* VideoScene.swift */; };
 		AF4B52331DA70DE8006FA4E0 /* MonoscopicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4B52321DA70DE8006FA4E0 /* MonoscopicViewController.swift */; };
 		AF4B52351DA713AE006FA4E0 /* VideoType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4B52341DA713AE006FA4E0 /* VideoType.swift */; };
 		AF4B52371DA9B0A7006FA4E0 /* CoreGraphics+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4B52361DA9B0A7006FA4E0 /* CoreGraphics+Extensions.swift */; };
-		AF4B52391DA9BF7E006FA4E0 /* VideoSceneConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4B52381DA9BF7E006FA4E0 /* VideoSceneConfiguration.swift */; };
-		AF4B523B1DA9BFA6006FA4E0 /* StereoscopicSceneConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4B523A1DA9BFA6006FA4E0 /* StereoscopicSceneConfiguration.swift */; };
 		AF4B523D1DA9BFCE006FA4E0 /* StereoscopicLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4B523C1DA9BFCE006FA4E0 /* StereoscopicLayout.swift */; };
-		AF4B523F1DA9BFE9006FA4E0 /* StereoscopicMapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4B523E1DA9BFE9006FA4E0 /* StereoscopicMapping.swift */; };
+		AF4B523F1DA9BFE9006FA4E0 /* TextureMapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4B523E1DA9BFE9006FA4E0 /* TextureMapping.swift */; };
+		AF4B52411DAAAAF8006FA4E0 /* Eye.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4B52401DAAAAF8006FA4E0 /* Eye.swift */; };
+		AF4B52431DAAB454006FA4E0 /* VideoTexture.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4B52421DAAB454006FA4E0 /* VideoTexture.swift */; };
+		AF4B52451DAAB7A0006FA4E0 /* EyeMask.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4B52441DAAB7A0006FA4E0 /* EyeMask.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,17 +72,17 @@
 		AF17080D1DA5487200D58F76 /* PlaylistViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = PlaylistViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		AF17080E1DA5487200D58F76 /* PlaylistViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlaylistViewController.xib; sourceTree = "<group>"; };
 		AF17080F1DA5487200D58F76 /* StereoscopicViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = StereoscopicViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		AF4B52261DA7018D006FA4E0 /* SphericalVideo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SphericalVideo.swift; sourceTree = "<group>"; };
+		AF4B52261DA7018D006FA4E0 /* Video.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
 		AF4B522C1DA70CCE006FA4E0 /* SCNNode+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SCNNode+Extensions.swift"; sourceTree = "<group>"; };
 		AF4B522E1DA70D1A006FA4E0 /* StereoscopicScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StereoscopicScene.swift; sourceTree = "<group>"; };
-		AF4B52301DA70D4D006FA4E0 /* VideoScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoScene.swift; sourceTree = "<group>"; };
 		AF4B52321DA70DE8006FA4E0 /* MonoscopicViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonoscopicViewController.swift; sourceTree = "<group>"; };
 		AF4B52341DA713AE006FA4E0 /* VideoType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoType.swift; sourceTree = "<group>"; };
 		AF4B52361DA9B0A7006FA4E0 /* CoreGraphics+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CoreGraphics+Extensions.swift"; sourceTree = "<group>"; };
-		AF4B52381DA9BF7E006FA4E0 /* VideoSceneConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoSceneConfiguration.swift; sourceTree = "<group>"; };
-		AF4B523A1DA9BFA6006FA4E0 /* StereoscopicSceneConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StereoscopicSceneConfiguration.swift; sourceTree = "<group>"; };
 		AF4B523C1DA9BFCE006FA4E0 /* StereoscopicLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StereoscopicLayout.swift; sourceTree = "<group>"; };
-		AF4B523E1DA9BFE9006FA4E0 /* StereoscopicMapping.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StereoscopicMapping.swift; sourceTree = "<group>"; };
+		AF4B523E1DA9BFE9006FA4E0 /* TextureMapping.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextureMapping.swift; sourceTree = "<group>"; };
+		AF4B52401DAAAAF8006FA4E0 /* Eye.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Eye.swift; sourceTree = "<group>"; };
+		AF4B52421DAAB454006FA4E0 /* VideoTexture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoTexture.swift; sourceTree = "<group>"; };
+		AF4B52441DAAB7A0006FA4E0 /* EyeMask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EyeMask.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -190,7 +190,6 @@
 			children = (
 				AF17080B1DA5487200D58F76 /* MonoscopicScene.swift */,
 				AF4B522E1DA70D1A006FA4E0 /* StereoscopicScene.swift */,
-				AF4B52301DA70D4D006FA4E0 /* VideoScene.swift */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
@@ -209,12 +208,13 @@
 		AF4B52251DA7018D006FA4E0 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				AF4B52261DA7018D006FA4E0 /* SphericalVideo.swift */,
+				AF4B52261DA7018D006FA4E0 /* Video.swift */,
 				AF4B52341DA713AE006FA4E0 /* VideoType.swift */,
 				AF4B523C1DA9BFCE006FA4E0 /* StereoscopicLayout.swift */,
-				AF4B523E1DA9BFE9006FA4E0 /* StereoscopicMapping.swift */,
-				AF4B52381DA9BF7E006FA4E0 /* VideoSceneConfiguration.swift */,
-				AF4B523A1DA9BFA6006FA4E0 /* StereoscopicSceneConfiguration.swift */,
+				AF4B523E1DA9BFE9006FA4E0 /* TextureMapping.swift */,
+				AF4B52401DAAAAF8006FA4E0 /* Eye.swift */,
+				AF4B52441DAAB7A0006FA4E0 /* EyeMask.swift */,
+				AF4B52421DAAB454006FA4E0 /* VideoTexture.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -354,23 +354,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AF4B523B1DA9BFA6006FA4E0 /* StereoscopicSceneConfiguration.swift in Sources */,
 				AF4B522D1DA70CCE006FA4E0 /* SCNNode+Extensions.swift in Sources */,
 				AF1708111DA5487200D58F76 /* PlaylistViewController.swift in Sources */,
 				AF4B52351DA713AE006FA4E0 /* VideoType.swift in Sources */,
 				AF1707BA1DA0956B00D58F76 /* AppDelegate.swift in Sources */,
+				AF4B52411DAAAAF8006FA4E0 /* Eye.swift in Sources */,
+				AF4B52451DAAB7A0006FA4E0 /* EyeMask.swift in Sources */,
 				AF1708051DA0966200D58F76 /* DeviceMotionController.swift in Sources */,
+				AF4B52431DAAB454006FA4E0 /* VideoTexture.swift in Sources */,
 				AF4B52331DA70DE8006FA4E0 /* MonoscopicViewController.swift in Sources */,
 				AF1708061DA0966200D58F76 /* PanGestureController.swift in Sources */,
 				AF4B522F1DA70D1A006FA4E0 /* StereoscopicScene.swift in Sources */,
 				AF1708031DA0966200D58F76 /* AVURLAsset+Extension.swift in Sources */,
 				AF4B523D1DA9BFCE006FA4E0 /* StereoscopicLayout.swift in Sources */,
-				AF4B523F1DA9BFE9006FA4E0 /* StereoscopicMapping.swift in Sources */,
-				AF4B52311DA70D4D006FA4E0 /* VideoScene.swift in Sources */,
+				AF4B523F1DA9BFE9006FA4E0 /* TextureMapping.swift in Sources */,
 				AF1708131DA5487200D58F76 /* StereoscopicViewController.swift in Sources */,
 				AF1708071DA0966200D58F76 /* ThreeSixtyNavigator.swift in Sources */,
-				AF4B52281DA7018D006FA4E0 /* SphericalVideo.swift in Sources */,
-				AF4B52391DA9BF7E006FA4E0 /* VideoSceneConfiguration.swift in Sources */,
+				AF4B52281DA7018D006FA4E0 /* Video.swift in Sources */,
 				AF4B52371DA9B0A7006FA4E0 /* CoreGraphics+Extensions.swift in Sources */,
 				AF1708041DA0966200D58F76 /* CMDeviceMotion+Extension.swift in Sources */,
 				AF1708101DA5487200D58F76 /* MonoscopicScene.swift in Sources */,

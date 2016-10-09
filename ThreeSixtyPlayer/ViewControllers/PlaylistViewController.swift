@@ -38,23 +38,23 @@ class PlaylistViewController: UIViewController
     
     @IBAction func didTapMonoscopicButton(_ sender: UIButton)
     {
-        let video = SphericalVideo.demoVideo(ofType: .monoscopic)
+        let video = Video.demoVideo(ofType: .monoscopic)
         self.presentMonoscopicPlayerViewController(withVideo: video)
     }
 
     @IBAction func didTapStereoscopicTopBottomButton(_ sender: UIButton)
     {
-        let video = SphericalVideo.demoVideo(ofType: .stereoscopic(layout: .topBottom))
+        let video = Video.demoVideo(ofType: .stereoscopic(layout: .topBottom))
         self.presentStereoscopicPlayerViewController(withVideo: video)
     }
 
     @IBAction func didTapStereoscopicLeftRightButton(_ sender: UIButton)
     {
-        let video = SphericalVideo.demoVideo(ofType: .stereoscopic(layout: .leftRight))
+        let video = Video.demoVideo(ofType: .stereoscopic(layout: .leftRight))
         self.presentStereoscopicPlayerViewController(withVideo: video)
     }
 
-    private func presentMonoscopicPlayerViewController(withVideo video: SphericalVideo)
+    private func presentMonoscopicPlayerViewController(withVideo video: Video)
     {
         let url = URL(string: video.urlString)!
         let playerItem = AVPlayerItem(url: url)
@@ -68,7 +68,7 @@ class PlaylistViewController: UIViewController
         self.navigationController?.pushViewController(viewController, animated: true)
     }
 
-    private func presentStereoscopicPlayerViewController(withVideo video: SphericalVideo)
+    private func presentStereoscopicPlayerViewController(withVideo video: Video)
     {
         let url = URL(string: video.urlString)!
         let playerItem = AVPlayerItem(url: url)

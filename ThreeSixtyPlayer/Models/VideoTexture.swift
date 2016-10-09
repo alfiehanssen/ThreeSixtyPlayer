@@ -1,8 +1,8 @@
 //
-//  VideoScene.swift
+//  VideoTexture.swift
 //  ThreeSixtyPlayer
 //
-//  Created by Alfred Hanssen on 10/6/16.
+//  Created by Alfred Hanssen on 10/9/16.
 //  Copyright © 2016 Alfie Hanssen. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -24,45 +24,36 @@
 //  THE SOFTWARE.
 //
 
+import Foundation
 import SpriteKit
 import AVFoundation
 
-class VideoScene: SKScene
+class VideoTexture
 {
     /// The SpriteKit node that displays the video.
-    private let skVideoNode: SKVideoNode
-
-    // TODO: is initial value of .zero ok?
-    init(player: AVPlayer, initialConfiguration: VideoSceneConfiguration)
+    private let videoNode: SKVideoNode
+    
+    let scene: SKScene
+    
+    init(player: AVPlayer)
     {
-        self.skVideoNode = SKVideoNode(avPlayer: player)
-        self.skVideoNode.xScale = -1 // Flip the video so it's oriented properly when facing inward
-        self.skVideoNode.yScale = -1
+        self.videoNode = SKVideoNode(avPlayer: player)
+        self.videoNode.xScale = -1 // Flip the video so it's oriented properly left/right
+        self.videoNode.yScale = -1 // Flip the video so it's oriented properly top/bottom
         
-        super.init(size: .zero)
-        
-        self.scaleMode = .aspectFit
-        self.addChild(self.skVideoNode)
-        
-        self.updateConfiguration(initialConfiguration)
+        self.scene = SKScene(size: .zero)
+        self.scene.scaleMode = .aspectFit
+        self.scene.addChild(self.videoNode)
     }
     
-    required init?(coder aDecoder: NSCoder)
+    func update(resolution: CGSize, mapping: TextureMapping)
     {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    func updateConfiguration(_ configuration: VideoSceneConfiguration)
-    {
-        let resolution = configuration.resolution
-        let mapping = configuration.sphericalMapping
-
         let sceneSize = mapping.sceneSize(videoResolution: resolution)
         
-        self.skVideoNode.anchorPoint = mapping.videoNodeAnchorPoint
-        self.skVideoNode.position = sceneSize.midPoint
-        self.skVideoNode.size = resolution
-        self.size = sceneSize
+        self.videoNode.anchorPoint = mapping.videoNodeAnchorPoint
+        self.videoNode.position = sceneSize.midPoint
+        self.videoNode.size = resolution
+        self.scene.size = sceneSize
     }
 }
 

@@ -28,50 +28,25 @@ import SceneKit
 import AVFoundation
 
 class StereoscopicScene: SCNScene
-{
-    enum CategoryMask: Int
+{    
+    let leftEye: Eye
+    let rightEye: Eye
+    
+    init(player: AVPlayer, resolution: CGSize, layout: StereoscopicLayout)
     {
-        case left = 0b1
-        case right = 0b10
-    }
-    
-    /// The SpriteKit scene that contains the left video node.
-    private let leftVideoScene: VideoScene
-
-    /// The SpriteKit scene that contains the right video node.
-    private let rightVideoScene: VideoScene
-
-    /// The camera node used to view the inside of the left sphere.
-    let leftCameraNode: SCNNode
-    
-    /// The camera node used to view the inside of the right sphere.
-    let rightCameraNode: SCNNode
-    
-    // TODO: How can we init a player without a video?
-    init(player: AVPlayer, initialConfiguration: StereoscopicSceneConfiguration)
-    {
-        let resolution = initialConfiguration.resolution
-        let layout = initialConfiguration.layout
+        self.leftEye = Eye(player: player, resolution: resolution, mapping: layout.leftEyeMapping)
+        self.leftEye.applyCategoryBitMask(EyeMask.left)
         
-        let leftConfiguration = VideoSceneConfiguration(resolution: resolution, sphericalMapping: layout.leftEyeMapping)
-        let rightConfiguration = VideoSceneConfiguration(resolution: resolution, sphericalMapping: layout.rightEyeMapping)
-        
-        self.leftVideoScene = VideoScene(player: player, initialConfiguration: leftConfiguration)
-        self.rightVideoScene = VideoScene(player: player, initialConfiguration: rightConfiguration)
-
-        self.leftCameraNode = SCNNode.cameraNode(withCategoryMask: CategoryMask.left.rawValue)
-        self.rightCameraNode = SCNNode.cameraNode(withCategoryMask: CategoryMask.right.rawValue)
+        self.rightEye = Eye(player: player, resolution: resolution, mapping: layout.rightEyeMapping)
+        self.rightEye.applyCategoryBitMask(EyeMask.right)
         
         super.init()
+    
+        self.rootNode.addChildNode(self.leftEye.sphereNode)
+        self.rootNode.addChildNode(self.leftEye.cameraNode)
         
-        let leftSphereNode = SCNNode.sphereNode(skScene: self.leftVideoScene, categoryMask: CategoryMask.left.rawValue)
-        let rightSphereNode = SCNNode.sphereNode(skScene: self.rightVideoScene, categoryMask: CategoryMask.right.rawValue)
-        
-        self.rootNode.addChildNode(leftSphereNode)
-        self.rootNode.addChildNode(rightSphereNode)
-        
-        self.rootNode.addChildNode(self.leftCameraNode)
-        self.rootNode.addChildNode(self.rightCameraNode)
+        self.rootNode.addChildNode(self.rightEye.sphereNode)
+        self.rootNode.addChildNode(self.rightEye.cameraNode)
     }
     
     required init?(coder aDecoder: NSCoder)
@@ -79,17 +54,10 @@ class StereoscopicScene: SCNScene
         fatalError("init(coder:) has not been implemented")
     }
     
-    // TODO: Document when/why this method would be called.
-    func updateConfiguration(_ configuration: StereoscopicSceneConfiguration)
+    func update(resolution: CGSize, layout: StereoscopicLayout)
     {
-        let resolution = configuration.resolution
-        let layout = configuration.layout
-
-        let leftConfiguration = VideoSceneConfiguration(resolution: resolution, sphericalMapping: layout.leftEyeMapping)
-        let rightConfiguration = VideoSceneConfiguration(resolution: resolution, sphericalMapping: layout.rightEyeMapping)
-
-        self.leftVideoScene.updateConfiguration(leftConfiguration)
-        self.rightVideoScene.updateConfiguration(rightConfiguration)
+        self.leftEye.update(resolution: resolution, mapping: layout.leftEyeMapping)
+        self.rightEye.update(resolution: resolution, mapping: layout.rightEyeMapping)
     }
 }
 

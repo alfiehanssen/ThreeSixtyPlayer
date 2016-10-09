@@ -42,7 +42,7 @@ class StereoscopicViewController: UIViewController, SCNSceneRendererDelegate
     var player: AVPlayer! // TODO: Move into init
     
     /// An enum case that describes the video type, resolution, and layout (in the case of stereoscopic).
-    var video: SphericalVideo! // TODO: Make optional or move into init
+    var video: Video! // TODO: Make optional or move into init
         
     override func viewDidLoad()
     {
@@ -55,8 +55,7 @@ class StereoscopicViewController: UIViewController, SCNSceneRendererDelegate
         
         self.view.backgroundColor = UIColor.black
 
-        let configuration = StereoscopicSceneConfiguration(resolution: self.video.resolution, layout: layout)
-        self.scene = StereoscopicScene(player: self.player, initialConfiguration: configuration)
+        self.scene = StereoscopicScene(player: self.player, resolution: self.video.resolution, layout: layout)
 
         self.setupSceneViews()
         self.setupNavigator()
@@ -81,8 +80,8 @@ class StereoscopicViewController: UIViewController, SCNSceneRendererDelegate
     
     private func setupSceneViews()
     {
-        self.leftSceneView = self.makeSceneView(withScene: self.scene, cameraNode: self.scene.leftCameraNode)
-        self.rightSceneView = self.makeSceneView(withScene: self.scene, cameraNode: self.scene.rightCameraNode)
+        self.leftSceneView = self.makeSceneView(withScene: self.scene, cameraNode: self.scene.leftEye.cameraNode)
+        self.rightSceneView = self.makeSceneView(withScene: self.scene, cameraNode: self.scene.rightEye.cameraNode)
     
         self.view.addSubview(self.leftSceneView)
         self.view.addSubview(self.rightSceneView)
@@ -165,8 +164,8 @@ class StereoscopicViewController: UIViewController, SCNSceneRendererDelegate
 
             let orientation = strongSelf.navigator.updateCurrentOrientation()
             
-            strongSelf.scene.leftCameraNode.orientation = orientation
-            strongSelf.scene.rightCameraNode.orientation = orientation
+            strongSelf.scene.leftEye.cameraNode.orientation = orientation
+            strongSelf.scene.rightEye.cameraNode.orientation = orientation
         }
     }
 }
