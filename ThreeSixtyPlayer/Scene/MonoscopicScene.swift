@@ -35,10 +35,9 @@ class MonoscopicScene: SCNScene
     /// The camera node used to view the inside of the sphere (video).
     let cameraNode: SCNNode
     
-    // TODO: is initial value of .zero ok?
-    init(player: AVPlayer, initialVideoResolution: CGSize = .zero)
+    init(player: AVPlayer, initialVideoResolution: CGSize)
     {
-        let configuration = VideoSceneConfiguration(resolution: initialVideoResolution, mapping: nil)
+        let configuration = VideoSceneConfiguration(resolution: initialVideoResolution, stereoscopicMapping: nil)
         
         self.videoScene = VideoScene(player: player, initialConfiguration: configuration)
         
@@ -58,9 +57,9 @@ class MonoscopicScene: SCNScene
     }
     
     // TODO: Document when/why this method would be called.
-    func updateVideoResolution(resolution: CGSize)
+    func updateVideoResolution(_ resolution: CGSize)
     {
-        let configuration = VideoSceneConfiguration(resolution: resolution, mapping: nil)
+        let configuration = VideoSceneConfiguration(resolution: resolution, stereoscopicMapping: nil)
 
         self.videoScene.updateConfiguration(configuration)
     }

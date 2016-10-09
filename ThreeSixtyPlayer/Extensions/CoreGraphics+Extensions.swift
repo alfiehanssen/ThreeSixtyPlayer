@@ -26,11 +26,6 @@
 
 import CoreGraphics
 
-extension CGPoint
-{
-    static let DefaultAnchorPoint = CGPoint(x: 0.5, y: 0.5)
-}
-
 extension CGSize
 {
     var midX: CGFloat

@@ -1,8 +1,8 @@
 //
-//  VideoType.swift
+//  VideoSceneConfiguration.swift
 //  ThreeSixtyPlayer
 //
-//  Created by Alfred Hanssen on 10/6/16.
+//  Created by Alfred Hanssen on 10/8/16.
 //  Copyright © 2016 Alfie Hanssen. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -27,9 +27,9 @@
 import Foundation
 import CoreGraphics
 
-enum VideoType
+struct VideoSceneConfiguration
 {
-    case monoscopic
-    case stereoscopic(layout: StereoscopicLayout)
+    let resolution: CGSize
+    let stereoscopicMapping: StereoscopicMapping?
 }
 

@@ -39,10 +39,10 @@ class StereoscopicViewController: UIViewController, SCNSceneRendererDelegate
     private var rightSceneView: SCNView!
     
     /// The video player.
-    var player: AVPlayer!
+    var player: AVPlayer! // TODO: Move into init
     
     /// An enum case that describes the video type, resolution, and layout (in the case of stereoscopic).
-    var video: SphericalVideo! 
+    var video: SphericalVideo! // TODO: Make optional or move into init
         
     override func viewDidLoad()
     {

@@ -27,8 +27,6 @@
 import SceneKit
 import AVFoundation
 
-typealias StereoscopicSceneConfiguration = (resolution: CGSize, layout: StereoscopicLayout)
-
 class StereoscopicScene: SCNScene
 {
     enum CategoryMask: Int
@@ -49,26 +47,18 @@ class StereoscopicScene: SCNScene
     /// The camera node used to view the inside of the right sphere.
     let rightCameraNode: SCNNode
     
-    // TODO: is initial value of .zero and nil ok? Need a better way to capture the idea of initializing a player without a video.
-    init(player: AVPlayer, initialConfiguration: StereoscopicSceneConfiguration? = nil)
+    // TODO: How can we init a player without a video?
+    init(player: AVPlayer, initialConfiguration: StereoscopicSceneConfiguration)
     {
-        if let configuration = initialConfiguration
-        {
-            let resolution = configuration.resolution
-            let layout = configuration.layout
-            
-            let leftConfiguration = VideoSceneConfiguration(resolution: resolution, mapping: layout.leftEyeMapping)
-            let rightConfiguration = VideoSceneConfiguration(resolution: resolution, mapping: layout.rightEyeMapping)
-            
-            self.leftVideoScene = VideoScene(player: player, initialConfiguration: leftConfiguration)
-            self.rightVideoScene = VideoScene(player: player, initialConfiguration: rightConfiguration)
-        }
-        else
-        {
-            self.leftVideoScene = VideoScene(player: player)
-            self.rightVideoScene = VideoScene(player: player)
-        }
+        let resolution = initialConfiguration.resolution
+        let layout = initialConfiguration.layout
         
+        let leftConfiguration = VideoSceneConfiguration(resolution: resolution, stereoscopicMapping: layout.leftEyeMapping)
+        let rightConfiguration = VideoSceneConfiguration(resolution: resolution, stereoscopicMapping: layout.rightEyeMapping)
+        
+        self.leftVideoScene = VideoScene(player: player, initialConfiguration: leftConfiguration)
+        self.rightVideoScene = VideoScene(player: player, initialConfiguration: rightConfiguration)
+
         self.leftCameraNode = SCNNode.cameraNode(withCategoryMask: CategoryMask.left.rawValue)
         self.rightCameraNode = SCNNode.cameraNode(withCategoryMask: CategoryMask.right.rawValue)
         
@@ -95,8 +85,8 @@ class StereoscopicScene: SCNScene
         let resolution = configuration.resolution
         let layout = configuration.layout
 
-        let leftConfiguration = VideoSceneConfiguration(resolution: resolution, mapping: layout.leftEyeMapping)
-        let rightConfiguration = VideoSceneConfiguration(resolution: resolution, mapping: layout.rightEyeMapping)
+        let leftConfiguration = VideoSceneConfiguration(resolution: resolution, stereoscopicMapping: layout.leftEyeMapping)
+        let rightConfiguration = VideoSceneConfiguration(resolution: resolution, stereoscopicMapping: layout.rightEyeMapping)
 
         self.leftVideoScene.updateConfiguration(leftConfiguration)
         self.rightVideoScene.updateConfiguration(rightConfiguration)

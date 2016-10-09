@@ -1,8 +1,8 @@
 //
-//  VideoType.swift
+//  StereoscopicLayout.swift
 //  ThreeSixtyPlayer
 //
-//  Created by Alfred Hanssen on 10/6/16.
+//  Created by Alfred Hanssen on 10/8/16.
 //  Copyright © 2016 Alfie Hanssen. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -25,11 +25,37 @@
 //
 
 import Foundation
-import CoreGraphics
 
-enum VideoType
+enum StereoscopicLayout
 {
-    case monoscopic
-    case stereoscopic(layout: StereoscopicLayout)
+    case topBottom
+    case leftRight
+}
+
+extension StereoscopicLayout
+{
+    var leftEyeMapping: StereoscopicMapping
+    {
+        switch self
+        {
+        case .topBottom:
+            return .top
+            
+        case .leftRight:
+            return .left
+        }
+    }
+    
+    var rightEyeMapping: StereoscopicMapping
+    {
+        switch self
+        {
+        case .topBottom:
+            return .bottom
+            
+        case .leftRight:
+            return .right
+        }
+    }
 }
 

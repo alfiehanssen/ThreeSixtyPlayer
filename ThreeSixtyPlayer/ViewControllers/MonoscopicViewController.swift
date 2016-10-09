@@ -38,10 +38,10 @@ class MonoscopicViewController: UIViewController, SCNSceneRendererDelegate
     private var sceneView: SCNView!
     
     /// The video player.
-    var player: AVPlayer!
+    var player: AVPlayer! // TODO: Move this into init?
     
     /// An enum case that describes the video type, resolution, and layout (in the case of stereoscopic).
-    var video: SphericalVideo!
+    var video: SphericalVideo! // TODO: Make this optional or move into init
 
     // MARK: - View Lifecycle 
     
