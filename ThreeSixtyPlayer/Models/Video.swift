@@ -37,6 +37,7 @@ struct Video
 
 extension Video
 {
+    // TODO: Get better video files, these are terrible!
     static let Mono = "http://www.kolor.com/360-videos-files/freedom360-hang-gliding-4k.mp4"
     static let StereoTopBottom = "https://player.vimeo.com/external/186023974.hd.mp4?s=eb6a035fd1742461f41ed6da84a36418985d54ba&profile_id=119"
     static let StereoLeftRight = StereoTopBottom

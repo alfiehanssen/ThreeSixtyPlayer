@@ -59,6 +59,8 @@ class PlaylistViewController: UIViewController
         let player = AVPlayer()
         let viewController = MonoscopicViewController(player: player)
         
+        // Set the video property well after the viewController had been set up. 
+        // To demonstrate that the video property can be changed at any time.
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(4000)) {
             viewController.video = video
         }
@@ -70,8 +72,10 @@ class PlaylistViewController: UIViewController
     private func presentStereoscopicPlayerViewController(withVideo video: Video)
     {
         let player = AVPlayer()
-        let viewController = StereoscopicViewController()
+        let viewController = StereoscopicViewController(player: player)
 
+        // Set the video property well after the viewController had been set up.
+        // To demonstrate that the video property can be changed at any time.
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(4000)) {
             viewController.video = video
         }
