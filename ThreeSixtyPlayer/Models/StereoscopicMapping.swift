@@ -1,8 +1,8 @@
 //
-//  AppDelegate.swift
+//  StereoscopicMapping.swift
 //  ThreeSixtyPlayer
 //
-//  Created by Alfred Hanssen on 7/5/16.
+//  Created by Alfred Hanssen on 10/8/16.
 //  Copyright © 2016 Alfie Hanssen. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -24,34 +24,46 @@
 //  THE SOFTWARE.
 //
 
-import UIKit
-import AVFoundation
+import Foundation
+import CoreGraphics
 
-@UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate
+enum StereoscopicMapping
 {
-    var window: UIWindow?
+    case top
+    case bottom
+    case left
+    case right
+}
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool
+extension StereoscopicMapping
+{
+    var videoNodeAnchorPoint: CGPoint
     {
-        AppDelegate.makeAudioSessionCategoryAmbient() // So I can listen to Spotify while building this player 😁
-        
-        let viewController = PlaylistViewController()        
-        let navigationController = UINavigationController(rootViewController: viewController)
-
-        self.window = UIWindow(frame: UIScreen.main.bounds)
-        self.window?.rootViewController = navigationController
-        self.window?.makeKeyAndVisible()
-        
-        return true
+        switch self
+        {
+        case .top:
+            return CGPoint(x: 0.5, y: 0.75)
+            
+        case .bottom:
+            return CGPoint(x: 0.5, y: 0.25)
+            
+        case .left:
+            return CGPoint(x: 0.25, y: 0.5)
+            
+        case .right:
+            return CGPoint(x: 0.75, y: 0.5)
+        }
     }
     
-    private static func makeAudioSessionCategoryAmbient()
+    func sceneSize(videoResolution: CGSize) -> CGSize
     {
-        do {
-            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryAmbient)
-        } catch let error as NSError {
-            print(error)
+        switch self
+        {
+        case .top, .bottom:
+            return CGSize(width: videoResolution.width, height: videoResolution.height / 2)
+            
+        case .left, .right:
+            return CGSize(width: videoResolution.width / 2, height: videoResolution.height)
         }
     }
 }

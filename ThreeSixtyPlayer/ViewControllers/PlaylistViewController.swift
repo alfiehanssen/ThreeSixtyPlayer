@@ -1,6 +1,6 @@
 //
 //  PlaylistViewController.swift
-//  360Player
+//  ThreeSixtyPlayer
 //
 //  Created by Alfred Hanssen on 9/14/16.
 //  Copyright © 2016 Alfie Hanssen. All rights reserved.
@@ -27,21 +27,6 @@
 import UIKit
 import AVFoundation
 
-// "https://s3.amazonaws.com/ray.wenderlich/elephant_safari.mp4"
-// From: https://www.raywenderlich.com/136692/introduction-google-cardboard-ios
-
-// "http://www.kolor.com/360-videos-files/noa-neal-graffiti-360-music-video-full-hd.mp4"
-// From : http://www.kolor.com
-
-struct DemoMedia
-{
-    static let Monoscopic = "https://vimeo-prod-archive-std-us.storage.googleapis.com/videos/580317808?GoogleAccessId=GOOGHOVZWCHVINHSLPGA&Expires=1564090179&Signature=8ea%2Fk6n8I7%2FPr5yAoIbkoqINbyM%3D"
-    
-    static let StereoscopicTopBottom = ""
-    
-    static let StereoscopicLeftRight = ""
-}
-
 class PlaylistViewController: UIViewController
 {    
     override func viewDidLoad()
@@ -53,39 +38,48 @@ class PlaylistViewController: UIViewController
     
     @IBAction func didTapMonoscopicButton(_ sender: UIButton)
     {
-        let string = DemoMedia.Monoscopic
-        let url = URL(string: string)!
-        let playerItem = AVPlayerItem(url: url)
-        
-        let viewController = ThreeSixtyViewController()
-        viewController.player.replaceCurrentItem(with: playerItem)
-        
-        self.navigationController?.isNavigationBarHidden = true
-
-        self.navigationController?.pushViewController(viewController, animated: true)
+        let video = SphericalVideo.demoVideo(ofType: .monoscopic)
+        self.presentMonoscopicPlayerViewController(withVideo: video)
     }
 
     @IBAction func didTapStereoscopicTopBottomButton(_ sender: UIButton)
     {
-        let string = DemoMedia.StereoscopicTopBottom
-        let url = URL(string: string)!
-        let playerItem = AVPlayerItem(url: url)
-        
-        let viewController = ThreeSixtyViewController()
-        viewController.player.replaceCurrentItem(with: playerItem)
-        
-        self.navigationController?.isNavigationBarHidden = true
-        
-        self.navigationController?.pushViewController(viewController, animated: true)
+        let video = SphericalVideo.demoVideo(ofType: .stereoscopic(layout: .topBottom))
+        self.presentStereoscopicPlayerViewController(withVideo: video)
     }
 
     @IBAction func didTapStereoscopicLeftRightButton(_ sender: UIButton)
     {
-        let string = DemoMedia.StereoscopicLeftRight
-        let url = URL(string: string)!
+        let video = SphericalVideo.demoVideo(ofType: .stereoscopic(layout: .leftRight))
+        self.presentStereoscopicPlayerViewController(withVideo: video)
+    }
+
+    private func presentMonoscopicPlayerViewController(withVideo video: SphericalVideo)
+    {
+        let url = URL(string: video.urlString)!
         let playerItem = AVPlayerItem(url: url)
+        let player = AVPlayer(playerItem: playerItem)
         
-        // TODO: implement this.
+        let viewController = MonoscopicViewController()
+        viewController.video = video
+        viewController.player = player
+        
+        self.navigationController?.isNavigationBarHidden = true
+        self.navigationController?.pushViewController(viewController, animated: true)
+    }
+
+    private func presentStereoscopicPlayerViewController(withVideo video: SphericalVideo)
+    {
+        let url = URL(string: video.urlString)!
+        let playerItem = AVPlayerItem(url: url)
+        let player = AVPlayer(playerItem: playerItem)
+        
+        let viewController = StereoscopicViewController()
+        viewController.video = video
+        viewController.player = player
+        
+        self.navigationController?.isNavigationBarHidden = true
+        self.navigationController?.pushViewController(viewController, animated: true)
     }
 }
 

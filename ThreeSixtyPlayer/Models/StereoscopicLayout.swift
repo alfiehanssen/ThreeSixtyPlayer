@@ -1,8 +1,8 @@
 //
-//  AppDelegate.swift
+//  StereoscopicLayout.swift
 //  ThreeSixtyPlayer
 //
-//  Created by Alfred Hanssen on 7/5/16.
+//  Created by Alfred Hanssen on 10/8/16.
 //  Copyright © 2016 Alfie Hanssen. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -24,34 +24,37 @@
 //  THE SOFTWARE.
 //
 
-import UIKit
-import AVFoundation
+import Foundation
 
-@UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate
+enum StereoscopicLayout
 {
-    var window: UIWindow?
+    case topBottom
+    case leftRight
+}
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool
+extension StereoscopicLayout
+{
+    var leftEyeMapping: StereoscopicMapping
     {
-        AppDelegate.makeAudioSessionCategoryAmbient() // So I can listen to Spotify while building this player 😁
-        
-        let viewController = PlaylistViewController()        
-        let navigationController = UINavigationController(rootViewController: viewController)
-
-        self.window = UIWindow(frame: UIScreen.main.bounds)
-        self.window?.rootViewController = navigationController
-        self.window?.makeKeyAndVisible()
-        
-        return true
+        switch self
+        {
+        case .topBottom:
+            return .top
+            
+        case .leftRight:
+            return .left
+        }
     }
     
-    private static func makeAudioSessionCategoryAmbient()
+    var rightEyeMapping: StereoscopicMapping
     {
-        do {
-            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryAmbient)
-        } catch let error as NSError {
-            print(error)
+        switch self
+        {
+        case .topBottom:
+            return .bottom
+            
+        case .leftRight:
+            return .right
         }
     }
 }

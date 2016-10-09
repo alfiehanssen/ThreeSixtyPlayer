@@ -1,8 +1,8 @@
 //
-//  AppDelegate.swift
+//  VideoType.swift
 //  ThreeSixtyPlayer
 //
-//  Created by Alfred Hanssen on 7/5/16.
+//  Created by Alfred Hanssen on 10/6/16.
 //  Copyright © 2016 Alfie Hanssen. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -24,35 +24,12 @@
 //  THE SOFTWARE.
 //
 
-import UIKit
-import AVFoundation
+import Foundation
+import CoreGraphics
 
-@UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate
+enum VideoType
 {
-    var window: UIWindow?
-
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool
-    {
-        AppDelegate.makeAudioSessionCategoryAmbient() // So I can listen to Spotify while building this player 😁
-        
-        let viewController = PlaylistViewController()        
-        let navigationController = UINavigationController(rootViewController: viewController)
-
-        self.window = UIWindow(frame: UIScreen.main.bounds)
-        self.window?.rootViewController = navigationController
-        self.window?.makeKeyAndVisible()
-        
-        return true
-    }
-    
-    private static func makeAudioSessionCategoryAmbient()
-    {
-        do {
-            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryAmbient)
-        } catch let error as NSError {
-            print(error)
-        }
-    }
+    case monoscopic
+    case stereoscopic(layout: StereoscopicLayout)
 }
 

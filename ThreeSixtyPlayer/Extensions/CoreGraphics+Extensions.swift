@@ -1,8 +1,8 @@
 //
-//  AppDelegate.swift
+//  CoreGraphics+Extensions.swift
 //  ThreeSixtyPlayer
 //
-//  Created by Alfred Hanssen on 7/5/16.
+//  Created by Alfred Hanssen on 10/8/16.
 //  Copyright © 2016 Alfie Hanssen. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -24,35 +24,22 @@
 //  THE SOFTWARE.
 //
 
-import UIKit
-import AVFoundation
+import CoreGraphics
 
-@UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate
+extension CGSize
 {
-    var window: UIWindow?
-
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool
+    var midX: CGFloat
     {
-        AppDelegate.makeAudioSessionCategoryAmbient() // So I can listen to Spotify while building this player 😁
-        
-        let viewController = PlaylistViewController()        
-        let navigationController = UINavigationController(rootViewController: viewController)
-
-        self.window = UIWindow(frame: UIScreen.main.bounds)
-        self.window?.rootViewController = navigationController
-        self.window?.makeKeyAndVisible()
-        
-        return true
+        return self.width / 2
     }
     
-    private static func makeAudioSessionCategoryAmbient()
+    var midY: CGFloat
     {
-        do {
-            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryAmbient)
-        } catch let error as NSError {
-            print(error)
-        }
+        return self.height / 2
+    }
+    
+    var midPoint: CGPoint
+    {
+        return CGPoint(x: self.midX, y: self.midY)
     }
 }
-

@@ -1,8 +1,8 @@
 //
-//  AppDelegate.swift
+//  MonoscopicScene.swift
 //  ThreeSixtyPlayer
 //
-//  Created by Alfred Hanssen on 7/5/16.
+//  Created by Alfred Hanssen on 9/14/16.
 //  Copyright © 2016 Alfie Hanssen. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -24,35 +24,44 @@
 //  THE SOFTWARE.
 //
 
-import UIKit
+import SceneKit
 import AVFoundation
 
-@UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate
+class MonoscopicScene: SCNScene
 {
-    var window: UIWindow?
-
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool
+    /// The SpriteKit scene that contains the video node.
+    private let videoScene: VideoScene
+    
+    /// The camera node used to view the inside of the sphere (video).
+    let cameraNode: SCNNode
+    
+    init(player: AVPlayer, initialVideoResolution: CGSize)
     {
-        AppDelegate.makeAudioSessionCategoryAmbient() // So I can listen to Spotify while building this player 😁
+        let configuration = VideoSceneConfiguration(resolution: initialVideoResolution, stereoscopicMapping: nil)
         
-        let viewController = PlaylistViewController()        
-        let navigationController = UINavigationController(rootViewController: viewController)
-
-        self.window = UIWindow(frame: UIScreen.main.bounds)
-        self.window?.rootViewController = navigationController
-        self.window?.makeKeyAndVisible()
+        self.videoScene = VideoScene(player: player, initialConfiguration: configuration)
         
-        return true
+        self.cameraNode = SCNNode.cameraNode()
+        
+        super.init()
+        
+        let sphereNode = SCNNode.sphereNode(skScene: self.videoScene)
+        
+        self.rootNode.addChildNode(sphereNode)
+        self.rootNode.addChildNode(self.cameraNode)
     }
     
-    private static func makeAudioSessionCategoryAmbient()
+    required init?(coder aDecoder: NSCoder)
     {
-        do {
-            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryAmbient)
-        } catch let error as NSError {
-            print(error)
-        }
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // TODO: Document when/why this method would be called.
+    func updateVideoResolution(_ resolution: CGSize)
+    {
+        let configuration = VideoSceneConfiguration(resolution: resolution, stereoscopicMapping: nil)
+
+        self.videoScene.updateConfiguration(configuration)
     }
 }
 
