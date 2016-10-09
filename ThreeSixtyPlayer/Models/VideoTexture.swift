@@ -30,24 +30,37 @@ import AVFoundation
 
 class VideoTexture
 {
-    /// The SpriteKit node that displays the video.
+    /// A SpriteKit node that displays video content managed by the player.
     private let videoNode: SKVideoNode
     
+    /// A SpriteKit scene that contains a video node.
     let scene: SKScene
     
-    init(player: AVPlayer)
+    convenience init(player: AVPlayer)
+    {
+        self.init(player: player, resolution: CGSize.DefaultVideoResolution, mapping: .none)
+    }
+    
+    init(player: AVPlayer, resolution: CGSize, mapping: TextureMapping)
     {
         self.videoNode = SKVideoNode(avPlayer: player)
         self.videoNode.xScale = -1 // Flip the video so it's oriented properly left/right
         self.videoNode.yScale = -1 // Flip the video so it's oriented properly top/bottom
-        
-        self.scene = SKScene(size: .zero)
+
+        self.scene = SKScene(size: .zero) // We update this to a non-.zero size immediately (see below).
         self.scene.scaleMode = .aspectFit
         self.scene.addChild(self.videoNode)
+        
+        self.update(resolution: resolution, mapping: mapping)
     }
     
     func update(resolution: CGSize, mapping: TextureMapping)
     {
+        guard resolution.isGreaterThanZero else
+        {
+            fatalError("Reolution must be greater than .zero in both dimensions.")
+        }
+
         let sceneSize = mapping.sceneSize(videoResolution: resolution)
         
         self.videoNode.anchorPoint = mapping.videoNodeAnchorPoint

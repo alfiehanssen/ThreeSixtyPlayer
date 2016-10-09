@@ -31,16 +31,28 @@ class MonoscopicScene: SCNScene
 {
     let eye: Eye
     
-    init(player: AVPlayer, resolution: CGSize)
+    convenience init(player: AVPlayer, resolution: CGSize, mapping: TextureMapping = .none)
     {
-        self.eye = Eye(player: player, resolution: resolution, mapping: .none)
+        let videoTexture = VideoTexture(player: player, resolution: resolution, mapping: mapping)
+        
+        self.init(videoTexture: videoTexture)
+    }
+    
+    convenience init(player: AVPlayer)
+    {
+        let videoTexture = VideoTexture(player: player)
+    
+        self.init(videoTexture: videoTexture)
+    }
+    
+    private init(videoTexture: VideoTexture)
+    {
+        self.eye = Eye(videoTexture: videoTexture)
         
         super.init()
         
         self.rootNode.addChildNode(self.eye.cameraNode)
         self.rootNode.addChildNode(self.eye.sphereNode)
-        
-        self.update(resolution: resolution)
     }
     
     required init?(coder aDecoder: NSCoder)
@@ -48,9 +60,9 @@ class MonoscopicScene: SCNScene
         fatalError("init(coder:) has not been implemented")
     }
     
-    func update(resolution: CGSize)
+    func update(resolution: CGSize, mapping: TextureMapping = .none)
     {
-        self.eye.update(resolution: resolution, mapping: .none)
+        self.eye.videoTexture.update(resolution: resolution, mapping: mapping)
     }
 }
 

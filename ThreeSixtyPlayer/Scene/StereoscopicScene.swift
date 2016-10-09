@@ -32,16 +32,29 @@ class StereoscopicScene: SCNScene
     let leftEye: Eye
     let rightEye: Eye
     
-    init(player: AVPlayer, resolution: CGSize, layout: StereoscopicLayout)
+    convenience init(player: AVPlayer, resolution: CGSize, layout: StereoscopicLayout)
     {
-        self.leftEye = Eye(player: player, resolution: resolution, mapping: layout.leftEyeMapping)
-        self.leftEye.applyCategoryBitMask(EyeMask.left)
+        let leftVideoTexture = VideoTexture(player: player, resolution: resolution, mapping: layout.leftEyeMapping)
+        let rightVideoTexture = VideoTexture(player: player, resolution: resolution, mapping: layout.rightEyeMapping)
         
-        self.rightEye = Eye(player: player, resolution: resolution, mapping: layout.rightEyeMapping)
-        self.rightEye.applyCategoryBitMask(EyeMask.right)
+        self.init(leftVideoTexture: leftVideoTexture, rightVideoTexture: rightVideoTexture)
+    }
+    
+    convenience init(player: AVPlayer)
+    {
+        let leftVideoTexture = VideoTexture(player: player)
+        let rightVideoTexture = VideoTexture(player: player)
+        
+        self.init(leftVideoTexture: leftVideoTexture, rightVideoTexture: rightVideoTexture)
+    }
+    
+    private init(leftVideoTexture: VideoTexture, rightVideoTexture: VideoTexture)
+    {
+        self.leftEye = Eye(videoTexture: leftVideoTexture, categoryBitMask: EyeMask.left.rawValue)
+        self.rightEye = Eye(videoTexture: rightVideoTexture, categoryBitMask: EyeMask.right.rawValue)
         
         super.init()
-    
+        
         self.rootNode.addChildNode(self.leftEye.sphereNode)
         self.rootNode.addChildNode(self.leftEye.cameraNode)
         
@@ -56,8 +69,8 @@ class StereoscopicScene: SCNScene
     
     func update(resolution: CGSize, layout: StereoscopicLayout)
     {
-        self.leftEye.update(resolution: resolution, mapping: layout.leftEyeMapping)
-        self.rightEye.update(resolution: resolution, mapping: layout.rightEyeMapping)
+        self.leftEye.videoTexture.update(resolution: resolution, mapping: layout.leftEyeMapping)
+        self.rightEye.videoTexture.update(resolution: resolution, mapping: layout.rightEyeMapping)
     }
 }
 

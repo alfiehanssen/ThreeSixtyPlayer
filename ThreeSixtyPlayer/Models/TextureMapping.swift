@@ -1,5 +1,5 @@
 //
-//  StereoscopicMapping.swift
+//  TextureMapping.swift
 //  ThreeSixtyPlayer
 //
 //  Created by Alfred Hanssen on 10/8/16.

@@ -56,13 +56,12 @@ class PlaylistViewController: UIViewController
 
     private func presentMonoscopicPlayerViewController(withVideo video: Video)
     {
-        let url = URL(string: video.urlString)!
-        let playerItem = AVPlayerItem(url: url)
-        let player = AVPlayer(playerItem: playerItem)
+        let player = AVPlayer()
+        let viewController = MonoscopicViewController(player: player)
         
-        let viewController = MonoscopicViewController()
-        viewController.video = video
-        viewController.player = player
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(4000)) {
+            viewController.video = video
+        }
         
         self.navigationController?.isNavigationBarHidden = true
         self.navigationController?.pushViewController(viewController, animated: true)
@@ -70,13 +69,12 @@ class PlaylistViewController: UIViewController
 
     private func presentStereoscopicPlayerViewController(withVideo video: Video)
     {
-        let url = URL(string: video.urlString)!
-        let playerItem = AVPlayerItem(url: url)
-        let player = AVPlayer(playerItem: playerItem)
-        
+        let player = AVPlayer()
         let viewController = StereoscopicViewController()
-        viewController.video = video
-        viewController.player = player
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(4000)) {
+            viewController.video = video
+        }
         
         self.navigationController?.isNavigationBarHidden = true
         self.navigationController?.pushViewController(viewController, animated: true)

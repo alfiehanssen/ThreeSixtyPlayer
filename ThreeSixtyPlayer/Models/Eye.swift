@@ -34,25 +34,23 @@ class Eye
     let cameraNode: SCNNode
     let sphereNode: SCNNode
     
-    init(player: AVPlayer, resolution: CGSize, mapping: TextureMapping)
+    init(videoTexture: VideoTexture, categoryBitMask mask: Int? = nil)
     {
-        self.videoTexture = VideoTexture(player: player)
+        self.videoTexture = videoTexture
         self.cameraNode = SCNNode.cameraNode()
         self.sphereNode = SCNNode.sphereNode(skScene: self.videoTexture.scene)
         
-        self.update(resolution: resolution, mapping: mapping)
+        if let mask = mask
+        {
+            self.applyCategoryBitMask(mask)
+        }
     }
     
-    func applyCategoryBitMask(_ mask: EyeMask)
+    private func applyCategoryBitMask(_ mask: Int)
     {
-        self.sphereNode.categoryBitMask = mask.rawValue
-        self.cameraNode.categoryBitMask = mask.rawValue
-        self.cameraNode.camera?.categoryBitMask = mask.rawValue
-    }
-    
-    func update(resolution: CGSize, mapping: TextureMapping)
-    {
-        self.videoTexture.update(resolution: resolution, mapping: mapping)
+        self.sphereNode.categoryBitMask = mask
+        self.cameraNode.categoryBitMask = mask
+        self.cameraNode.camera?.categoryBitMask = mask
     }
 }
 

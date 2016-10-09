@@ -1,5 +1,5 @@
 //
-//  AVURLAsset+Extension.swift
+//  AVURLAsset+Extensions.swift
 //  ThreeSixtyPlayer
 //
 //  Created by Alfred Hanssen on 7/7/16.

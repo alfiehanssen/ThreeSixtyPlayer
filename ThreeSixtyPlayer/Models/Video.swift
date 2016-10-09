@@ -1,5 +1,5 @@
 //
-//  SphericalVideo.swift
+//  Video.swift
 //  ThreeSixtyPlayer
 //
 //  Created by Alfred Hanssen on 10/6/16.
@@ -26,6 +26,7 @@
 
 import Foundation
 import CoreGraphics
+import AVFoundation
 
 struct Video
 {
@@ -60,6 +61,17 @@ extension Video
                 return Video(urlString: StereoLeftRight, resolution: DefaultStereoResolution, type: type)
             }
         }
+    }
+}
+
+extension Video
+{
+    var playerItem: AVPlayerItem
+    {
+        let url = URL(string: self.urlString)!
+        let playerItem = AVPlayerItem(url: url)
+
+        return playerItem
     }
 }
 

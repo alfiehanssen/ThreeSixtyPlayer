@@ -42,4 +42,14 @@ extension CGSize
     {
         return CGPoint(x: self.midX, y: self.midY)
     }
+    
+    var isGreaterThanZero: Bool
+    {
+        return self.width > 0 && self.height > 0
+    }
+    
+    static var DefaultVideoResolution: CGSize
+    {
+        return CGSize(width: 1920, height: 1080)
+    }
 }
