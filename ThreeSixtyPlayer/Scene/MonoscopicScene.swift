@@ -29,26 +29,30 @@ import AVFoundation
 
 class MonoscopicScene: SCNScene
 {
-    /// The SpriteKit scene that contains the video node.
-    private let videoScene: VideoScene
+    let eye: Eye
     
-    /// The camera node used to view the inside of the sphere (video).
-    let cameraNode: SCNNode
-    
-    init(player: AVPlayer, initialVideoResolution: CGSize)
+    convenience init(player: AVPlayer, resolution: CGSize, mapping: TextureMapping = .none)
     {
-        let configuration = VideoSceneConfiguration(resolution: initialVideoResolution, sphericalMapping: .none)
+        let videoTexture = VideoTexture(player: player, resolution: resolution, mapping: mapping)
         
-        self.videoScene = VideoScene(player: player, initialConfiguration: configuration)
-        
-        self.cameraNode = SCNNode.cameraNode()
+        self.init(videoTexture: videoTexture)
+    }
+    
+    convenience init(player: AVPlayer)
+    {
+        let videoTexture = VideoTexture(player: player)
+    
+        self.init(videoTexture: videoTexture)
+    }
+    
+    private init(videoTexture: VideoTexture)
+    {
+        self.eye = Eye(videoTexture: videoTexture)
         
         super.init()
         
-        let sphereNode = SCNNode.sphereNode(skScene: self.videoScene)
-        
-        self.rootNode.addChildNode(sphereNode)
-        self.rootNode.addChildNode(self.cameraNode)
+        self.rootNode.addChildNode(self.eye.cameraNode)
+        self.rootNode.addChildNode(self.eye.sphereNode)
     }
     
     required init?(coder aDecoder: NSCoder)
@@ -56,12 +60,9 @@ class MonoscopicScene: SCNScene
         fatalError("init(coder:) has not been implemented")
     }
     
-    // TODO: Document when/why this method would be called.
-    func updateVideoResolution(_ resolution: CGSize)
+    func update(resolution: CGSize, mapping: TextureMapping = .none)
     {
-        let configuration = VideoSceneConfiguration(resolution: resolution, sphericalMapping: .none)
-
-        self.videoScene.updateConfiguration(configuration)
+        self.eye.videoTexture.update(resolution: resolution, mapping: mapping)
     }
 }
 

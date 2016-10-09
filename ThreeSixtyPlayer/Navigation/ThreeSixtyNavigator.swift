@@ -145,15 +145,10 @@ class ThreeSixtyNavigator
             
             self.currentOrientation = deviceMotion.gaze(atOrientation: UIApplication.shared.statusBarOrientation)
             
-            break
-            
         case .panGesture:
-            
             let rotationOffset = self.panGestureRotationOffset()
             self.currentOrientation = type(of: self).rotateOrientation(orientation: self.currentOrientation, byRotationOffset: rotationOffset)
-            
-            break
-            
+
         case .panGestureAndDeviceMotion:
             // Device motion can be nil at times, this is ok.
             guard let deviceMotion = self.deviceMotionController.currentDeviceMotion else
@@ -172,8 +167,6 @@ class ThreeSixtyNavigator
             let orientation = deviceMotion.gaze(atOrientation: UIApplication.shared.statusBarOrientation)
             let cumulativeOffset = RotationOffset(x: self.cumulativePanOffsetX, y: self.cumulativePanOffsetY)
             self.currentOrientation = type(of: self).rotateOrientation(orientation: orientation, byRotationOffset: cumulativeOffset)
-            
-            break
         }
         
         return self.currentOrientation

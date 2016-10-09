@@ -1,8 +1,8 @@
 //
-//  VideoSceneConfiguration.swift
+//  EyeMask.swift
 //  ThreeSixtyPlayer
 //
-//  Created by Alfred Hanssen on 10/8/16.
+//  Created by Alfred Hanssen on 10/9/16.
 //  Copyright © 2016 Alfie Hanssen. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -25,11 +25,10 @@
 //
 
 import Foundation
-import CoreGraphics
 
-struct VideoSceneConfiguration
+enum EyeMask: Int
 {
-    let resolution: CGSize
-    let sphericalMapping: SphericalMapping
+    case left = 0b1
+    case right = 0b10
 }
 

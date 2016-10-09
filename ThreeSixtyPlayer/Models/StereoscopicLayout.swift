@@ -34,7 +34,7 @@ enum StereoscopicLayout
 
 extension StereoscopicLayout
 {
-    var leftEyeMapping: SphericalMapping
+    var leftEyeMapping: TextureMapping
     {
         switch self
         {
@@ -46,7 +46,7 @@ extension StereoscopicLayout
         }
     }
     
-    var rightEyeMapping: SphericalMapping
+    var rightEyeMapping: TextureMapping
     {
         switch self
         {

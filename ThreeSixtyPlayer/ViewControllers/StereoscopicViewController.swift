@@ -28,79 +28,112 @@ import UIKit
 import SceneKit
 import AVFoundation
 
+// TODO: Reduce code duplication between the mono and stereo view controllers. 
+
 class StereoscopicViewController: UIViewController, SCNSceneRendererDelegate
 {
     /// The navigator that manages a pan gesture and device motion.
     private let navigator = ThreeSixtyNavigator()
-
-    private var scene: StereoscopicScene!
     
-    private var leftSceneView: SCNView!
-    private var rightSceneView: SCNView!
+    private let leftSceneView = SCNView()
+    private let rightSceneView = SCNView()
     
     /// The video player.
-    var player: AVPlayer! // TODO: Move into init
+    private let player: AVPlayer
+
+    private let scene: StereoscopicScene
+
+    var video: Video?
+    {
+        didSet
+        {
+            guard let video = self.video else
+            {
+                self.player.pause()
+                self.player.replaceCurrentItem(with: nil)
+                
+                return
+            }
+            
+            guard case .stereoscopic(layout: let layout) = video.type else
+            {
+                fatalError("Attempt to play a monoscopic video as stereoscopic.")
+            }
+            
+            // TODO: Can we link updating scene resolution with replacing the player item?
+            self.scene.update(resolution: video.resolution, layout: layout)
+            self.player.replaceCurrentItem(with: video.playerItem)
+            self.player.play()
+        }
+    }
     
-    /// An enum case that describes the video type, resolution, and layout (in the case of stereoscopic).
-    var video: SphericalVideo! // TODO: Make optional or move into init
+    init(player: AVPlayer)
+    {
+        self.player = player
+        self.scene = StereoscopicScene(player: self.player)
         
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder)
+    {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    // MARK: - View Lifecycle 
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
 
-        guard case VideoType.stereoscopic(layout: let layout) = self.video.type else
-        {
-            fatalError("Attempt to load non-stereo video in stereo view controller.")
-        }
-        
         self.view.backgroundColor = UIColor.black
-
-        let configuration = StereoscopicSceneConfiguration(resolution: self.video.resolution, layout: layout)
-        self.scene = StereoscopicScene(player: self.player, initialConfiguration: configuration)
 
         self.setupSceneViews()
         self.setupNavigator()
         self.setupConstraints()
+        
+        // Invoking play on the sceneView seems to allow it to begin obeying autolayout constraints / autoresizing mask.
+        // Without this, sceneView doesn't resize on device rotation.
+        self.leftSceneView.play(nil)
+        self.rightSceneView.play(nil)
     }
     
     override func viewWillAppear(_ animated: Bool)
     {
         super.viewWillAppear(animated)
 
-        self.startPlayback()
+        self.player.play()
     }
     
     override func viewWillDisappear(_ animated: Bool)
     {
         super.viewWillDisappear(animated)
         
-        self.stopPlayback()
+        self.player.pause()
     }
     
-    // MARK: Setup
+    // MARK: - Setup
     
     private func setupSceneViews()
     {
-        self.leftSceneView = self.makeSceneView(withScene: self.scene, cameraNode: self.scene.leftCameraNode)
-        self.rightSceneView = self.makeSceneView(withScene: self.scene, cameraNode: self.scene.rightCameraNode)
-    
+        self.leftSceneView.showsStatistics = true
+        self.leftSceneView.backgroundColor = UIColor.black
+        self.leftSceneView.translatesAutoresizingMaskIntoConstraints = false
+        self.leftSceneView.delegate = self
+        self.leftSceneView.scene = self.scene
+        self.leftSceneView.pointOfView = self.scene.leftEye.cameraNode
+
+        self.rightSceneView.showsStatistics = true
+        self.rightSceneView.backgroundColor = UIColor.black
+        self.rightSceneView.translatesAutoresizingMaskIntoConstraints = false
+        self.rightSceneView.delegate = self
+        self.rightSceneView.scene = self.scene
+        self.rightSceneView.pointOfView = self.scene.rightEye.cameraNode
+
         self.view.addSubview(self.leftSceneView)
         self.view.addSubview(self.rightSceneView)
     }
     
-    private func makeSceneView(withScene scene: StereoscopicScene, cameraNode: SCNNode) -> SCNView
-    {
-        let sceneView = SCNView()
-        sceneView.showsStatistics = true
-        sceneView.backgroundColor = UIColor.black
-        sceneView.translatesAutoresizingMaskIntoConstraints = false
-        sceneView.delegate = self
-        sceneView.scene = scene
-        sceneView.pointOfView = cameraNode
-        
-        return sceneView
-    }
-
     private func setupNavigator()
     {
         // Ensure that navigator's pan gesture is added to our view.
@@ -134,24 +167,8 @@ class StereoscopicViewController: UIViewController, SCNSceneRendererDelegate
         self.view.addConstraint(rightTrailingConstraint)
         self.view.addConstraint(rightBottomConstraint)
     }
-    
-    // MARK: Playback
-    
-    private func startPlayback()
-    {
-        self.leftSceneView.play(nil)
-        self.rightSceneView.play(nil)
-        self.player.play()
-    }
 
-    private func stopPlayback()
-    {
-        self.leftSceneView.stop(nil)
-        self.rightSceneView.stop(nil)
-        self.player.pause()
-    }
-
-    // MARK: SCNSceneRendererDelegate
+    // MARK: - SCNSceneRendererDelegate
     
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval)
     {
@@ -165,8 +182,8 @@ class StereoscopicViewController: UIViewController, SCNSceneRendererDelegate
 
             let orientation = strongSelf.navigator.updateCurrentOrientation()
             
-            strongSelf.scene.leftCameraNode.orientation = orientation
-            strongSelf.scene.rightCameraNode.orientation = orientation
+            strongSelf.scene.leftEye.cameraNode.orientation = orientation
+            strongSelf.scene.rightEye.cameraNode.orientation = orientation
         }
     }
 }

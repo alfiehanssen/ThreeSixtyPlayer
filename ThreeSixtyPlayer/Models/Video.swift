@@ -1,5 +1,5 @@
 //
-//  SphericalVideo.swift
+//  Video.swift
 //  ThreeSixtyPlayer
 //
 //  Created by Alfred Hanssen on 10/6/16.
@@ -26,43 +26,56 @@
 
 import Foundation
 import CoreGraphics
+import AVFoundation
 
-struct SphericalVideo
+struct Video
 {
     let urlString: String
     let resolution: CGSize
     let type: VideoType
 }
 
-extension SphericalVideo
+extension Video
 {
+    // TODO: Get better video files, these are terrible!
     static let Mono = "https://fpdl.vimeocdn.com/vimeo-prod-skyfire-std-us/01/649/7/178248880/580318297.mp4?token=938d3a52_0xfb2509dff5d09d6849327592792df58673fcca43"
-    static let StereoTopBottom = "https://player.vimeo.com/external/186023974.m3u8?s=2653db76dd0b3dcaa19b21d0969d42531b1c102a"
+    //"http://www.kolor.com/360-videos-files/freedom360-hang-gliding-4k.mp4"
+    
+    static let StereoTopBottom = "https://player.vimeo.com/external/186023974.hd.mp4?s=eb6a035fd1742461f41ed6da84a36418985d54ba&profile_id=119"
+    
     static let StereoLeftRight = StereoTopBottom
     
     static let DefaultMonoResolution = CGSize(width: 1920, height: 1080)
     static let DefaultStereoResolution = CGSize(width: 1080, height: 1080) // TODO: For HLS/DASH we don't want to rely on w/h
 
-    static func demoVideo(ofType type: VideoType) -> SphericalVideo
+    static func demoVideo(ofType type: VideoType) -> Video
     {
         switch type
         {
         case .monoscopic:
-            return SphericalVideo(urlString: Mono, resolution: DefaultMonoResolution, type: type)
+            return Video(urlString: Mono, resolution: DefaultMonoResolution, type: type)
 
         case .stereoscopic(layout: let layout):
             switch layout
             {
             case .topBottom:
-                return SphericalVideo(urlString: StereoTopBottom, resolution: DefaultStereoResolution, type: type)
+                return Video(urlString: StereoTopBottom, resolution: DefaultStereoResolution, type: type)
 
             case .leftRight:
-                return SphericalVideo(urlString: StereoLeftRight, resolution: DefaultStereoResolution, type: type)
+                return Video(urlString: StereoLeftRight, resolution: DefaultStereoResolution, type: type)
             }
         }
     }
 }
 
-// https://fpdl.vimeocdn.com/vimeo-prod-skyfire-std-us/01/649/7/178248880/580318297.mp4?token=938d3a52_0xfb2509dff5d09d6849327592792df58673fcca43
-// http://www.kolor.com/360-videos-files/noa-neal-graffiti-360-music-video-full-hd.mp4
+extension Video
+{
+    var playerItem: AVPlayerItem
+    {
+        let url = URL(string: self.urlString)!
+        let playerItem = AVPlayerItem(url: url)
+
+        return playerItem
+    }
+}
 

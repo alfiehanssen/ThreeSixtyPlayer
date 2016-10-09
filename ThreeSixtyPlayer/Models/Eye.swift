@@ -1,8 +1,8 @@
 //
-//  StereoscopicSceneConfiguration.swift
+//  Eye.swift
 //  ThreeSixtyPlayer
 //
-//  Created by Alfred Hanssen on 10/8/16.
+//  Created by Alfred Hanssen on 10/9/16.
 //  Copyright © 2016 Alfie Hanssen. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -25,11 +25,32 @@
 //
 
 import Foundation
-import CoreGraphics
+import SceneKit
+import AVFoundation
 
-struct StereoscopicSceneConfiguration
+class Eye
 {
-    let resolution: CGSize
-    let layout: StereoscopicLayout
+    let videoTexture: VideoTexture
+    let cameraNode: SCNNode
+    let sphereNode: SCNNode
+    
+    init(videoTexture: VideoTexture, categoryBitMask mask: Int? = nil)
+    {
+        self.videoTexture = videoTexture
+        self.cameraNode = SCNNode.cameraNode()
+        self.sphereNode = SCNNode.sphereNode(skScene: self.videoTexture.scene)
+        
+        if let mask = mask
+        {
+            self.applyCategoryBitMask(mask)
+        }
+    }
+    
+    private func applyCategoryBitMask(_ mask: Int)
+    {
+        self.sphereNode.categoryBitMask = mask
+        self.cameraNode.categoryBitMask = mask
+        self.cameraNode.camera?.categoryBitMask = mask
+    }
 }
 

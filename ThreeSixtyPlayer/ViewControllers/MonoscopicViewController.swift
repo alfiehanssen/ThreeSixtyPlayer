@@ -33,61 +33,96 @@ class MonoscopicViewController: UIViewController, SCNSceneRendererDelegate
     /// The navigator that manages a pan gesture and device motion.
     private let navigator = ThreeSixtyNavigator()
     
-    private var scene: MonoscopicScene!
-    
-    private var sceneView: SCNView!
-    
-    /// The video player.
-    var player: AVPlayer! // TODO: Move this into init?
-    
-    /// An enum case that describes the video type, resolution, and layout (in the case of stereoscopic).
-    var video: SphericalVideo! // TODO: Make this optional or move into init
+    private let sceneView = SCNView()
 
+    private let player: AVPlayer
+
+    private let scene: MonoscopicScene
+    
+    var video: Video?
+    {
+        didSet
+        {
+            guard let video = self.video else
+            {
+                self.player.pause()
+                self.player.replaceCurrentItem(with: nil)
+                
+                return
+            }
+            
+            switch video.type
+            {
+            case .monoscopic:
+                self.scene.update(resolution: video.resolution)
+                
+            case .stereoscopic(layout: let layout):
+                // In the event that we want to display a stereoscopic video as monoscopic
+                // (Perhaps the user has no stereoscopic headset and we don't have a mono version of the video)
+                // We arbitrarily select the left eye mapping.
+                self.scene.update(resolution: video.resolution, mapping: layout.leftEyeMapping)
+            }
+            
+            // TODO: Can we link updating scene resolution with replacing the player item?
+            self.player.replaceCurrentItem(with: video.playerItem)
+            self.player.play()
+        }
+    }
+
+    init(player: AVPlayer)
+    {
+        self.player = player
+        self.scene = MonoscopicScene(player: self.player)
+
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder)
+    {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     // MARK: - View Lifecycle 
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
 
-        guard case VideoType.monoscopic = self.video.type else
-        {
-            fatalError("Attempt to load non-mono video in mono view controller.")
-        }
-        
         self.view.backgroundColor = UIColor.black
-        
-        self.scene = MonoscopicScene(player: self.player, initialVideoResolution: self.video.resolution)
         
         self.setupSceneView()        
         self.setupNavigator()
         self.setupConstraints()
+        
+        // Invoking play on the sceneView seems to allow it to begin obeying autolayout constraints / autoresizing mask.
+        // Without this, sceneView doesn't resize on device rotation. 
+        self.sceneView.play(nil)
     }
     
     override func viewWillAppear(_ animated: Bool)
     {
         super.viewWillAppear(animated)
         
-        self.startPlayback()
+        self.player.play()
     }
     
     override func viewWillDisappear(_ animated: Bool)
     {
         super.viewWillDisappear(animated)
         
-        self.stopPlayback()
+        self.player.pause()
     }
     
     // MARK: - Setup
     
     private func setupSceneView()
     {
-        self.sceneView = SCNView()
         self.sceneView.showsStatistics = true
         self.sceneView.backgroundColor = UIColor.black
         self.sceneView.translatesAutoresizingMaskIntoConstraints = false
         self.sceneView.delegate = self
         self.sceneView.scene = self.scene
-        self.sceneView.pointOfView = self.scene.cameraNode
+        self.sceneView.pointOfView = self.scene.eye.cameraNode
         
         self.view.addSubview(self.sceneView)
     }
@@ -113,20 +148,6 @@ class MonoscopicViewController: UIViewController, SCNSceneRendererDelegate
         self.view.addConstraint(bottomConstraint)
         self.view.addConstraint(trailingConstraint)
     }
-
-    // MARK: - Playback
-    
-    private func startPlayback()
-    {
-        self.sceneView.play(nil)
-        self.player.play()
-    }
-    
-    private func stopPlayback()
-    {
-        self.sceneView.stop(nil)
-        self.player.pause()
-    }
     
     // MARK: - SCNSceneRendererDelegate
     
@@ -142,8 +163,8 @@ class MonoscopicViewController: UIViewController, SCNSceneRendererDelegate
             
             let orientation = strongSelf.navigator.updateCurrentOrientation()
             
-            strongSelf.scene.cameraNode.orientation = orientation
+            strongSelf.scene.eye.cameraNode.orientation = orientation
         }
     }
-
 }
+

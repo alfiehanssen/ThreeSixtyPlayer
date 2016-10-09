@@ -1,5 +1,5 @@
 //
-//  StereoscopicMapping.swift
+//  TextureMapping.swift
 //  ThreeSixtyPlayer
 //
 //  Created by Alfred Hanssen on 10/8/16.
@@ -27,7 +27,7 @@
 import Foundation
 import CoreGraphics
 
-enum SphericalMapping
+enum TextureMapping
 {
     case none
     case top
@@ -36,7 +36,7 @@ enum SphericalMapping
     case right
 }
 
-extension SphericalMapping
+extension TextureMapping
 {
     var videoNodeAnchorPoint: CGPoint
     {
