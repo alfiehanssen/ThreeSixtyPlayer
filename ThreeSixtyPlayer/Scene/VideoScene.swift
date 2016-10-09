@@ -55,22 +55,14 @@ class VideoScene: SKScene
     func updateConfiguration(_ configuration: VideoSceneConfiguration)
     {
         let resolution = configuration.resolution
+        let mapping = configuration.sphericalMapping
+
+        let sceneSize = mapping.sceneSize(videoResolution: resolution)
         
-        if let mapping = configuration.stereoscopicMapping
-        {
-            let sceneSize = mapping.sceneSize(videoResolution: resolution)
-            
-            self.skVideoNode.anchorPoint = mapping.videoNodeAnchorPoint
-            self.skVideoNode.position = sceneSize.midPoint
-            self.skVideoNode.size = resolution
-            self.size = sceneSize
-        }
-        else
-        {
-            self.skVideoNode.position = resolution.midPoint
-            self.skVideoNode.size = resolution
-            self.size = resolution
-        }
+        self.skVideoNode.anchorPoint = mapping.videoNodeAnchorPoint
+        self.skVideoNode.position = sceneSize.midPoint
+        self.skVideoNode.size = resolution
+        self.size = sceneSize
     }
 }
 

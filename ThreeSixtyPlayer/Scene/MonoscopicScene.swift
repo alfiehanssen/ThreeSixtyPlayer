@@ -37,7 +37,7 @@ class MonoscopicScene: SCNScene
     
     init(player: AVPlayer, initialVideoResolution: CGSize)
     {
-        let configuration = VideoSceneConfiguration(resolution: initialVideoResolution, stereoscopicMapping: nil)
+        let configuration = VideoSceneConfiguration(resolution: initialVideoResolution, sphericalMapping: .none)
         
         self.videoScene = VideoScene(player: player, initialConfiguration: configuration)
         
@@ -59,7 +59,7 @@ class MonoscopicScene: SCNScene
     // TODO: Document when/why this method would be called.
     func updateVideoResolution(_ resolution: CGSize)
     {
-        let configuration = VideoSceneConfiguration(resolution: resolution, stereoscopicMapping: nil)
+        let configuration = VideoSceneConfiguration(resolution: resolution, sphericalMapping: .none)
 
         self.videoScene.updateConfiguration(configuration)
     }

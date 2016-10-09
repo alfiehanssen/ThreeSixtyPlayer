@@ -27,20 +27,24 @@
 import Foundation
 import CoreGraphics
 
-enum StereoscopicMapping
+enum SphericalMapping
 {
+    case none
     case top
     case bottom
     case left
     case right
 }
 
-extension StereoscopicMapping
+extension SphericalMapping
 {
     var videoNodeAnchorPoint: CGPoint
     {
         switch self
         {
+        case .none:
+            return CGPoint(x: 0.5, y: 0.5)
+
         case .top:
             return CGPoint(x: 0.5, y: 0.75)
             
@@ -59,6 +63,9 @@ extension StereoscopicMapping
     {
         switch self
         {
+        case .none:
+            return videoResolution
+            
         case .top, .bottom:
             return CGSize(width: videoResolution.width, height: videoResolution.height / 2)
             

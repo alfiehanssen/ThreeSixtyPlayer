@@ -30,6 +30,6 @@ import CoreGraphics
 struct VideoSceneConfiguration
 {
     let resolution: CGSize
-    let stereoscopicMapping: StereoscopicMapping?
+    let sphericalMapping: SphericalMapping
 }
 

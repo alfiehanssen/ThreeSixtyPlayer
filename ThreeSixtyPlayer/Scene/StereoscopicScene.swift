@@ -53,8 +53,8 @@ class StereoscopicScene: SCNScene
         let resolution = initialConfiguration.resolution
         let layout = initialConfiguration.layout
         
-        let leftConfiguration = VideoSceneConfiguration(resolution: resolution, stereoscopicMapping: layout.leftEyeMapping)
-        let rightConfiguration = VideoSceneConfiguration(resolution: resolution, stereoscopicMapping: layout.rightEyeMapping)
+        let leftConfiguration = VideoSceneConfiguration(resolution: resolution, sphericalMapping: layout.leftEyeMapping)
+        let rightConfiguration = VideoSceneConfiguration(resolution: resolution, sphericalMapping: layout.rightEyeMapping)
         
         self.leftVideoScene = VideoScene(player: player, initialConfiguration: leftConfiguration)
         self.rightVideoScene = VideoScene(player: player, initialConfiguration: rightConfiguration)
@@ -85,8 +85,8 @@ class StereoscopicScene: SCNScene
         let resolution = configuration.resolution
         let layout = configuration.layout
 
-        let leftConfiguration = VideoSceneConfiguration(resolution: resolution, stereoscopicMapping: layout.leftEyeMapping)
-        let rightConfiguration = VideoSceneConfiguration(resolution: resolution, stereoscopicMapping: layout.rightEyeMapping)
+        let leftConfiguration = VideoSceneConfiguration(resolution: resolution, sphericalMapping: layout.leftEyeMapping)
+        let rightConfiguration = VideoSceneConfiguration(resolution: resolution, sphericalMapping: layout.rightEyeMapping)
 
         self.leftVideoScene.updateConfiguration(leftConfiguration)
         self.rightVideoScene.updateConfiguration(rightConfiguration)
