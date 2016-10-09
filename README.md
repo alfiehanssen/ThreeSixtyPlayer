@@ -12,7 +12,7 @@ SceneKit is probably the highest level iOS API that can be used for this sort of
 Currently, the player supports:
 
 - Spherical equirectangular monoscopic video
-- Spherical equirectangular stereoscopic video
+- Spherical equirectangular stereoscopic top/bottom video
 
 ###Usage
 
