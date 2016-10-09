@@ -36,8 +36,8 @@ struct Video
 
 extension Video
 {
-    static let Mono = "https://fpdl.vimeocdn.com/vimeo-prod-skyfire-std-us/01/649/7/178248880/580318297.mp4?token=938d3a52_0xfb2509dff5d09d6849327592792df58673fcca43"
-    static let StereoTopBottom = "https://player.vimeo.com/external/186023974.m3u8?s=2653db76dd0b3dcaa19b21d0969d42531b1c102a"
+    static let Mono = "http://www.kolor.com/360-videos-files/freedom360-hang-gliding-4k.mp4"
+    static let StereoTopBottom = "https://player.vimeo.com/external/186023974.hd.mp4?s=eb6a035fd1742461f41ed6da84a36418985d54ba&profile_id=119"
     static let StereoLeftRight = StereoTopBottom
     
     static let DefaultMonoResolution = CGSize(width: 1920, height: 1080)
@@ -62,7 +62,4 @@ extension Video
         }
     }
 }
-
-// https://fpdl.vimeocdn.com/vimeo-prod-skyfire-std-us/01/649/7/178248880/580318297.mp4?token=938d3a52_0xfb2509dff5d09d6849327592792df58673fcca43
-// http://www.kolor.com/360-videos-files/noa-neal-graffiti-360-music-video-full-hd.mp4
 

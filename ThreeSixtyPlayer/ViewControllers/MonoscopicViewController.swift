@@ -43,6 +43,16 @@ class MonoscopicViewController: UIViewController, SCNSceneRendererDelegate
     /// An enum case that describes the video type, resolution, and layout (in the case of stereoscopic).
     var video: Video! // TODO: Make this optional or move into init
 
+//    init()
+//    {
+//        super.init(nibName: nil, bundle: nil)
+//    }
+//    
+//    required init?(coder aDecoder: NSCoder)
+//    {
+//        fatalError("init(coder:) has not been implemented")
+//    }
+    
     // MARK: - View Lifecycle 
     
     override func viewDidLoad()
