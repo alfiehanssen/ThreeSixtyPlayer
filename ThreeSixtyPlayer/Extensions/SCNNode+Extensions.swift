@@ -29,6 +29,7 @@ import SpriteKit
 
 extension SCNNode
 {
+    /// Returns an SCNNode configured with a camera object.
     static func cameraNode() -> SCNNode
     {
         let camera = SCNCamera()
@@ -43,9 +44,12 @@ extension SCNNode
 
 extension SCNNode
 {
-    /// The default radius of the sphere on which we project the video texture.
-    private static let DefaultSphereRadius: CGFloat = 100 // TODO: How to choose the sphere radius? [AH] 7/7/2016
+    // TODO: Does this belong here?
+    // TODO: How to choose the sphere radius? [AH] 7/7/2016
+    /// The default radius for sphere geometry that receives a SpriteKit scene as its material.
+    private static let DefaultSphereRadius: CGFloat = 100
     
+    /// Returns an SCNNode configured with sphere geometry used for viewing spherical videos.
     static func sphereNode(skScene: SKScene) -> SCNNode
     {
         let material = SCNMaterial()

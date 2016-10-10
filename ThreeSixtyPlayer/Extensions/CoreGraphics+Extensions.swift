@@ -28,26 +28,31 @@ import CoreGraphics
 
 extension CGSize
 {
+    /// Returns the midpoint of the receiver's width.
     var midX: CGFloat
     {
         return self.width / 2
     }
     
+    /// Returns the midpoint of the receiver's height.
     var midY: CGFloat
     {
         return self.height / 2
     }
     
+    /// Returns the midpoint of the receiver's width and height.
     var midPoint: CGPoint
     {
         return CGPoint(x: self.midX, y: self.midY)
     }
     
+    /// Returns a boolean indicating whether the receiver's width and height are both greater than zero.
     var isGreaterThanZero: Bool
     {
         return self.width > 0 && self.height > 0
     }
     
+    // TODO: Does this belong here?
     static var DefaultVideoResolution: CGSize
     {
         return CGSize(width: 1920, height: 1080)
