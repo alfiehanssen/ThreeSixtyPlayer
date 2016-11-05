@@ -46,7 +46,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate
         return true
     }
     
-    private static func makeAudioSessionCategoryAmbient()
+    fileprivate static func makeAudioSessionCategoryAmbient()
     {
         do {
             try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryAmbient)

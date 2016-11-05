@@ -35,10 +35,10 @@ let SCNQuaternionIdentity = SCNQuaternion(x: GLKQuaternionIdentity.x, y: GLKQuat
 class ThreeSixtyNavigator
 {
     /// A tuple `typealias` used to hold a pair of rotation offsets about the X and Y axes.  
-    private typealias RotationOffset = (x: Float, y: Float)
+    fileprivate typealias RotationOffset = (x: Float, y: Float)
 
     /// The amount of rotation in radians that can be applied by a single pan gesture.
-    private static let MaxPanGestureRotation: Float = GLKMathDegreesToRadians(360)
+    fileprivate static let MaxPanGestureRotation: Float = GLKMathDegreesToRadians(360)
 
     /**
         An enum whose cases describe how a user can manipulate the camera to navigate around the video.
@@ -57,19 +57,19 @@ class ThreeSixtyNavigator
     }
     
     /// The controller used to track the pan gesture's translation delta.
-    private let panGestureController = PanGestureController()
+    fileprivate let panGestureController = PanGestureController()
     
     /// The controller used to track the device motion (orientation).
-    private let deviceMotionController = DeviceMotionController()
+    fileprivate let deviceMotionController = DeviceMotionController()
 
     /// The cumulative amount of pan gesture translation in the X direction.
-    private var cumulativePanOffsetX: Float = 0
+    fileprivate var cumulativePanOffsetX: Float = 0
 
     /// The cumulative amount of pan gesture translation in the Y direction.
-    private var cumulativePanOffsetY: Float = 0
+    fileprivate var cumulativePanOffsetY: Float = 0
     
     /// The single source of truth for camera orientation. The default initial value is SCNQuaternionIdentity.
-    private var currentOrientation: SCNQuaternion
+    fileprivate var currentOrientation: SCNQuaternion
     
     init(initialOrientation: SCNQuaternion = SCNQuaternionIdentity)
     {
@@ -147,7 +147,7 @@ class ThreeSixtyNavigator
             
         case .panGesture:
             let rotationOffset = self.panGestureRotationOffset()
-            self.currentOrientation = type(of: self).rotateOrientation(orientation: self.currentOrientation, byRotationOffset: rotationOffset)
+            self.currentOrientation = type(of: self).rotateOrientation(self.currentOrientation, byRotationOffset: rotationOffset)
 
         case .panGestureAndDeviceMotion:
             // Device motion can be nil at times, this is ok.
@@ -166,13 +166,13 @@ class ThreeSixtyNavigator
 
             let orientation = deviceMotion.gaze(atOrientation: UIApplication.shared.statusBarOrientation)
             let cumulativeOffset = RotationOffset(x: self.cumulativePanOffsetX, y: self.cumulativePanOffsetY)
-            self.currentOrientation = type(of: self).rotateOrientation(orientation: orientation, byRotationOffset: cumulativeOffset)
+            self.currentOrientation = type(of: self).rotateOrientation(orientation, byRotationOffset: cumulativeOffset)
         }
         
         return self.currentOrientation
     }
     
-    private func panGestureRotationOffset() -> RotationOffset
+    fileprivate func panGestureRotationOffset() -> RotationOffset
     {
         let maxRotation = type(of: self).MaxPanGestureRotation
         let viewBounds = self.panGestureController.viewBounds
@@ -195,7 +195,7 @@ class ThreeSixtyNavigator
         return RotationOffset(x: xRadians, y: yRadians)
     }
     
-    private static func rotateOrientation(orientation: SCNQuaternion, byRotationOffset rotationOffset: RotationOffset) -> SCNQuaternion
+    fileprivate static func rotateOrientation(_ orientation: SCNQuaternion, byRotationOffset rotationOffset: RotationOffset) -> SCNQuaternion
     {
         // Represent the orientation as a GLKQuaternion
         var glQuaternion = GLKQuaternionMake(orientation.x, orientation.y, orientation.z, orientation.w)

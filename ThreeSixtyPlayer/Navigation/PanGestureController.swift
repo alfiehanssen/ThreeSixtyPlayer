@@ -31,7 +31,7 @@ import UIKit
 class PanGestureController
 {    
     /// The translation value previously reported via the UIPanGestureRecognizerDelegate.
-    private var previousPanTranslation = CGPoint.zero
+    fileprivate var previousPanTranslation = CGPoint.zero
     
     /// The translation delta between the previously and currently reported translations.
     var currentPanTranslationDelta = CGPoint.zero
@@ -63,7 +63,7 @@ class PanGestureController
         self.panGestureRecognizer.addTarget(self, action: #selector(self.didPan))
     }
     
-    @objc private func didPan(_ recognizer: UIPanGestureRecognizer)
+    @objc fileprivate func didPan(_ recognizer: UIPanGestureRecognizer)
     {
         switch recognizer.state
         {

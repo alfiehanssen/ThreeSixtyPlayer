@@ -48,7 +48,7 @@ class StereoscopicScene: SCNScene
         self.init(leftVideoTexture: leftVideoTexture, rightVideoTexture: rightVideoTexture)
     }
     
-    private init(leftVideoTexture: VideoTexture, rightVideoTexture: VideoTexture)
+    fileprivate init(leftVideoTexture: VideoTexture, rightVideoTexture: VideoTexture)
     {
         self.leftEye = Eye(videoTexture: leftVideoTexture, categoryBitMask: EyeMask.left.rawValue)
         self.rightEye = Eye(videoTexture: rightVideoTexture, categoryBitMask: EyeMask.right.rawValue)

@@ -47,10 +47,10 @@ extension SCNNode
     // TODO: Does this belong here?
     // TODO: How to choose the sphere radius? [AH] 7/7/2016
     /// The default radius for sphere geometry that receives a SpriteKit scene as its material.
-    private static let DefaultSphereRadius: CGFloat = 100
+    fileprivate static let DefaultSphereRadius: CGFloat = 100
     
     /// Returns an SCNNode configured with sphere geometry used for viewing spherical videos.
-    static func sphereNode(skScene: SKScene) -> SCNNode
+    static func sphereNode(_ skScene: SKScene) -> SCNNode
     {
         let material = SCNMaterial()
         material.diffuse.contents = skScene

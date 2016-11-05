@@ -31,10 +31,10 @@ import CoreMotion
 class DeviceMotionController
 {
     /// The interval at which device motion updates will be reported.
-    private static let DeviceMotionUpdateInterval: TimeInterval = 1 / 60
+    fileprivate static let DeviceMotionUpdateInterval: TimeInterval = 1 / 60
     
     /// The motion manager used to adjust camera position based on device motion.
-    private let motionManager = CMMotionManager()
+    fileprivate let motionManager = CMMotionManager()
     
     /// Accessor for the current device motion.
     var currentDeviceMotion: CMDeviceMotion?

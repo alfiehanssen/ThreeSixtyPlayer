@@ -28,18 +28,18 @@ import UIKit
 import SceneKit
 import AVFoundation
 
-public class MonoscopicViewController: UIViewController, SCNSceneRendererDelegate
+open class MonoscopicViewController: UIViewController, SCNSceneRendererDelegate
 {
     /// The navigator that manages a pan gesture and device motion.
-    private let navigator = ThreeSixtyNavigator()
+    fileprivate let navigator = ThreeSixtyNavigator()
     
-    private let sceneView = SCNView()
+    fileprivate let sceneView = SCNView()
 
-    private let player: AVPlayer
+    fileprivate let player: AVPlayer
 
-    private let scene: MonoscopicScene
+    fileprivate let scene: MonoscopicScene
     
-    public var video: Video?
+    open var video: Video?
     {
         didSet
         {
@@ -84,7 +84,7 @@ public class MonoscopicViewController: UIViewController, SCNSceneRendererDelegat
     
     // MARK: - View Lifecycle 
     
-    override public func viewDidLoad()
+    override open func viewDidLoad()
     {
         super.viewDidLoad()
 
@@ -99,14 +99,14 @@ public class MonoscopicViewController: UIViewController, SCNSceneRendererDelegat
         self.sceneView.play(nil)
     }
     
-    override public func viewWillAppear(_ animated: Bool)
+    override open func viewWillAppear(_ animated: Bool)
     {
         super.viewWillAppear(animated)
         
         self.player.play()
     }
     
-    override public func viewWillDisappear(_ animated: Bool)
+    override open func viewWillDisappear(_ animated: Bool)
     {
         super.viewWillDisappear(animated)
         
@@ -115,7 +115,7 @@ public class MonoscopicViewController: UIViewController, SCNSceneRendererDelegat
     
     // MARK: - Setup
     
-    private func setupSceneView()
+    fileprivate func setupSceneView()
     {
         self.sceneView.showsStatistics = true
         self.sceneView.backgroundColor = UIColor.black
@@ -127,7 +127,7 @@ public class MonoscopicViewController: UIViewController, SCNSceneRendererDelegat
         self.view.addSubview(self.sceneView)
     }
     
-    private func setupNavigator()
+    fileprivate func setupNavigator()
     {
         // Ensure that navigator's pan gesture is added to our view.
         self.navigator.setupPanGestureRecognizer(withView: self.view)
@@ -136,7 +136,7 @@ public class MonoscopicViewController: UIViewController, SCNSceneRendererDelegat
         self.navigator.navigationMode = .panGestureAndDeviceMotion
     }
 
-    private func setupConstraints()
+    fileprivate func setupConstraints()
     {
         let topConstraint = NSLayoutConstraint(item: self.view, attribute: .top, relatedBy: .equal, toItem: self.sceneView, attribute: .top, multiplier: 1, constant: 0)
         let leadingConstraint = NSLayoutConstraint(item: self.view, attribute: .leading, relatedBy: .equal, toItem: self.sceneView, attribute: .leading, multiplier: 1, constant: 0)
@@ -151,7 +151,7 @@ public class MonoscopicViewController: UIViewController, SCNSceneRendererDelegat
     
     // MARK: - SCNSceneRendererDelegate
     
-    public func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval)
+    open func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval)
     {
         // TODO: Necessary to dispatch to main? Implications of doing so? Thread safty of navigator class / pan recognizer is one issue.
         

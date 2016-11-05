@@ -31,7 +31,7 @@ import AVFoundation
 class VideoTexture
 {
     /// A SpriteKit node that displays video content managed by the player.
-    private let videoNode: SKVideoNode
+    fileprivate let videoNode: SKVideoNode
     
     /// A SpriteKit scene that contains a video node.
     let scene: SKScene

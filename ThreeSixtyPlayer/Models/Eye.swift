@@ -38,7 +38,7 @@ class Eye
     {
         self.videoTexture = videoTexture
         self.cameraNode = SCNNode.cameraNode()
-        self.sphereNode = SCNNode.sphereNode(skScene: self.videoTexture.scene)
+        self.sphereNode = SCNNode.sphereNode(self.videoTexture.scene)
         
         if let mask = mask
         {
@@ -46,7 +46,7 @@ class Eye
         }
     }
     
-    private func applyCategoryBitMask(_ mask: Int)
+    fileprivate func applyCategoryBitMask(_ mask: Int)
     {
         self.sphereNode.categoryBitMask = mask
         self.cameraNode.categoryBitMask = mask

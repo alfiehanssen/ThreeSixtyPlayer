@@ -45,7 +45,7 @@ class MonoscopicScene: SCNScene
         self.init(videoTexture: videoTexture)
     }
     
-    private init(videoTexture: VideoTexture)
+    fileprivate init(videoTexture: VideoTexture)
     {
         self.eye = Eye(videoTexture: videoTexture)
         

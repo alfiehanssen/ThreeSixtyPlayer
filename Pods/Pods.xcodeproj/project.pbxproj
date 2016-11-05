@@ -68,24 +68,24 @@
 		2547DFE1DC0CD2B2BB7E3AE7BAB9AB05 /* Pods-Demo-iOS-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Demo-iOS-resources.sh"; sourceTree = "<group>"; };
 		2638F882BF09B7A63C11A9D2B1EBEA4D /* Pods-Demo-iOS-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Demo-iOS-acknowledgements.markdown"; sourceTree = "<group>"; };
 		26E9689AE84BE33662D3E48954286308 /* Pods-Demo-iOSUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Demo-iOSUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		2A159C3DB7FF95E4C46B726A11168676 /* Pods_Demo_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_Demo_iOS.framework; path = "Pods-Demo-iOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2A159C3DB7FF95E4C46B726A11168676 /* Pods_Demo_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Demo_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		307001C2F88BCBE2ADE7187D7E085B79 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
 		318B05259A3ECB4D5DC5A25566A43F89 /* Pods-Demo-iOSUITests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Demo-iOSUITests-acknowledgements.plist"; sourceTree = "<group>"; };
 		36BF63D3E4B49C34681BA616B55E75C7 /* ThreeSixtyPlayer-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ThreeSixtyPlayer-umbrella.h"; sourceTree = "<group>"; };
 		37F2A596935BA3571CB572AA014691E7 /* StereoscopicLayout.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = StereoscopicLayout.swift; sourceTree = "<group>"; };
-		3F5E5C7A599F679DB8A6A1F9071D89B2 /* ThreeSixtyPlayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = ThreeSixtyPlayer.framework; path = ThreeSixtyPlayer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3F5E5C7A599F679DB8A6A1F9071D89B2 /* ThreeSixtyPlayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ThreeSixtyPlayer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		427052F624E294ECCCB7CEC195E86FEC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		43CD340031981204385CFCA9FF263906 /* DeviceMotionController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DeviceMotionController.swift; sourceTree = "<group>"; };
 		43F5FBF5C8D9AC818EAF00DB358BCC58 /* Pods-Demo-iOSTests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Demo-iOSTests-dummy.m"; sourceTree = "<group>"; };
 		45E02A0A34E4A5748EC2A3E5BCDC9B55 /* ThreeSixtyNavigator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ThreeSixtyNavigator.swift; sourceTree = "<group>"; };
 		4643AEFC678FB1433478B8C14924F454 /* Pods-Demo-iOSTests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Demo-iOSTests-acknowledgements.markdown"; sourceTree = "<group>"; };
 		481AEBCC247FB5795CABA71E7EA14A12 /* StereoscopicScene.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = StereoscopicScene.swift; sourceTree = "<group>"; };
-		48601E164AB93820418E2C680486EF0F /* Pods-Demo-iOS.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-Demo-iOS.modulemap"; sourceTree = "<group>"; };
+		48601E164AB93820418E2C680486EF0F /* Pods-Demo-iOS.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-Demo-iOS.modulemap"; sourceTree = "<group>"; };
 		48953ED19E8309253789B907B71301DF /* Pods-Demo-iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Demo-iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		48DA2DAC19E648D3B57FC6F14EB06831 /* ThreeSixtyPlayer.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = ThreeSixtyPlayer.xcconfig; sourceTree = "<group>"; };
 		49346500EF8AEC6431F651FCCA79D0E7 /* CoreGraphics+Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "CoreGraphics+Extensions.swift"; sourceTree = "<group>"; };
 		49C23AB1D2B0773BFC774D1E058D8D2B /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4A5881BBDA952512BCB76407CEE3F6DE /* Pods_Demo_iOSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_Demo_iOSTests.framework; path = "Pods-Demo-iOSTests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4A5881BBDA952512BCB76407CEE3F6DE /* Pods_Demo_iOSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Demo_iOSTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C2B69D595CC090F7B361840815F8BBA /* EyeMask.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = EyeMask.swift; sourceTree = "<group>"; };
 		4F26754CA86426E211287F1FC407BB3F /* SceneKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SceneKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/SceneKit.framework; sourceTree = DEVELOPER_DIR; };
 		50BA500700AB701EE7DB3D8EF9CEAFBC /* Video+Demos.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Video+Demos.swift"; sourceTree = "<group>"; };
@@ -102,17 +102,17 @@
 		7B7EAE4D942C8C2BD1E8C0DF26F6E916 /* StereoscopicViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = StereoscopicViewController.swift; sourceTree = "<group>"; };
 		7D9E90745B3902A2C3B0F4D378B6DBA1 /* Pods-Demo-iOSUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Demo-iOSUITests.release.xcconfig"; sourceTree = "<group>"; };
 		8FC0A75770E45E337763B799E173AE49 /* MonoscopicViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MonoscopicViewController.swift; sourceTree = "<group>"; };
-		92C6CA0A9160E51F3AA7F9D027B85735 /* Pods-Demo-iOSUITests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-Demo-iOSUITests.modulemap"; sourceTree = "<group>"; };
-		92DD5A435C3F45A7304B87828EDB4DF5 /* Pods-Demo-iOSTests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-Demo-iOSTests.modulemap"; sourceTree = "<group>"; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		9411D201C6F4A07CEFDAE261AAFCE906 /* ThreeSixtyPlayer.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = ThreeSixtyPlayer.modulemap; sourceTree = "<group>"; };
+		92C6CA0A9160E51F3AA7F9D027B85735 /* Pods-Demo-iOSUITests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-Demo-iOSUITests.modulemap"; sourceTree = "<group>"; };
+		92DD5A435C3F45A7304B87828EDB4DF5 /* Pods-Demo-iOSTests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-Demo-iOSTests.modulemap"; sourceTree = "<group>"; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9411D201C6F4A07CEFDAE261AAFCE906 /* ThreeSixtyPlayer.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = ThreeSixtyPlayer.modulemap; sourceTree = "<group>"; };
 		9458892593D2939DD405F8F8D4178DF9 /* Pods-Demo-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Demo-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		97E3A8171333EC93C83E0EB59A6DC12D /* Pods-Demo-iOS-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Demo-iOS-acknowledgements.plist"; sourceTree = "<group>"; };
 		9C7F3D6E4671CD99511ABCCB7FA3D249 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/CoreMotion.framework; sourceTree = DEVELOPER_DIR; };
 		A9A26DC13275F65A7A44E1DBF7E33850 /* Pods-Demo-iOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Demo-iOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		B9906AA4932E568F3FAAA997BEDA53C2 /* TextureMapping.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TextureMapping.swift; sourceTree = "<group>"; };
 		C574F7A10D5579FF8B153C1ED86E2F88 /* VideoType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = VideoType.swift; sourceTree = "<group>"; };
-		C5CFD5657F093F330C04308D44D4D48D /* Pods_Demo_iOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_Demo_iOSUITests.framework; path = "Pods-Demo-iOSUITests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C5CFD5657F093F330C04308D44D4D48D /* Pods_Demo_iOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Demo_iOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAA37A352FFD6372030A3786A4320A97 /* Pods-Demo-iOSTests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Demo-iOSTests-frameworks.sh"; sourceTree = "<group>"; };
 		CBB1EE311A0195A9F807F6DF02F75752 /* Pods-Demo-iOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Demo-iOS-dummy.m"; sourceTree = "<group>"; };
 		D3F179541BBBFE59C6B0410D6E03FBF5 /* Pods-Demo-iOS-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Demo-iOS-umbrella.h"; sourceTree = "<group>"; };
@@ -221,7 +221,6 @@
 				8FC0A75770E45E337763B799E173AE49 /* MonoscopicViewController.swift */,
 				7B7EAE4D942C8C2BD1E8C0DF26F6E916 /* StereoscopicViewController.swift */,
 			);
-			name = ViewControllers;
 			path = ViewControllers;
 			sourceTree = "<group>";
 		};
@@ -230,7 +229,6 @@
 			children = (
 				50BA500700AB701EE7DB3D8EF9CEAFBC /* Video+Demos.swift */,
 			);
-			name = ForDemos;
 			path = ForDemos;
 			sourceTree = "<group>";
 		};
@@ -241,7 +239,6 @@
 				68CE06F878633C64BA1375F2F08984F8 /* PanGestureController.swift */,
 				45E02A0A34E4A5748EC2A3E5BCDC9B55 /* ThreeSixtyNavigator.swift */,
 			);
-			name = Navigation;
 			path = Navigation;
 			sourceTree = "<group>";
 		};
@@ -256,7 +253,6 @@
 				582A353B1FFD6960275CEC4BB2F71FAA /* VideoTexture.swift */,
 				C574F7A10D5579FF8B153C1ED86E2F88 /* VideoType.swift */,
 			);
-			name = Models;
 			path = Models;
 			sourceTree = "<group>";
 		};
@@ -268,7 +264,6 @@
 				49346500EF8AEC6431F651FCCA79D0E7 /* CoreGraphics+Extensions.swift */,
 				FC9A3E319AC4D485EFC0C3902E3798E0 /* SCNNode+Extensions.swift */,
 			);
-			name = Extensions;
 			path = Extensions;
 			sourceTree = "<group>";
 		};
@@ -321,7 +316,6 @@
 				F9EC719D58C320F5E13FE0F8999739C9 /* MonoscopicScene.swift */,
 				481AEBCC247FB5795CABA71E7EA14A12 /* StereoscopicScene.swift */,
 			);
-			name = Scenes;
 			path = Scenes;
 			sourceTree = "<group>";
 		};
@@ -335,7 +329,6 @@
 				8D9A14131C4D0F75CF1067A6CEC1AE73 /* Scenes */,
 				2361DA2EE1BE9D48E13100F4EA0A324E /* ViewControllers */,
 			);
-			name = ThreeSixtyPlayer;
 			path = ThreeSixtyPlayer;
 			sourceTree = "<group>";
 		};
@@ -504,6 +497,20 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
 				LastUpgradeCheck = 0700;
+				TargetAttributes = {
+					2B04A096209FD920912364E78929385D = {
+						LastSwiftMigration = 0800;
+					};
+					71A682CCC213D036E198A179FD2ED562 = {
+						LastSwiftMigration = 0800;
+					};
+					8305374B5FCBB5661A920DA735F4824B = {
+						LastSwiftMigration = 0800;
+					};
+					F4BF0C51D865C73AA2EBFCFBDD7100F0 = {
+						LastSwiftMigration = 0800;
+					};
+				};
 			};
 			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -618,6 +625,7 @@
 				PRODUCT_NAME = Pods_Demo_iOSUITests;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -653,6 +661,7 @@
 				PRODUCT_NAME = Pods_Demo_iOSUITests;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -688,6 +697,7 @@
 				PRODUCT_NAME = Pods_Demo_iOSTests;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -768,6 +778,7 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -803,6 +814,7 @@
 				PRODUCT_NAME = Pods_Demo_iOS;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -838,6 +850,7 @@
 				PRODUCT_NAME = Pods_Demo_iOSTests;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";

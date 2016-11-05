@@ -30,20 +30,20 @@ import AVFoundation
 
 // TODO: Reduce code duplication between the mono and stereo view controllers. 
 
-public class StereoscopicViewController: UIViewController, SCNSceneRendererDelegate
+open class StereoscopicViewController: UIViewController, SCNSceneRendererDelegate
 {
     /// The navigator that manages a pan gesture and device motion.
-    private let navigator = ThreeSixtyNavigator()
+    fileprivate let navigator = ThreeSixtyNavigator()
     
-    private let leftSceneView = SCNView()
-    private let rightSceneView = SCNView()
+    fileprivate let leftSceneView = SCNView()
+    fileprivate let rightSceneView = SCNView()
     
     /// The video player.
-    private let player: AVPlayer
+    fileprivate let player: AVPlayer
 
-    private let scene: StereoscopicScene
+    fileprivate let scene: StereoscopicScene
 
-    public var video: Video?
+    open var video: Video?
     {
         didSet
         {
@@ -82,7 +82,7 @@ public class StereoscopicViewController: UIViewController, SCNSceneRendererDeleg
 
     // MARK: - View Lifecycle 
     
-    override public func viewDidLoad()
+    override open func viewDidLoad()
     {
         super.viewDidLoad()
 
@@ -98,14 +98,14 @@ public class StereoscopicViewController: UIViewController, SCNSceneRendererDeleg
         self.rightSceneView.play(nil)
     }
     
-    override public func viewWillAppear(_ animated: Bool)
+    override open func viewWillAppear(_ animated: Bool)
     {
         super.viewWillAppear(animated)
 
         self.player.play()
     }
     
-    override public func viewWillDisappear(_ animated: Bool)
+    override open func viewWillDisappear(_ animated: Bool)
     {
         super.viewWillDisappear(animated)
         
@@ -114,7 +114,7 @@ public class StereoscopicViewController: UIViewController, SCNSceneRendererDeleg
     
     // MARK: - Setup
     
-    private func setupSceneViews()
+    fileprivate func setupSceneViews()
     {
         self.leftSceneView.showsStatistics = true
         self.leftSceneView.backgroundColor = UIColor.black
@@ -134,7 +134,7 @@ public class StereoscopicViewController: UIViewController, SCNSceneRendererDeleg
         self.view.addSubview(self.rightSceneView)
     }
     
-    private func setupNavigator()
+    fileprivate func setupNavigator()
     {
         // Ensure that navigator's pan gesture is added to our view.
         self.navigator.setupPanGestureRecognizer(withView: self.view)
@@ -145,7 +145,7 @@ public class StereoscopicViewController: UIViewController, SCNSceneRendererDeleg
     
     // MARK: Constraints 
     
-    private func setupConstraints()
+    fileprivate func setupConstraints()
     {
         let leftTopConstraint = NSLayoutConstraint(item: self.view, attribute: .top, relatedBy: .equal, toItem: self.leftSceneView, attribute: .top, multiplier: 1, constant: 0)
         let leftLeadingConstraint = NSLayoutConstraint(item: self.view, attribute: .leading, relatedBy: .equal, toItem: self.leftSceneView, attribute: .leading, multiplier: 1, constant: 0)
@@ -170,7 +170,7 @@ public class StereoscopicViewController: UIViewController, SCNSceneRendererDeleg
 
     // MARK: - SCNSceneRendererDelegate
     
-    public func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval)
+    open func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval)
     {
         // TODO: Necessary to dispatch to main? Implications of doing so? Thread safty of navigator class / pan recognizer is one issue.
         

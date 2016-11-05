@@ -243,17 +243,20 @@
 					AF3D1F481DCE543700809168 = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = AT3549635A;
+						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
 					};
 					AF3D1F5C1DCE543700809168 = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = AT3549635A;
+						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
 						TestTargetID = AF3D1F481DCE543700809168;
 					};
 					AF3D1F671DCE543700809168 = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = AT3549635A;
+						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
 						TestTargetID = AF3D1F481DCE543700809168;
 					};

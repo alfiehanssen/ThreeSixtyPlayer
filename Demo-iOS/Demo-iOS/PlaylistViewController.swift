@@ -55,7 +55,7 @@ class PlaylistViewController: UIViewController
         self.presentStereoscopicPlayerViewController(withVideo: video)
     }
 
-    private func presentMonoscopicPlayerViewController(withVideo video: Video)
+    fileprivate func presentMonoscopicPlayerViewController(withVideo video: Video)
     {
         let player = AVPlayer()
         let viewController = MonoscopicViewController(player: player)
@@ -70,7 +70,7 @@ class PlaylistViewController: UIViewController
         self.navigationController?.pushViewController(viewController, animated: true)
     }
 
-    private func presentStereoscopicPlayerViewController(withVideo video: Video)
+    fileprivate func presentStereoscopicPlayerViewController(withVideo video: Video)
     {
         let player = AVPlayer()
         let viewController = StereoscopicViewController(player: player)
