@@ -12,8 +12,28 @@ SceneKit is probably the highest level iOS API that can be used for this sort of
 Currently, the player supports:
 
 - Spherical equirectangular monoscopic video
-- Spherical equirectangular stereoscopic top/bottom video
+- Spherical equirectangular stereoscopic top/bottom video (note: much work still to do on stereo configuration) 
 
 ###Usage
 
-Coming soon...
+####To build the demo
+
+Clone the repo: 
+
+`git@github.com:alfiehanssen/ThreeSixtyPlayer.git`
+
+Prepare pods: 
+
+`pod install && pod update`
+
+Open the `ThreeSixtyPlayer.xcworkspace` and build the `Demo-iOS` target.
+
+💥💥💥 
+
+####To consume as a Cocoapod
+
+Add this to your podfile: 
+
+`pod 'ThreeSixtyPlayer', '0.0.1'`
+
+🌱🌱🌱 
