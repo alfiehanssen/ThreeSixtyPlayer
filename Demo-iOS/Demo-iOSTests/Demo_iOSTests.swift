@@ -1,15 +1,15 @@
 //
-//  ThreeSixtyPlayerTests.swift
-//  ThreeSixtyPlayerTests
+//  Demo_iOSTests.swift
+//  Demo-iOSTests
 //
-//  Created by Alfred Hanssen on 10/1/16.
+//  Created by Alfred Hanssen on 11/5/16.
 //  Copyright © 2016 Alfie Hanssen. All rights reserved.
 //
 
 import XCTest
-@testable import ThreeSixtyPlayer
+@testable import Demo_iOS
 
-class ThreeSixtyPlayerTests: XCTestCase {
+class Demo_iOSTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
