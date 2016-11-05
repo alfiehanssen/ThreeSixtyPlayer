@@ -29,16 +29,12 @@ import CoreGraphics
 
 public extension Video
 {
-    // TODO: Get better video files, these are terrible!
-    static let Mono = "https://fpdl.vimeocdn.com/vimeo-prod-skyfire-std-us/01/649/7/178248880/580318297.mp4?token=938d3a52_0xfb2509dff5d09d6849327592792df58673fcca43"
-    //"http://www.kolor.com/360-videos-files/freedom360-hang-gliding-4k.mp4"
+    static let Mono = "https://player.vimeo.com/external/187856429.m3u8?s=70eca31df2bc0f134331bb230e80dea855c0a8b0"
+    static let StereoTopBottom = "https://player.vimeo.com/external/189658493.m3u8?s=e7ce8dc8f367e42df0a22279ccb82fbbe08c0a85"
+    static let StereoLeftRight = StereoTopBottom // TODO: Need a left/right resource.
     
-    static let StereoTopBottom = "https://player.vimeo.com/external/186023974.hd.mp4?s=eb6a035fd1742461f41ed6da84a36418985d54ba&profile_id=119"
-    
-    static let StereoLeftRight = StereoTopBottom
-    
-    static let DefaultMonoResolution = CGSize(width: 1920, height: 1080)
-    static let DefaultStereoResolution = CGSize(width: 1080, height: 1080) // TODO: For HLS/DASH we don't want to rely on w/h
+    static let DefaultMonoResolution = CGSize(width: 1920, height: 1080) // TODO: I believe the correct resolution is 1920x960.
+    static let DefaultStereoResolution = CGSize(width: 1080, height: 1080) // TODO: For HLS/DASH we don't want to rely on w/h just aspect ratio.
 
     static func demoVideo(ofType type: VideoType) -> Video
     {
