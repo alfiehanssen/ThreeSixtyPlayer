@@ -27,7 +27,7 @@
 import Foundation
 import CoreGraphics
 
-enum TextureMapping
+public enum TextureMapping
 {
     case none
     case top
@@ -36,7 +36,7 @@ enum TextureMapping
     case right
 }
 
-extension TextureMapping
+public extension TextureMapping
 {
     var videoNodeAnchorPoint: CGPoint
     {

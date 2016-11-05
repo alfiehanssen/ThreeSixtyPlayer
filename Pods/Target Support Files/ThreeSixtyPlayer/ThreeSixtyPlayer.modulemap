@@ -1,0 +1,6 @@
+framework module ThreeSixtyPlayer {
+  umbrella header "ThreeSixtyPlayer-umbrella.h"
+
+  export *
+  module * { export * }
+}
