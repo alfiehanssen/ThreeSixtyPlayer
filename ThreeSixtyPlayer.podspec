@@ -84,7 +84,7 @@ Pod::Spec.new do |s|
   #  Not including the public_header_files will make all headers public.
   #
 
-  s.source_files  = "ThreeSixtyPlayer"
+  s.source_files  = "ThreeSixtyPlayer", "ThreeSixtyPlayer/**/*.{swift}"
 
 
   # ――― Project Linking ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #

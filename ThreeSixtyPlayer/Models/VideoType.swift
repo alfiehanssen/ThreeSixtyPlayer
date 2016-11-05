@@ -27,7 +27,7 @@
 import Foundation
 import CoreGraphics
 
-enum VideoType
+public enum VideoType
 {
     case monoscopic
     case stereoscopic(layout: StereoscopicLayout)

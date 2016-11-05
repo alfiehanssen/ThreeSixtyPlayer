@@ -1,0 +1,16 @@
+PODS:
+  - ThreeSixtyPlayer (0.0.1)
+
+DEPENDENCIES:
+  - ThreeSixtyPlayer (from `../`)
+
+EXTERNAL SOURCES:
+  ThreeSixtyPlayer:
+    :path: ../
+
+SPEC CHECKSUMS:
+  ThreeSixtyPlayer: e9ec2b789cd77ea01740561b16e2efa1d0ee78de
+
+PODFILE CHECKSUM: f88ca786d3a5357402e5fc5f098edaec68ed9b90
+
+COCOAPODS: 1.1.1

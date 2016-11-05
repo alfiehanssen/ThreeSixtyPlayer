@@ -26,6 +26,7 @@
 
 import UIKit
 import AVFoundation
+import ThreeSixtyPlayer
 
 class PlaylistViewController: UIViewController
 {    

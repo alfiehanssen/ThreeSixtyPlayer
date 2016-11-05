@@ -26,13 +26,13 @@
 
 import Foundation
 
-enum StereoscopicLayout
+public enum StereoscopicLayout
 {
     case topBottom
     case leftRight
 }
 
-extension StereoscopicLayout
+public extension StereoscopicLayout
 {
     var leftEyeMapping: TextureMapping
     {

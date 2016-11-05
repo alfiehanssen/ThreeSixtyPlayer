@@ -28,7 +28,7 @@ import UIKit
 import SceneKit
 import AVFoundation
 
-class MonoscopicViewController: UIViewController, SCNSceneRendererDelegate
+public class MonoscopicViewController: UIViewController, SCNSceneRendererDelegate
 {
     /// The navigator that manages a pan gesture and device motion.
     private let navigator = ThreeSixtyNavigator()
@@ -39,7 +39,7 @@ class MonoscopicViewController: UIViewController, SCNSceneRendererDelegate
 
     private let scene: MonoscopicScene
     
-    var video: Video?
+    public var video: Video?
     {
         didSet
         {
@@ -69,7 +69,7 @@ class MonoscopicViewController: UIViewController, SCNSceneRendererDelegate
         }
     }
 
-    init(player: AVPlayer)
+    public init(player: AVPlayer)
     {
         self.player = player
         self.scene = MonoscopicScene(player: self.player)
@@ -77,14 +77,14 @@ class MonoscopicViewController: UIViewController, SCNSceneRendererDelegate
         super.init(nibName: nil, bundle: nil)
     }
     
-    required init?(coder aDecoder: NSCoder)
+    required public init?(coder aDecoder: NSCoder)
     {
         fatalError("init(coder:) has not been implemented")
     }
     
     // MARK: - View Lifecycle 
     
-    override func viewDidLoad()
+    override public func viewDidLoad()
     {
         super.viewDidLoad()
 
@@ -99,14 +99,14 @@ class MonoscopicViewController: UIViewController, SCNSceneRendererDelegate
         self.sceneView.play(nil)
     }
     
-    override func viewWillAppear(_ animated: Bool)
+    override public func viewWillAppear(_ animated: Bool)
     {
         super.viewWillAppear(animated)
         
         self.player.play()
     }
     
-    override func viewWillDisappear(_ animated: Bool)
+    override public func viewWillDisappear(_ animated: Bool)
     {
         super.viewWillDisappear(animated)
         
@@ -151,7 +151,7 @@ class MonoscopicViewController: UIViewController, SCNSceneRendererDelegate
     
     // MARK: - SCNSceneRendererDelegate
     
-    func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval)
+    public func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval)
     {
         // TODO: Necessary to dispatch to main? Implications of doing so? Thread safty of navigator class / pan recognizer is one issue.
         
