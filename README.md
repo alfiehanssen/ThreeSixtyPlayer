@@ -20,7 +20,7 @@ Currently, the player supports:
 
 Clone the repo: 
 
-`git@github.com:alfiehanssen/ThreeSixtyPlayer.git`
+`git clone git@github.com:alfiehanssen/ThreeSixtyPlayer.git`
 
 Prepare pods: 
 
